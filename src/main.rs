@@ -16,8 +16,8 @@ use termion::input::{MouseTerminal, TermRead};
 use termion::raw::IntoRawMode;
 
 fn main() {
-    let stdin = async_stdin().events();
-    let stdout = MouseTerminal::from(stdout().into_raw_mode().unwrap());
+    let stdin = &mut async_stdin();
+    let stdout = &mut MouseTerminal::from(stdout().into_raw_mode().unwrap());
 
     let mut game = Game::new(stdin, stdout, "map1.txt");
     game.start();

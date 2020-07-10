@@ -8,19 +8,18 @@ use termion::event::*;
 
 use termion::event::Key;
 use termion::input::{Events, TermRead};
-use termion::AsyncReader;
 use termion::{clear, color, cursor, terminal_size};
 
-pub struct Game<W> {
+pub struct Game<'a, R, W> {
     width: u16,
     height: u16,
-    stdin: Events<AsyncReader>,
-    stdout: W,
+    stdin: &'a mut R,
+    stdout: &'a mut W,
     map: Map,
 }
 
-impl<W: Write> Game<W> {
-    pub fn new(stdin: Events<AsyncReader>, stdout: W, map_file: impl AsRef<Path>) -> Game<W> {
+impl<'a, R: Read, W: Write> Game<'a, R, W> {
+    pub fn new(stdin: &'a mut R, stdout: &'a mut W, map_file: impl AsRef<Path>) -> Game<'a, R, W> {
         let (width, height) = terminal_size().expect("Failed to get Terminal Size");
         let map = Map::load_from_file(map_file).unwrap();
 
@@ -59,7 +58,7 @@ impl<W: Write> Game<W> {
     }
 
     pub fn update(&mut self) -> bool {
-        if let Some(c) = self.stdin.next() {
+        if let Some(c) = self.stdin.events().next() {
             match c.unwrap() {
                 Event::Key(Key::Char('q')) => {
                     self.game_over();

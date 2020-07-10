@@ -9,7 +9,7 @@ pub trait Entity<'a> {
     fn get_x(&mut self) -> u16;
     fn get_y(&mut self) -> u16;
     fn get_texture(&mut self) -> char;
-    // fn draw(&mut self, stdout: impl Write);
+    fn draw(&mut self, stdout: &mut impl Write);
     fn collide(&mut self, entity: &impl Entity<'a>);
     fn to_string(&mut self) -> &'a str;
 }
@@ -28,9 +28,14 @@ impl<'a> Entity<'a> for Player<'a> {
     fn get_y(&mut self) -> u16 {
         self.point.y
     }
-    // fn draw(&mut self, stdout: impl Write) {
-    //     write!(stdout.cloned(), "{}", cursor::Hide).unwrap();
-    // }
+    fn draw(&mut self, stdout: &mut impl Write) {
+        write!(
+            stdout,
+            "{}X",
+            cursor::Goto(self.point.x + 1, self.point.y + 1)
+        )
+        .unwrap();
+    }
     fn get_texture(&mut self) -> char {
         *TEXTURE_MAP.get(EntityType::PLAYER).unwrap()
     }
