@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::{
     fs::File,
     io::{BufRead, BufReader, Error},
@@ -11,15 +12,16 @@ pub type MapData = Vec<Vec<EntityTypeVal>>;
 
 #[derive(Debug)]
 pub struct Map {
-    pub data: MapData,
+    pub level: MapData,
     pub width: u16,
     pub height: u16,
+    // pub players: Vec
 }
 
 impl Map {
     pub fn new() -> Map {
         Map {
-            data: vec![vec![]],
+            level: vec![vec![]],
             width: 0,
             height: 0,
         }
@@ -39,7 +41,13 @@ impl Map {
 
             for ch in chars {
                 let entity = match LEVEL_MAP.get(&ch) {
-                    Some(e) => *e,
+                    Some(e) => match *e {
+                        EntityType::PLAYER => {
+                            let _x = 5;
+                            EntityType::AIR
+                        }
+                        _ => e,
+                    },
                     // TODO should throw error if character not found
                     None => EntityType::AIR,
                 };
@@ -52,7 +60,7 @@ impl Map {
         Ok(Map {
             height: map.len() as u16,
             width: map[0].len() as u16,
-            data: map,
+            level: map,
         })
     }
 }

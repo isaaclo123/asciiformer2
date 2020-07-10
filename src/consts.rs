@@ -21,7 +21,7 @@ const LEVEL: [(char, EntityTypeVal); 3] = [
 ];
 
 const TEXTURE: [(EntityTypeVal, char); 3] = [
-    (EntityType::PLAYER, '☺'),
+    (EntityType::PLAYER, '▒'),
     (EntityType::WALL, '█'),
     (EntityType::AIR, ' '),
 ];

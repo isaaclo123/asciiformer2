@@ -60,7 +60,6 @@ impl<W: Write> Game<W> {
 
     pub fn update(&mut self) -> bool {
         if let Some(c) = self.stdin.next() {
-            // write!(self.stdout, "test").unwrap();
             match c.unwrap() {
                 Event::Key(Key::Char('q')) => {
                     self.game_over();
@@ -104,9 +103,9 @@ impl<W: Write> Game<W> {
         let offset_width = (self.width - self.map.width) / 2;
         let offset_height = (self.height - self.map.height) / 2;
 
-        for row in 0..self.map.height {
-            for col in 0..self.map.width {
-                let texture = match TEXTURE_MAP.get(self.map.data[row as usize][col as usize]) {
+        for y in 0..self.map.height {
+            for x in 0..self.map.width {
+                let texture = match TEXTURE_MAP.get(self.map.level[y as usize][x as usize]) {
                     Some(e) => *e,
                     // TODO should throw error if character not found
                     None => ' ',
@@ -115,7 +114,7 @@ impl<W: Write> Game<W> {
                     self.stdout,
                     "{goto}{texture}",
                     // add 1 as cursor is 1-indexed
-                    goto = cursor::Goto(offset_width + col + 1, offset_height + row + 1),
+                    goto = cursor::Goto(offset_width + x + 1, offset_height + y + 1),
                     texture = texture
                 )
                 .unwrap();

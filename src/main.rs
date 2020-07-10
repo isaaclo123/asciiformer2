@@ -4,8 +4,10 @@ extern crate lazy_static;
 extern crate termion;
 
 mod consts;
+mod entities;
 mod game;
 mod map;
+mod vectors;
 
 use game::Game;
 use std::io::stdout;
