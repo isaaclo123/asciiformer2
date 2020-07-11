@@ -1,5 +1,7 @@
 use crate::consts::{EntityType, TEXTURE_MAP};
+use crate::entities::{Entity, Player};
 use crate::map::Map;
+use crate::vectors::Vector;
 use std::io::{stdin, stdout, Read, Write};
 use std::path::Path;
 use std::thread::sleep;
@@ -36,11 +38,12 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         self.display_map();
 
         let mut before = Instant::now();
-        let interval = 10;
+        let interval = 100;
 
         write!(self.stdout, "{}", cursor::Hide).unwrap();
 
         loop {
+            //self.display_map();
             let now = Instant::now();
             let dt = (now.duration_since(before).subsec_nanos() / 1_000_000) as u64;
 
@@ -58,6 +61,24 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
     }
 
     pub fn update(&mut self) -> bool {
+        let mut p = Player {
+            name: "hi",
+            point: Vector { x: 3.6, y: 3.6 },
+            velocity: Vector { x: 0.0, y: 0.0 },
+        };
+
+        let offset_width = (self.width - self.map.width) / 2;
+        let offset_height = (self.height - self.map.height) / 2;
+
+        p.draw(
+            self.stdout,
+            Vector {
+                x: offset_width,
+                y: offset_height,
+            },
+        );
+        // p.update();
+
         if let Some(c) = self.stdin.events().next() {
             match c.unwrap() {
                 Event::Key(Key::Char('q')) => {

@@ -7,6 +7,7 @@ mod consts;
 mod entities;
 mod game;
 mod map;
+mod textures;
 mod vectors;
 
 use game::Game;

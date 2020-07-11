@@ -28,3 +28,26 @@ impl<T: Mul<Output = T>> Mul for Vector<T> {
         }
     }
 }
+
+impl Vector<f32> {
+    pub fn round_int(self) -> Vector<u16> {
+        Vector {
+            x: self.x.round() as u16,
+            y: self.y.round() as u16,
+        }
+    }
+
+    pub fn ceil_int(self) -> Vector<u16> {
+        Vector {
+            x: self.x.ceil() as u16,
+            y: self.y.ceil() as u16,
+        }
+    }
+
+    pub fn floor_int(self) -> Vector<u16> {
+        Vector {
+            x: self.x.floor() as u16,
+            y: self.y.floor() as u16,
+        }
+    }
+}
