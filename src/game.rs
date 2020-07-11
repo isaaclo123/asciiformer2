@@ -15,8 +15,9 @@ use termion::{clear, color, cursor, terminal_size};
 pub struct Game<'a, R, W> {
     width: u16,
     height: u16,
-    stdin: &'a mut R,
-    stdout: &'a mut W,
+    pub stdin: &'a mut R,
+    pub stdout: &'a mut W,
+    pub origin: Vector<u16>,
     map: Map,
 }
 
@@ -25,12 +26,19 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         let (width, height) = terminal_size().expect("Failed to get Terminal Size");
         let map = Map::load_from_file(map_file).unwrap();
 
+        let offset_width = (width - map.width) / 2;
+        let offset_height = (height - map.height) / 2;
+
         Game {
             width: width,
             height: height,
             map: map,
             stdin: stdin,
             stdout: stdout,
+            origin: Vector {
+                x: offset_width,
+                y: offset_height,
+            },
         }
     }
 
@@ -62,21 +70,14 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
 
     pub fn update(&mut self) -> bool {
         let mut p = Player {
+            game: self,
             name: "hi",
-            point: Vector { x: 3.6, y: 3.6 },
+            point: Vector { x: 3.7, y: 3.7 },
             velocity: Vector { x: 0.0, y: 0.0 },
         };
 
-        let offset_width = (self.width - self.map.width) / 2;
-        let offset_height = (self.height - self.map.height) / 2;
-
-        p.draw(
-            self.stdout,
-            Vector {
-                x: offset_width,
-                y: offset_height,
-            },
-        );
+        // p.draw(self.stdout, self.origin);
+        p.draw();
         // p.update();
 
         if let Some(c) = self.stdin.events().next() {

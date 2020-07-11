@@ -1,28 +1,34 @@
-use crate::consts::{EntityType, TEXTURE_MAP};
+use crate::game::Game;
 use crate::textures::{PlayerTextures, Texture};
 use crate::vectors::Vector;
-use std::io::Write;
+use std::io::{Read, Write};
 use termion::{clear, color, cursor};
 
-pub trait Entity<'a> {
+pub trait Entity<'a, R: Read, W: Write> {
     // fn update(&mut self);
     // fn get_x(&mut self) -> u16;
     // fn get_y(&mut self) -> u16;
     // fn draw(&mut self, stdout: &'a mut impl Write);
-    fn collide(&mut self, entity: &'a mut impl Entity<'a>);
+    fn collide(&mut self, entity: &'a mut impl Entity<'a, R, W>);
 
     fn to_string(&self) -> &'a str;
     fn get_texture(&self) -> Texture;
     fn get_color(&self) -> Option<&'a dyn color::Color>;
     fn get_point(&self) -> Vector<u16>;
+    fn get_game(&self) -> &'a mut Game<'a, R, W>;
+    //fn get_game(&self) -> &'a mut Game<'a, R, W>;
 
     fn draw(
         &self,
-        stdout: &mut impl Write,
-        origin: Vector<u16>,
+        // stdout: &mut impl Write,
+        // origin: Vector<u16>,
         // point: Vector<i16>,
         // fg_opt: Option<impl color::Color>,
     ) {
+        let &mut game = self.get_game();
+        let stdout = game.stdout;
+        let origin = game.origin;
+
         match self.get_texture() {
             PlayerTextures::NO_EXTEND => {
                 writeln!(stdout, "{}NO_EXTEND", cursor::Goto(1, 1)).unwrap()
@@ -75,13 +81,14 @@ pub trait Entity<'a> {
 }
 
 // TODO remove pub
-pub struct Player<'a> {
+pub struct Player<'a, R: Read, W: Write> {
     pub point: Vector<f32>,
     pub velocity: Vector<f32>,
     pub name: &'a str,
+    game: &'a mut Game<'a, R, W>,
 }
 
-impl<'a> Entity<'a> for Player<'a> {
+impl<'a, R: Read, W: Write> Entity<'a, R, W> for Player<'a, R, W> {
     fn get_texture(&self) -> Texture {
         let floor_pt = self.point.floor_int();
         let round_pt = self.point.round_int();
@@ -101,13 +108,16 @@ impl<'a> Entity<'a> for Player<'a> {
     }
 
     fn get_point(&self) -> Vector<u16> {
-        self.point.floor_int()
+        self.point.round_int()
     }
-
-    fn collide(&mut self, entity: &'a mut impl Entity<'a>) {}
 
     fn to_string(&self) -> &'a str {
         self.name
     }
-    // fn update(&mut self) {}
+
+    fn get_game(&self) -> &'a mut Game<'a, R, W> {
+        self.game
+    }
+
+    fn collide(&mut self, _entity: &'a mut impl Entity<'a, R, W>) {}
 }
