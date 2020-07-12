@@ -6,6 +6,12 @@ pub struct Vector<T> {
     pub y: T,
 }
 
+impl<T> Vector<T> {
+    pub fn to_tuple(self) -> (T, T) {
+        (self.x, self.y)
+    }
+}
+
 // Notice that the implementation uses the associated type `Output`.
 impl<T: Add<Output = T>> Add for Vector<T> {
     type Output = Self;

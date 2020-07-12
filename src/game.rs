@@ -50,10 +50,10 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
     }
 
     pub fn start(&mut self) {
-        self.display_map();
+        self.draw_map();
 
         let mut before = Instant::now();
-        let interval = 5;
+        let interval = 1;
 
         write!(self.stdout, "{}", cursor::Hide).unwrap();
 
@@ -76,18 +76,11 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
     }
 
     pub fn update(&mut self) -> bool {
-        self.player.borrow_mut().draw(self.stdout, self.origin);
+        self.player.borrow_mut().clear(self.stdout, self.origin);
         // p.update();
 
         if let Some(c) = self.stdin.events().next() {
             match c.unwrap() {
-                // Event::Key(ke) => match ke {
-                //     Key::Char('q') => {
-                //         self.game_over();
-                //         return false;
-                //     }
-                //     _ => (),
-                // },
                 Event::Key(ke) => match ke {
                     Key::Char('q') => {
                         self.game_over();
@@ -111,6 +104,8 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
             self.stdout.flush().unwrap();
         }
 
+        self.player.borrow_mut().draw(self.stdout, self.origin);
+
         true
     }
 
@@ -125,7 +120,7 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         write!(self.stdout, "{}", cursor::Show).unwrap();
     }
 
-    pub fn display_map(&mut self) {
+    pub fn draw_map(&mut self) {
         write!(
             self.stdout,
             "{clear}",
@@ -134,25 +129,8 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         )
         .unwrap();
 
-        let offset_width = (self.width - self.map.width) / 2;
-        let offset_height = (self.height - self.map.height) / 2;
-
-        for y in 0..self.map.height {
-            for x in 0..self.map.width {
-                let texture = match TEXTURE_MAP.get(self.map.level[y as usize][x as usize]) {
-                    Some(e) => *e,
-                    // TODO should throw error if character not found
-                    None => ' ',
-                };
-                write!(
-                    self.stdout,
-                    "{goto}{texture}",
-                    // add 1 as cursor is 1-indexed
-                    goto = cursor::Goto(offset_width + x + 1, offset_height + y + 1),
-                    texture = texture
-                )
-                .unwrap();
-            }
+        for (_, entity) in &self.map.level {
+            entity.draw(self.stdout, self.origin)
         }
 
         self.stdout.flush().unwrap();

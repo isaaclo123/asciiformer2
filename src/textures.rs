@@ -12,3 +12,10 @@ impl PlayerTextures {
 
     pub const X_EXTEND: Texture = &[&['▐', '▌']];
 }
+
+#[non_exhaustive]
+pub struct WallTextures;
+
+impl WallTextures {
+    pub const WALL: Texture = &[&['█']];
+}

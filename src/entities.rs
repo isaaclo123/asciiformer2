@@ -1,5 +1,5 @@
 use crate::consts::{EntityType, TEXTURE_MAP};
-use crate::textures::{PlayerTextures, Texture};
+use crate::textures::{PlayerTextures, Texture, WallTextures};
 use crate::vectors::Vector;
 use std::io::Write;
 use termion::{clear, color, cursor};
@@ -22,6 +22,32 @@ pub trait Entity<'a> {
     fn get_texture(&self) -> Texture;
     fn get_color(&self) -> Option<&'a dyn color::Color>;
     fn get_point(&self) -> Vector<u16>;
+
+    fn clear(&self, stdout: &mut impl Write, origin: Vector<u16>) {
+        let draw_pt = origin + self.get_point();
+        let Vector {
+            x: draw_x,
+            y: draw_y,
+        } = draw_pt;
+
+        let texture = self.get_texture();
+
+        for y in 0..texture.len() {
+            for x in 0..texture[y].len() {
+                writeln!(
+                    stdout,
+                    "{goto}{sym}",
+                    goto = cursor::Goto(draw_x + 1 + x as u16, draw_y as u16 + 1 + y as u16),
+                    sym = " " // TODO, should fetch from background
+                )
+                .unwrap();
+            }
+        }
+
+        // TODO overflow issue
+
+        write!(stdout, "{}", color::Fg(color::Reset)).unwrap();
+    }
 
     fn draw(
         &self,
@@ -81,6 +107,8 @@ pub trait Entity<'a> {
     }
 }
 
+/* Player */
+
 // TODO remove pub
 pub struct Player<'a> {
     pub point: Vector<f32>,
@@ -90,7 +118,7 @@ pub struct Player<'a> {
 
 impl<'a> Player<'a> {
     pub fn action(&mut self, direction: Direction) {
-        let speed = 1.25;
+        let speed = 2.0;
         let to_add = match direction {
             Direction::Up => Vector {
                 x: 0.0,
@@ -128,13 +156,51 @@ impl<'a> Entity<'a> for Player<'a> {
     }
 
     fn get_point(&self) -> Vector<u16> {
-        self.point.round_int()
+        self.point.floor_int()
     }
 
-    fn collide(&mut self, entity: &'a mut impl Entity<'a>) {}
+    fn collide(&mut self, _entity: &'a mut impl Entity<'a>) {}
 
     fn to_string(&self) -> &'a str {
         self.name
+    }
+    // fn update(&mut self) {}
+}
+
+/* Walls */
+
+pub struct Wall {
+    pub point: Vector<f32>,
+}
+
+impl Wall {
+    pub fn new(x: u16, y: u16) -> Wall {
+        return Wall {
+            point: Vector {
+                x: x as f32,
+                y: y as f32,
+            },
+        };
+    }
+}
+
+impl<'a> Entity<'a> for Wall {
+    fn get_texture(&self) -> Texture {
+        return WallTextures::WALL;
+    }
+
+    fn get_color(&self) -> Option<&'a dyn color::Color> {
+        None
+    }
+
+    fn get_point(&self) -> Vector<u16> {
+        self.point.floor_int()
+    }
+
+    fn collide(&mut self, _entity: &'a mut impl Entity<'a>) {}
+
+    fn to_string(&self) -> &'a str {
+        "Wall"
     }
     // fn update(&mut self) {}
 }

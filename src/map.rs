@@ -1,4 +1,6 @@
-// use std::collections::HashMap;
+use crate::entities::Wall;
+use crate::vectors::Vector;
+use std::collections::HashMap;
 use std::{
     fs::File,
     io::{BufRead, BufReader, Error},
@@ -8,9 +10,10 @@ use std::{
 
 use crate::consts::{EntityType, EntityTypeVal, LEVEL_MAP};
 
-pub type MapData = Vec<Vec<EntityTypeVal>>;
+// pub type MapData = Vec<Vec<EntityTypeVal>>;
+pub type MapData = HashMap<(u16, u16), Wall>;
 
-#[derive(Debug)]
+// #[derive(Debug)]
 pub struct Map {
     pub level: MapData,
     pub width: u16,
@@ -19,47 +22,57 @@ pub struct Map {
 }
 
 impl Map {
-    pub fn new() -> Map {
-        Map {
-            level: vec![vec![]],
-            width: 0,
-            height: 0,
-        }
-    }
+    // pub fn new() -> Map {
+    //     Map {
+    //         level: vec![vec![]],
+    //         width: 0,
+    //         height: 0,
+    //     }
+    // }
 
     pub fn load_from_file(filename: impl AsRef<Path>) -> Result<Map, Error> {
         let file = File::open(filename)?;
         let reader = BufReader::new(file);
 
-        let mut map: MapData = Vec::new();
+        let mut map: MapData = HashMap::new();
+
+        let mut y = 0;
+        let mut x = 0;
+
+        let mut max_x = 0;
 
         for li in reader.lines() {
+            x = 0;
+
             let line = li?;
             let chars = line.chars();
 
-            let mut map_line: Vec<EntityTypeVal> = Vec::new();
-
             for ch in chars {
-                let entity = match LEVEL_MAP.get(&ch) {
+                match LEVEL_MAP.get(&ch) {
                     Some(e) => match *e {
-                        EntityType::PLAYER => {
-                            let _x = 5;
-                            EntityType::AIR
+                        EntityType::WALL => {
+                            map.insert((x, y), Wall::new(x, y));
                         }
-                        _ => e,
+                        _ => (),
                     },
                     // TODO should throw error if character not found
-                    None => EntityType::AIR,
+                    None => (),
                 };
-                map_line.push(entity);
+                x += 1;
             }
 
-            map.push(map_line);
+            if x > max_x {
+                max_x = x
+            }
+
+            y += 1;
         }
 
+        let max_y = y;
+
         Ok(Map {
-            height: map.len() as u16,
-            width: map[0].len() as u16,
+            height: max_y,
+            width: max_x,
             level: map,
         })
     }
