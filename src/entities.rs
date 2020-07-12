@@ -1,5 +1,6 @@
 use crate::consts::{EntityType, TEXTURE_MAP};
-use crate::textures::{PlayerTextures, Texture, WallTextures};
+use crate::map::MapData;
+use crate::textures::{AirTextures, PlayerTextures, Texture, WallTextures};
 use crate::vectors::Vector;
 use std::io::Write;
 use termion::{clear, color, cursor};
@@ -23,7 +24,11 @@ pub trait Entity<'a> {
     fn get_color(&self) -> Option<&'a dyn color::Color>;
     fn get_point(&self) -> Vector<u16>;
 
-    fn clear(&self, stdout: &mut impl Write, origin: Vector<u16>) {
+    fn clear(&self, stdout: &mut impl Write, origin: Vector<u16>, map: &MapData) {
+        let Vector {
+            x: point_x,
+            y: point_y,
+        } = self.get_point();
         let draw_pt = origin + self.get_point();
         let Vector {
             x: draw_x,
@@ -32,13 +37,25 @@ pub trait Entity<'a> {
 
         let texture = self.get_texture();
 
-        for y in 0..texture.len() {
-            for x in 0..texture[y].len() {
+        for texture_y in 0..texture.len() {
+            for texture_x in 0..texture[texture_y].len() {
+                let bg_texture = map.get(&(texture_x as u16 + point_x, texture_y as u16 + point_y));
+                // AirTextures::AIR_CHAR
+
+                let sym = if let Some(e) = bg_texture {
+                    e.get_texture()[0][0]
+                } else {
+                    AirTextures::AIR[0][0]
+                };
+
                 writeln!(
                     stdout,
                     "{goto}{sym}",
-                    goto = cursor::Goto(draw_x + 1 + x as u16, draw_y as u16 + 1 + y as u16),
-                    sym = " " // TODO, should fetch from background
+                    goto = cursor::Goto(
+                        draw_x + 1 + texture_x as u16,
+                        draw_y as u16 + 1 + texture_y as u16
+                    ),
+                    sym = sym
                 )
                 .unwrap();
             }

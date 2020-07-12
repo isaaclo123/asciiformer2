@@ -76,7 +76,9 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
     }
 
     pub fn update(&mut self) -> bool {
-        self.player.borrow_mut().clear(self.stdout, self.origin);
+        self.player
+            .borrow_mut()
+            .clear(self.stdout, self.origin, &self.map.level);
         // p.update();
 
         if let Some(c) = self.stdin.events().next() {

@@ -19,3 +19,9 @@ pub struct WallTextures;
 impl WallTextures {
     pub const WALL: Texture = &[&['█']];
 }
+
+#[non_exhaustive]
+pub struct AirTextures;
+impl AirTextures {
+    pub const AIR: Texture = &[&[' ']];
+}

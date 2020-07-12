@@ -29,6 +29,7 @@ impl Map {
     //         height: 0,
     //     }
     // }
+    //
 
     pub fn load_from_file(filename: impl AsRef<Path>) -> Result<Map, Error> {
         let file = File::open(filename)?;
