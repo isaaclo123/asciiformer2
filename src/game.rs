@@ -1,5 +1,5 @@
 use crate::consts::{EntityType, TEXTURE_MAP};
-use crate::entities::{Entity, Player};
+use crate::entities::{Direction, Entity, Player};
 use crate::map::Map;
 use crate::vectors::Vector;
 use std::io::{stdin, stdout, Read, Write};
@@ -8,6 +8,7 @@ use std::thread::sleep;
 use std::time::{Duration, Instant};
 use termion::event::*;
 
+use std::cell::RefCell;
 use termion::event::Key;
 use termion::input::{Events, TermRead};
 use termion::{clear, color, cursor, terminal_size};
@@ -18,6 +19,8 @@ pub struct Game<'a, R, W> {
     stdin: &'a mut R,
     stdout: &'a mut W,
     map: Map,
+    origin: Vector<u16>,
+    player: RefCell<Player<'a>>,
 }
 
 impl<'a, R: Read, W: Write> Game<'a, R, W> {
@@ -25,12 +28,24 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         let (width, height) = terminal_size().expect("Failed to get Terminal Size");
         let map = Map::load_from_file(map_file).unwrap();
 
+        let offset_width = (width - map.width) / 2;
+        let offset_height = (height - map.height) / 2;
+
         Game {
             width: width,
             height: height,
             map: map,
             stdin: stdin,
             stdout: stdout,
+            origin: Vector {
+                x: offset_width,
+                y: offset_height,
+            },
+            player: RefCell::new(Player {
+                name: "hi",
+                point: Vector { x: 3.6, y: 3.6 },
+                velocity: Vector { x: 0.0, y: 0.0 },
+            }),
         }
     }
 
@@ -38,7 +53,7 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         self.display_map();
 
         let mut before = Instant::now();
-        let interval = 100;
+        let interval = 5;
 
         write!(self.stdout, "{}", cursor::Hide).unwrap();
 
@@ -61,30 +76,29 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
     }
 
     pub fn update(&mut self) -> bool {
-        let mut p = Player {
-            name: "hi",
-            point: Vector { x: 3.6, y: 3.6 },
-            velocity: Vector { x: 0.0, y: 0.0 },
-        };
-
-        let offset_width = (self.width - self.map.width) / 2;
-        let offset_height = (self.height - self.map.height) / 2;
-
-        p.draw(
-            self.stdout,
-            Vector {
-                x: offset_width,
-                y: offset_height,
-            },
-        );
+        self.player.borrow_mut().draw(self.stdout, self.origin);
         // p.update();
 
         if let Some(c) = self.stdin.events().next() {
             match c.unwrap() {
-                Event::Key(Key::Char('q')) => {
-                    self.game_over();
-                    return false;
-                }
+                // Event::Key(ke) => match ke {
+                //     Key::Char('q') => {
+                //         self.game_over();
+                //         return false;
+                //     }
+                //     _ => (),
+                // },
+                Event::Key(ke) => match ke {
+                    Key::Char('q') => {
+                        self.game_over();
+                        return false;
+                    }
+                    Key::Up => self.player.borrow_mut().action(Direction::Up),
+                    Key::Down => self.player.borrow_mut().action(Direction::Down),
+                    Key::Right => self.player.borrow_mut().action(Direction::Right),
+                    Key::Left => self.player.borrow_mut().action(Direction::Left),
+                    _ => return true,
+                },
                 Event::Mouse(me) => match me {
                     MouseEvent::Press(_, a, b)
                     | MouseEvent::Release(a, b)

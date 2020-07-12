@@ -4,6 +4,13 @@ use crate::vectors::Vector;
 use std::io::Write;
 use termion::{clear, color, cursor};
 
+pub enum Direction {
+    Up,
+    Down,
+    Left,
+    Right,
+}
+
 pub trait Entity<'a> {
     // fn update(&mut self);
     // fn get_x(&mut self) -> u16;
@@ -81,6 +88,26 @@ pub struct Player<'a> {
     pub name: &'a str,
 }
 
+impl<'a> Player<'a> {
+    pub fn action(&mut self, direction: Direction) {
+        let speed = 1.25;
+        let to_add = match direction {
+            Direction::Up => Vector {
+                x: 0.0,
+                y: -1.0 * speed,
+            },
+            Direction::Down => Vector { x: 0.0, y: speed },
+            Direction::Left => Vector {
+                x: -1.0 * speed,
+                y: 0.0,
+            },
+            Direction::Right => Vector { x: speed, y: 0.0 },
+        };
+
+        self.point = self.point + to_add
+    }
+}
+
 impl<'a> Entity<'a> for Player<'a> {
     fn get_texture(&self) -> Texture {
         let floor_pt = self.point.floor_int();
@@ -101,7 +128,7 @@ impl<'a> Entity<'a> for Player<'a> {
     }
 
     fn get_point(&self) -> Vector<u16> {
-        self.point.floor_int()
+        self.point.round_int()
     }
 
     fn collide(&mut self, entity: &'a mut impl Entity<'a>) {}
