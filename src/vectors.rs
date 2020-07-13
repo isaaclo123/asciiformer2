@@ -1,6 +1,6 @@
-use std::ops::{Add, Mul};
+use std::ops::{Add, AddAssign, Mul, Sub};
 
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct Vector<T> {
     pub x: T,
     pub y: T,
@@ -20,6 +20,24 @@ impl<T: Add<Output = T>> Add for Vector<T> {
         Self {
             x: self.x + other.x,
             y: self.y + other.y,
+        }
+    }
+}
+
+impl<T: AddAssign + Add<Output = T> + Copy> AddAssign for Vector<T> {
+    fn add_assign(&mut self, other: Self) {
+        self.x = self.x + other.x;
+        self.y = self.y + other.y;
+    }
+}
+
+impl<T: Sub<Output = T>> Sub for Vector<T> {
+    type Output = Self;
+
+    fn sub(self, other: Self) -> Self::Output {
+        Self {
+            x: self.x - other.x,
+            y: self.y - other.y,
         }
     }
 }

@@ -41,11 +41,7 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
                 x: offset_width,
                 y: offset_height,
             },
-            player: RefCell::new(Player {
-                name: "hi",
-                point: Vector { x: 3.6, y: 3.6 },
-                velocity: Vector { x: 0.0, y: 0.0 },
-            }),
+            player: RefCell::new(Player::new(20.0, 20.0, "My Name")),
         }
     }
 
@@ -106,6 +102,9 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
             self.stdout.flush().unwrap();
         }
 
+        self.player
+            .borrow_mut()
+            .wall_collide(self.stdout, &self.map.level);
         self.player.borrow_mut().draw(self.stdout, self.origin);
 
         true

@@ -19,12 +19,18 @@ pub trait Entity<'a> {
     // fn draw(&mut self, stdout: &'a mut impl Write);
     fn collide(&mut self, entity: &'a mut impl Entity<'a>);
 
+    // fn should_draw(&self) -> bool;
+
     fn to_string(&self) -> &'a str;
     fn get_texture(&self) -> Texture;
     fn get_color(&self) -> Option<&'a dyn color::Color>;
     fn get_point(&self) -> Vector<u16>;
 
     fn clear(&self, stdout: &mut impl Write, origin: Vector<u16>, map: &MapData) {
+        // if !self.should_draw() {
+        //     return;
+        // }
+
         let Vector {
             x: point_x,
             y: point_y,
@@ -73,6 +79,10 @@ pub trait Entity<'a> {
         // point: Vector<i16>,
         // fg_opt: Option<impl color::Color>,
     ) {
+        // if !self.should_draw() {
+        //     return;
+        // }
+
         match self.get_texture() {
             PlayerTextures::NO_EXTEND => {
                 writeln!(stdout, "{}NO_EXTEND", cursor::Goto(1, 1)).unwrap()
@@ -124,18 +134,171 @@ pub trait Entity<'a> {
     }
 }
 
+// pub fn bresenham_line(p0: (f32, f32), p1: (f32, f32)) -> Vec<(u16, u16)> {
+//     let (x0, y0) = p0;
+//     let (x1, y1) = p1;
+//
+//     let dx = x1 - x0;
+//     let dy = y1 - y0;
+//
+//     let mut points = Vec::new();
+//
+//     if dx.abs() > dy.abs() {
+//         points.push()
+//     }
+// }
+
 /* Player */
 
 // TODO remove pub
 pub struct Player<'a> {
+    pub prev_point: Vector<f32>,
     pub point: Vector<f32>,
     pub velocity: Vector<f32>,
     pub name: &'a str,
 }
 
 impl<'a> Player<'a> {
+    pub fn new(x: f32, y: f32, name: &'a str) -> Player<'a> {
+        Player {
+            name: name,
+            point: Vector { x: x, y: y },
+            prev_point: Vector { x: x, y: y },
+            velocity: Vector { x: 0.0, y: 0.0 },
+        }
+    }
+
+    // TODO
+    pub fn wall_collide(&mut self, stdout: &mut impl Write, map: &MapData) {
+        if self.point == self.prev_point {
+            return;
+        }
+
+        let Vector {
+            x: diff_x,
+            y: diff_y,
+        } = self.point - self.prev_point;
+
+        let ratio = diff_y / diff_x; // ratio of y / x
+
+        // vector to increment check by
+        let inc_vec = if self.prev_point.x < self.point.x {
+            Vector { x: 1.0, y: ratio }
+        } else {
+            Vector {
+                x: -1.0,
+                y: -1.0 * ratio,
+            }
+        };
+
+        let mut new_point = self.prev_point;
+        let mut index = 0;
+
+        loop {
+            if (self.prev_point.x < self.point.x && new_point.x >= self.point.x)
+                || (self.prev_point.x > self.point.x && new_point.x <= self.point.x)
+            {
+                break;
+            }
+
+            let x_index = new_point.x as u16;
+            let y_ceil = new_point.y.ceil() as u16;
+            let y_floor = new_point.y.floor() as u16;
+
+            writeln!(
+                stdout,
+                "{}NEW_X {} NEW_Y {} RATIO {}|",
+                cursor::Goto(1, 3),
+                new_point.x,
+                new_point.y,
+                ratio
+            )
+            .unwrap();
+            writeln!(
+                stdout,
+                "{}PREV_X {} PREV_Y {}|",
+                cursor::Goto(1, 4),
+                self.prev_point.x,
+                self.prev_point.y,
+            )
+            .unwrap();
+            writeln!(
+                stdout,
+                "{}POINT_X {} POINT_Y {}|",
+                cursor::Goto(1, 5),
+                self.point.x,
+                self.point.y,
+            )
+            .unwrap();
+            writeln!(stdout, "{}{}|", cursor::Goto(1, 6), index,).unwrap();
+            index += 1;
+
+            let result_floor = map.get(&(x_index, y_floor));
+            let result_ceil = map.get(&(x_index, y_ceil));
+
+            if result_floor.is_some() {
+                self.point.x = self.point.x.ceil();
+                break;
+            }
+            if result_ceil.is_some() {
+                self.point.x = self.point.x.floor();
+                break;
+            }
+            self.point = new_point;
+
+            if let Some(e) = result_ceil {
+                writeln!(
+                    stdout,
+                    "{}C({},{},{})",
+                    cursor::Goto(1 + x_index, 1 + y_ceil),
+                    x_index,
+                    y_ceil,
+                    e.get_texture()[0][0]
+                )
+                .unwrap();
+            } else {
+                writeln!(
+                    stdout,
+                    "{}C({},{})",
+                    cursor::Goto(1 + x_index, 1 + y_ceil),
+                    x_index,
+                    y_ceil
+                )
+                .unwrap();
+            }
+
+            if let Some(e) = result_floor {
+                writeln!(
+                    stdout,
+                    "{}C({},{},{})",
+                    cursor::Goto(1 + x_index, 1 + y_floor),
+                    x_index,
+                    y_floor,
+                    e.get_texture()[0][0]
+                )
+                .unwrap();
+            } else {
+                writeln!(
+                    stdout,
+                    "{}C({},{})",
+                    cursor::Goto(1 + x_index, 1 + y_floor),
+                    x_index,
+                    y_floor
+                )
+                .unwrap();
+            }
+            new_point += inc_vec;
+        }
+
+        // let iter_y = if self.prev_point.y < self.point.y {
+        //     1
+        // } else {
+        //     -1
+        // };
+    }
+
     pub fn action(&mut self, direction: Direction) {
-        let speed = 2.0;
+        let speed = 0.75;
         let to_add = match direction {
             Direction::Up => Vector {
                 x: 0.0,
@@ -149,11 +312,15 @@ impl<'a> Player<'a> {
             Direction::Right => Vector { x: speed, y: 0.0 },
         };
 
-        self.point = self.point + to_add
+        self.prev_point = self.point;
+        self.point = self.point + to_add;
     }
 }
 
 impl<'a> Entity<'a> for Player<'a> {
+    // fn should_draw(&self) -> bool {
+    //     !(self.prev_point.round_int() == self.point.round_int())
+    // }
     fn get_texture(&self) -> Texture {
         let floor_pt = self.point.floor_int();
         let round_pt = self.point.round_int();
@@ -202,6 +369,10 @@ impl Wall {
 }
 
 impl<'a> Entity<'a> for Wall {
+    // fn should_draw(&self) -> bool {
+    //     true
+    // }
+
     fn get_texture(&self) -> Texture {
         return WallTextures::WALL;
     }

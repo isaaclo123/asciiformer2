@@ -1,5 +1,6 @@
 use crate::entities::Wall;
 use crate::vectors::Vector;
+use std::cell::RefCell;
 use std::collections::HashMap;
 use std::{
     fs::File,
