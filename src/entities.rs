@@ -170,16 +170,21 @@ impl<'a> Player<'a> {
 
     // TODO
     pub fn wall_collide(&mut self, stdout: &mut impl Write, map: &MapData) {
-        if self.point == self.prev_point {
-            return;
-        }
+        // if self.point == self.prev_point {
+        //     return;
+        // }
 
         let Vector {
             x: diff_x,
             y: diff_y,
         } = self.point - self.prev_point;
 
+        let mut ratio: f32;
+        let mut inc_vec: Vector<f32>;
+
         let ratio = diff_y / diff_x; // ratio of y / x
+
+        // if diff_x == 0.0 {}
 
         // vector to increment check by
         let inc_vec = if self.prev_point.x < self.point.x {
@@ -191,23 +196,29 @@ impl<'a> Player<'a> {
             }
         };
 
+        let mut prev_new_point = self.prev_point;
         let mut new_point = self.prev_point;
+
         let mut index = 0;
 
         loop {
-            if (self.prev_point.x < self.point.x && new_point.x >= self.point.x)
-                || (self.prev_point.x > self.point.x && new_point.x <= self.point.x)
-            {
+            if self.prev_point.x < self.point.x && new_point.x >= self.point.x {
+                self.prev_point = self.point;
+                break;
+            }
+            if self.prev_point.x > self.point.x && new_point.x <= self.point.x {
+                self.prev_point = self.point;
                 break;
             }
 
             let x_index = new_point.x as u16;
+
             let y_ceil = new_point.y.ceil() as u16;
             let y_floor = new_point.y.floor() as u16;
 
             writeln!(
                 stdout,
-                "{}NEW_X {} NEW_Y {} RATIO {}|",
+                "{}NEW_X {:.3} NEW_Y {:.3} RATIO {}|",
                 cursor::Goto(1, 3),
                 new_point.x,
                 new_point.y,
@@ -216,7 +227,7 @@ impl<'a> Player<'a> {
             .unwrap();
             writeln!(
                 stdout,
-                "{}PREV_X {} PREV_Y {}|",
+                "{}PREV_X {:.3} PREV_Y {:.3}|",
                 cursor::Goto(1, 4),
                 self.prev_point.x,
                 self.prev_point.y,
@@ -224,27 +235,33 @@ impl<'a> Player<'a> {
             .unwrap();
             writeln!(
                 stdout,
-                "{}POINT_X {} POINT_Y {}|",
+                "{}POINT_X {:.3} POINT_Y {:.3}|",
                 cursor::Goto(1, 5),
                 self.point.x,
                 self.point.y,
             )
             .unwrap();
             writeln!(stdout, "{}{}|", cursor::Goto(1, 6), index,).unwrap();
+
             index += 1;
 
             let result_floor = map.get(&(x_index, y_floor));
             let result_ceil = map.get(&(x_index, y_ceil));
 
-            if result_floor.is_some() {
-                self.point.x = self.point.x.ceil();
+            if result_floor.is_some() || result_ceil.is_some() {
+                self.point = prev_new_point;
+                self.point.x = self.point.x.round();
+                self.prev_point = self.point;
                 break;
             }
-            if result_ceil.is_some() {
-                self.point.x = self.point.x.floor();
-                break;
-            }
-            self.point = new_point;
+
+            prev_new_point = new_point;
+            new_point += inc_vec;
+
+            /*
+
+
+            */
 
             if let Some(e) = result_ceil {
                 writeln!(
@@ -287,7 +304,6 @@ impl<'a> Player<'a> {
                 )
                 .unwrap();
             }
-            new_point += inc_vec;
         }
 
         // let iter_y = if self.prev_point.y < self.point.y {
@@ -298,7 +314,7 @@ impl<'a> Player<'a> {
     }
 
     pub fn action(&mut self, direction: Direction) {
-        let speed = 0.75;
+        let speed = 10.15;
         let to_add = match direction {
             Direction::Up => Vector {
                 x: 0.0,

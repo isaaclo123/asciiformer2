@@ -41,7 +41,7 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
                 x: offset_width,
                 y: offset_height,
             },
-            player: RefCell::new(Player::new(20.0, 20.0, "My Name")),
+            player: RefCell::new(Player::new(20.1, 20.7, "My Name")),
         }
     }
 
