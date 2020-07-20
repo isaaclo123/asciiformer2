@@ -75,3 +75,13 @@ impl Vector<f32> {
         }
     }
 }
+
+impl Vector<u16> {
+    pub fn to_i16_tuple(self) -> (i16, i16) {
+        (self.x as i16, self.y as i16)
+    }
+
+    pub fn to_f32_tuple(self) -> (f32, f32) {
+        (self.x as f32, self.y as f32)
+    }
+}

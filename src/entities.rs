@@ -1,4 +1,5 @@
 use crate::consts::{EntityType, TEXTURE_MAP};
+use crate::linedraw::plot_line;
 use crate::map::MapData;
 use crate::textures::{AirTextures, PlayerTextures, Texture, WallTextures};
 use crate::vectors::Vector;
@@ -170,151 +171,38 @@ impl<'a> Player<'a> {
 
     // TODO
     pub fn wall_collide(&mut self, stdout: &mut impl Write, map: &MapData) {
-        // if self.point == self.prev_point {
-        //     return;
-        // }
-
-        let Vector {
-            x: diff_x,
-            y: diff_y,
-        } = self.point - self.prev_point;
-
-        let mut ratio: f32;
-        let mut inc_vec: Vector<f32>;
-
-        let ratio = diff_y / diff_x; // ratio of y / x
-
-        // if diff_x == 0.0 {}
-
-        // vector to increment check by
-        let inc_vec = if self.prev_point.x < self.point.x {
-            Vector { x: 1.0, y: ratio }
-        } else {
-            Vector {
-                x: -1.0,
-                y: -1.0 * ratio,
-            }
-        };
-
-        let mut prev_new_point = self.prev_point;
-        let mut new_point = self.prev_point;
-
-        let mut index = 0;
-
-        loop {
-            if self.prev_point.x < self.point.x && new_point.x >= self.point.x {
-                self.prev_point = self.point;
-                break;
-            }
-            if self.prev_point.x > self.point.x && new_point.x <= self.point.x {
-                self.prev_point = self.point;
-                break;
-            }
-
-            let x_index = new_point.x as u16;
-
-            let y_ceil = new_point.y.ceil() as u16;
-            let y_floor = new_point.y.floor() as u16;
-
-            writeln!(
-                stdout,
-                "{}NEW_X {:.3} NEW_Y {:.3} RATIO {}|",
-                cursor::Goto(1, 3),
-                new_point.x,
-                new_point.y,
-                ratio
-            )
-            .unwrap();
-            writeln!(
-                stdout,
-                "{}PREV_X {:.3} PREV_Y {:.3}|",
-                cursor::Goto(1, 4),
-                self.prev_point.x,
-                self.prev_point.y,
-            )
-            .unwrap();
-            writeln!(
-                stdout,
-                "{}POINT_X {:.3} POINT_Y {:.3}|",
-                cursor::Goto(1, 5),
-                self.point.x,
-                self.point.y,
-            )
-            .unwrap();
-            writeln!(stdout, "{}{}|", cursor::Goto(1, 6), index,).unwrap();
-
-            index += 1;
-
-            let result_floor = map.get(&(x_index, y_floor));
-            let result_ceil = map.get(&(x_index, y_ceil));
-
-            if result_floor.is_some() || result_ceil.is_some() {
-                self.point = prev_new_point;
-                self.point.x = self.point.x.round();
-                self.prev_point = self.point;
-                break;
-            }
-
-            prev_new_point = new_point;
-            new_point += inc_vec;
-
-            /*
-
-
-            */
-
-            if let Some(e) = result_ceil {
-                writeln!(
-                    stdout,
-                    "{}C({},{},{})",
-                    cursor::Goto(1 + x_index, 1 + y_ceil),
-                    x_index,
-                    y_ceil,
-                    e.get_texture()[0][0]
-                )
-                .unwrap();
-            } else {
-                writeln!(
-                    stdout,
-                    "{}C({},{})",
-                    cursor::Goto(1 + x_index, 1 + y_ceil),
-                    x_index,
-                    y_ceil
-                )
-                .unwrap();
-            }
-
-            if let Some(e) = result_floor {
-                writeln!(
-                    stdout,
-                    "{}C({},{},{})",
-                    cursor::Goto(1 + x_index, 1 + y_floor),
-                    x_index,
-                    y_floor,
-                    e.get_texture()[0][0]
-                )
-                .unwrap();
-            } else {
-                writeln!(
-                    stdout,
-                    "{}C({},{})",
-                    cursor::Goto(1 + x_index, 1 + y_floor),
-                    x_index,
-                    y_floor
-                )
-                .unwrap();
-            }
+        if self.point == self.prev_point {
+            return;
         }
 
-        // let iter_y = if self.prev_point.y < self.point.y {
-        //     1
-        // } else {
-        //     -1
-        // };
+        let prev_tup = self.prev_point.round_int().to_i16_tuple();
+        let tup = self.point.round_int().to_i16_tuple();
+
+        let line_vec = plot_line(prev_tup, tup);
+
+        let mut prev_point = self.prev_point;
+
+        for pt in line_vec {
+            let (x_i16, y_i16) = pt;
+            let pt_u16 = (x_i16 as u16, y_i16 as u16);
+            let result = map.get(&pt_u16);
+
+            if result.is_some() {
+                self.prev_point = prev_point;
+                self.point = prev_point;
+                return;
+            }
+
+            prev_point = Vector {
+                x: x_i16 as f32,
+                y: y_i16 as f32,
+            };
+        }
+        self.prev_point = self.point;
     }
 
     pub fn action(&mut self, direction: Direction) {
-        let speed = 10.15;
+        let speed = 2.15;
         let to_add = match direction {
             Direction::Up => Vector {
                 x: 0.0,
