@@ -1,5 +1,5 @@
 use crate::consts::{EntityType, TEXTURE_MAP};
-use crate::linedraw::plot_line;
+// use crate::linedraw::plot_line;
 use crate::map::MapData;
 use crate::textures::{AirTextures, PlayerTextures, Texture, WallTextures};
 use crate::vectors::Vector;
@@ -170,35 +170,115 @@ impl<'a> Player<'a> {
     }
 
     // TODO
-    pub fn wall_collide(&mut self, stdout: &mut impl Write, map: &MapData) {
-        if self.point == self.prev_point {
+    // pub fn wall_collide(&mut self, stdout: &mut impl Write, map: &MapData) {
+    //     if self.point == self.prev_point {
+    //         return;
+    //     }
+
+    //     let prev_tup = self.prev_point.round_int().to_i16_tuple();
+    //     let tup = self.point.round_int().to_i16_tuple();
+
+    //     let line_vec = plot_line(self.prev_point, self.point);
+
+    //     let mut prev_point = self.prev_point;
+
+    //     for pt in line_vec {
+    //         let (x_i16, y_i16) = pt;
+    //         let pt_u16 = (x_i16 as u16, y_i16 as u16);
+    //         let result = map.get(&pt_u16);
+
+    //         if result.is_some() {
+    //             self.prev_point = prev_point;
+    //             self.point = prev_point;
+    //             return;
+    //         }
+
+    //         prev_point = Vector {
+    //             x: x_i16 as f32,
+    //             y: y_i16 as f32,
+    //         };
+    //     }
+    //     self.prev_point = self.point;
+    // }
+
+    pub fn wall_collide(&mut self, _stdout: &mut impl Write, map: &MapData) {
+        let Vector {
+            x: diff_x,
+            y: diff_y,
+        } = self.point - self.prev_point;
+
+        if diff_x == 0.0 && diff_y == 0.0 {
             return;
         }
 
-        let prev_tup = self.prev_point.round_int().to_i16_tuple();
-        let tup = self.point.round_int().to_i16_tuple();
+        let inc_vec: Vector<f32>;
+        let is_vertical: bool;
 
-        let line_vec = plot_line(prev_tup, tup);
+        if diff_x == 0.0 {
+            is_vertical = true;
+            inc_vec = if self.prev_point.y < self.point.y {
+                Vector { x: 0.0, y: 1.0 }
+            } else {
+                Vector { x: 0.0, y: -1.0 }
+            };
+        } else {
+            let ratio = diff_y / diff_x; // ratio of y / x
 
-        let mut prev_point = self.prev_point;
+            is_vertical = false;
 
-        for pt in line_vec {
-            let (x_i16, y_i16) = pt;
-            let pt_u16 = (x_i16 as u16, y_i16 as u16);
-            let result = map.get(&pt_u16);
-
-            if result.is_some() {
-                self.prev_point = prev_point;
-                self.point = prev_point;
-                return;
-            }
-
-            prev_point = Vector {
-                x: x_i16 as f32,
-                y: y_i16 as f32,
+            // vector to increment check by
+            inc_vec = if self.prev_point.x < self.point.x {
+                Vector { x: 1.0, y: ratio }
+            } else {
+                Vector {
+                    x: -1.0,
+                    y: -1.0 * ratio,
+                }
             };
         }
-        self.prev_point = self.point;
+
+        let mut prev_new_point = self.prev_point;
+        let mut new_point = self.prev_point;
+
+        loop {
+            if !is_vertical
+                && ((self.prev_point.x < self.point.x && new_point.x >= self.point.x)
+                    || (self.prev_point.x > self.point.x && new_point.x <= self.point.x))
+            {
+                self.prev_point = self.point;
+                break;
+            }
+
+            if is_vertical
+                && ((self.prev_point.y < self.point.y && new_point.y >= self.point.y)
+                    || (self.prev_point.y > self.point.y && new_point.y <= self.point.y))
+            {
+                self.prev_point = self.point;
+                break;
+            }
+
+            let x_index = new_point.x as u16;
+
+            let y_ceil = new_point.y.ceil() as u16;
+            let y_floor = new_point.y.floor() as u16;
+
+            let result_floor = map.get(&(x_index, y_floor));
+            let result_ceil = map.get(&(x_index, y_ceil));
+
+            if result_floor.is_some() || result_ceil.is_some() {
+                self.point = prev_new_point;
+                self.point.x = self.point.x.round();
+
+                if is_vertical {
+                    self.point.y = self.point.y.round();
+                }
+                self.prev_point = self.point;
+                break;
+            }
+
+            prev_new_point = new_point;
+            new_point += inc_vec;
+        }
     }
 
     pub fn action(&mut self, direction: Direction) {

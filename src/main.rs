@@ -6,7 +6,7 @@ extern crate termion;
 mod consts;
 mod entities;
 mod game;
-mod linedraw;
+// mod linedraw;
 mod map;
 mod textures;
 mod vectors;

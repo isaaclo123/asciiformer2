@@ -1,4 +1,4 @@
-use std::ops::{Add, AddAssign, Mul, Sub};
+use std::ops::{Add, AddAssign, Div, Mul, Rem, Sub};
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct Vector<T> {
@@ -6,11 +6,29 @@ pub struct Vector<T> {
     pub y: T,
 }
 
-impl<T> Vector<T> {
+impl<T: Mul<Output = T>> Vector<T> {
     pub fn to_tuple(self) -> (T, T) {
         (self.x, self.y)
     }
+
+    // fn mul(self, val: T) -> Vector<T> {
+    //     Vector {
+    //         x: self.x * val,
+    //         y: self.y * val,
+    //     }
+    // }
 }
+
+// impl<T: Rem<Output = T>> Rem<T> for Vector<T> {
+//     type Output = Self;
+//
+//     fn rem(self, modulus: T) -> Self::Output {
+//         Self {
+//             x: self.x % modulus,
+//             y: self.y % modulus,
+//         }
+//     }
+// }
 
 // Notice that the implementation uses the associated type `Output`.
 impl<T: Add<Output = T>> Add for Vector<T> {
@@ -42,6 +60,17 @@ impl<T: Sub<Output = T>> Sub for Vector<T> {
     }
 }
 
+// impl<T: Mul<Output = T>> Mul<T> for Vector<T> {
+//     type Output = Self;
+//
+//     fn mul(self, rhs: T) -> Self::Output {
+//         Self {
+//             x: self.x * rhs,
+//             y: self.y * rhs,
+//         }
+//     }
+// }
+
 impl<T: Mul<Output = T>> Mul for Vector<T> {
     type Output = Self;
 
@@ -53,14 +82,41 @@ impl<T: Mul<Output = T>> Mul for Vector<T> {
     }
 }
 
+impl<T: Div<Output = T>> Div for Vector<T> {
+    type Output = Self;
+
+    fn div(self, other: Self) -> Self::Output {
+        Self {
+            x: self.x / other.x,
+            y: self.y / other.y,
+        }
+    }
+}
+
+// impl<T: Div<Output = T>> Div<T> for Vector<T> {
+//     type Output = Self;
+//
+//     fn div(self, rhs: T) -> Self::Output {
+//         Self {
+//             x: self.x / rhs,
+//             y: self.y / rhs,
+//         }
+//     }
+// }
+
 impl Vector<f32> {
+    pub fn round_i_int(self) -> Vector<i16> {
+        Vector {
+            x: self.x.round() as i16,
+            y: self.y.round() as i16,
+        }
+    }
     pub fn round_int(self) -> Vector<u16> {
         Vector {
             x: self.x.round() as u16,
             y: self.y.round() as u16,
         }
     }
-
     pub fn ceil_int(self) -> Vector<u16> {
         Vector {
             x: self.x.ceil() as u16,
@@ -72,6 +128,26 @@ impl Vector<f32> {
         Vector {
             x: self.x.floor() as u16,
             y: self.y.floor() as u16,
+        }
+    }
+
+    pub fn round(self) -> Vector<f32> {
+        Vector {
+            x: self.x.round(),
+            y: self.y.round(),
+        }
+    }
+    pub fn ceil(self) -> Vector<f32> {
+        Vector {
+            x: self.x.ceil(),
+            y: self.y.ceil(),
+        }
+    }
+
+    pub fn floor(self) -> Vector<f32> {
+        Vector {
+            x: self.x.floor(),
+            y: self.y.floor(),
         }
     }
 }
