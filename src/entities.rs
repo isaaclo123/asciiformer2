@@ -1,5 +1,7 @@
 use crate::consts::{EntityType, TEXTURE_MAP};
 // use crate::linedraw::plot_line;
+use crate::debug;
+use crate::linedraw::plot_line;
 use crate::map::MapData;
 use crate::textures::{AirTextures, PlayerTextures, Texture, WallTextures};
 use crate::vectors::Vector;
@@ -84,17 +86,13 @@ pub trait Entity<'a> {
         //     return;
         // }
 
-        match self.get_texture() {
-            PlayerTextures::NO_EXTEND => {
-                writeln!(stdout, "{}NO_EXTEND", cursor::Goto(1, 1)).unwrap()
-            }
-            PlayerTextures::Y_EXTEND => writeln!(stdout, "{}Y_EXTEND", cursor::Goto(1, 1)).unwrap(),
-            PlayerTextures::X_EXTEND => writeln!(stdout, "{}X_EXTEND", cursor::Goto(1, 1)).unwrap(),
-            PlayerTextures::X_Y_EXTEND => {
-                writeln!(stdout, "{}X_Y_EXTEND", cursor::Goto(1, 1)).unwrap()
-            }
-            _ => (),
-        };
+        // match self.get_texture() {
+        //     PlayerTextures::NO_EXTEND => debug::write(stdout, "NO_EXTEND"),
+        //     PlayerTextures::Y_EXTEND => debug::write(stdout, "Y_EXTEND"),
+        //     PlayerTextures::X_EXTEND => debug::write(stdout, "X_EXTEND"),
+        //     PlayerTextures::X_Y_EXTEND => debug::write(stdout, "X_Y_EXTEND"),
+        //     _ => (),
+        // };
 
         if let Some(c) = self.get_color() {
             write!(stdout, "{}", color::Fg(c)).unwrap();
@@ -108,14 +106,10 @@ pub trait Entity<'a> {
 
         let texture = self.get_texture();
 
-        writeln!(
-            stdout,
-            "{}xlen {} ylen {}",
-            cursor::Goto(1, 2),
-            texture[0].len(),
-            texture.len()
-        )
-        .unwrap();
+        // debug::write(
+        //     stdout,
+        //     &format!("texture_len x {} y {}", texture[0].len(), texture.len()),
+        // );
 
         for y in 0..texture.len() {
             for x in 0..texture[y].len() {
@@ -201,84 +195,10 @@ impl<'a> Player<'a> {
     //     self.prev_point = self.point;
     // }
 
-    pub fn wall_collide(&mut self, _stdout: &mut impl Write, map: &MapData) {
-        let Vector {
-            x: diff_x,
-            y: diff_y,
-        } = self.point - self.prev_point;
-
-        if diff_x == 0.0 && diff_y == 0.0 {
-            return;
-        }
-
-        let inc_vec: Vector<f32>;
-        let is_vertical: bool;
-
-        if diff_x == 0.0 {
-            is_vertical = true;
-            inc_vec = if self.prev_point.y < self.point.y {
-                Vector { x: 0.0, y: 1.0 }
-            } else {
-                Vector { x: 0.0, y: -1.0 }
-            };
-        } else {
-            let ratio = diff_y / diff_x; // ratio of y / x
-
-            is_vertical = false;
-
-            // vector to increment check by
-            inc_vec = if self.prev_point.x < self.point.x {
-                Vector { x: 1.0, y: ratio }
-            } else {
-                Vector {
-                    x: -1.0,
-                    y: -1.0 * ratio,
-                }
-            };
-        }
-
-        let mut prev_new_point = self.prev_point;
-        let mut new_point = self.prev_point;
-
-        loop {
-            if !is_vertical
-                && ((self.prev_point.x < self.point.x && new_point.x >= self.point.x)
-                    || (self.prev_point.x > self.point.x && new_point.x <= self.point.x))
-            {
-                self.prev_point = self.point;
-                break;
-            }
-
-            if is_vertical
-                && ((self.prev_point.y < self.point.y && new_point.y >= self.point.y)
-                    || (self.prev_point.y > self.point.y && new_point.y <= self.point.y))
-            {
-                self.prev_point = self.point;
-                break;
-            }
-
-            let x_index = new_point.x as u16;
-
-            let y_ceil = new_point.y.ceil() as u16;
-            let y_floor = new_point.y.floor() as u16;
-
-            let result_floor = map.get(&(x_index, y_floor));
-            let result_ceil = map.get(&(x_index, y_ceil));
-
-            if result_floor.is_some() || result_ceil.is_some() {
-                self.point = prev_new_point;
-                self.point.x = self.point.x.round();
-
-                if is_vertical {
-                    self.point.y = self.point.y.round();
-                }
-                self.prev_point = self.point;
-                break;
-            }
-
-            prev_new_point = new_point;
-            new_point += inc_vec;
-        }
+    pub fn wall_collide(&mut self, stdout: &mut impl Write, map: &MapData) {
+        let new_point = plot_line(stdout, self.prev_point, self.point, map);
+        self.prev_point = new_point;
+        self.point = new_point;
     }
 
     pub fn action(&mut self, direction: Direction) {

@@ -1,4 +1,5 @@
 use crate::consts::{EntityType, TEXTURE_MAP};
+use crate::debug;
 use crate::entities::{Direction, Entity, Player};
 use crate::map::Map;
 use crate::vectors::Vector;
@@ -46,14 +47,16 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
     }
 
     pub fn start(&mut self) {
-        self.draw_map();
-
-        let mut before = Instant::now();
-        let interval = 1;
-
         write!(self.stdout, "{}", cursor::Hide).unwrap();
 
+        self.draw_map();
+        self.stdout.flush().unwrap();
+
+        let mut before = Instant::now();
+        let interval = 10;
+
         loop {
+            // debug::clear(self.stdout);
             //self.display_map();
             let now = Instant::now();
             let dt = (now.duration_since(before).subsec_nanos() / 1_000_000) as u64;
@@ -64,10 +67,12 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
             }
 
             before = now;
-
             if !self.update() {
                 return;
             }
+            // if !self.update() {
+            //     return;
+            // }
         }
     }
 
@@ -75,7 +80,6 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         self.player
             .borrow_mut()
             .clear(self.stdout, self.origin, &self.map.level);
-        // p.update();
 
         if let Some(c) = self.stdin.events().next() {
             match c.unwrap() {
@@ -94,7 +98,15 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
                     MouseEvent::Press(_, a, b)
                     | MouseEvent::Release(a, b)
                     | MouseEvent::Hold(a, b) => {
-                        write!(self.stdout, "{}x", cursor::Goto(a, b)).unwrap();
+                        // write!(self.stdout, "{}x", cursor::Goto(a, b)).unwrap();
+                        debug::write(
+                            self.stdout,
+                            &format!(
+                                "cursor ({}, {})",
+                                a - self.origin.x - 1,
+                                b - self.origin.y - 1
+                            ),
+                        );
                     }
                 },
                 _ => return true,
@@ -105,6 +117,77 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         self.player
             .borrow_mut()
             .wall_collide(self.stdout, &self.map.level);
+        self.player.borrow_mut().draw(self.stdout, self.origin);
+
+        true
+    }
+
+    pub fn debug_update(&mut self) -> bool {
+        self.player
+            .borrow_mut()
+            .clear(self.stdout, self.origin, &self.map.level);
+        self.stdout.flush().unwrap();
+
+        for c in stdin().keys() {
+            debug::write(self.stdout, "stdin loop");
+            match c.unwrap() {
+                Key::Char('q') => {
+                    self.game_over();
+                    return false;
+                }
+                Key::Char('w') => {
+                    debug::write(self.stdout, "Up");
+                    self.player.borrow_mut().action(Direction::Up);
+                    self.player
+                        .borrow_mut()
+                        .wall_collide(self.stdout, &self.map.level);
+                    self.player.borrow_mut().draw(self.stdout, self.origin);
+                    self.stdout.flush().unwrap();
+                    return true;
+                }
+                Key::Char('s') => {
+                    debug::write(self.stdout, "Down");
+                    self.player.borrow_mut().action(Direction::Down);
+                    self.player
+                        .borrow_mut()
+                        .wall_collide(self.stdout, &self.map.level);
+                    self.player.borrow_mut().draw(self.stdout, self.origin);
+                    self.stdout.flush().unwrap();
+                    return true;
+                }
+                Key::Char('d') => {
+                    debug::write(self.stdout, "Left");
+                    self.player.borrow_mut().action(Direction::Right);
+                    self.player
+                        .borrow_mut()
+                        .wall_collide(self.stdout, &self.map.level);
+                    self.player.borrow_mut().draw(self.stdout, self.origin);
+                    self.stdout.flush().unwrap();
+                    return true;
+                }
+                Key::Char('a') => {
+                    debug::write(self.stdout, "Right");
+                    self.player.borrow_mut().action(Direction::Left);
+                    self.player
+                        .borrow_mut()
+                        .wall_collide(self.stdout, &self.map.level);
+                    self.player.borrow_mut().draw(self.stdout, self.origin);
+                    self.stdout.flush().unwrap();
+                    return true;
+                }
+                _ => {
+                    debug::write(self.stdout, "Unknown");
+                    self.stdout.flush().unwrap();
+                    return true;
+                }
+            };
+        }
+
+        debug::write(self.stdout, "AFTER LOOP");
+        self.player
+            .borrow_mut()
+            .wall_collide(self.stdout, &self.map.level);
+        self.player.borrow_mut().draw(self.stdout, self.origin);
         self.player.borrow_mut().draw(self.stdout, self.origin);
 
         true

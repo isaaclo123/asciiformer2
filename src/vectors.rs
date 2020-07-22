@@ -1,3 +1,4 @@
+use std::fmt::{Display, Formatter, Result};
 use std::ops::{Add, AddAssign, Div, Mul, Rem, Sub};
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
@@ -17,6 +18,12 @@ impl<T: Mul<Output = T>> Vector<T> {
     //         y: self.y * val,
     //     }
     // }
+}
+
+impl<T: Display> Display for Vector<T> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
+        write!(f, "({}, {})", self.x, self.y)
+    }
 }
 
 // impl<T: Rem<Output = T>> Rem<T> for Vector<T> {
