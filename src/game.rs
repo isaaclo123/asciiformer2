@@ -76,6 +76,20 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         }
     }
 
+    fn run(&mut self, direction_opt: Option<Direction>) {
+        if let Some(d) = direction_opt {
+            self.player.borrow_mut().action(self.stdout, d);
+        } else {
+            debug::write(self.stdout, "RUN NONE");
+        }
+        self.player.borrow_mut().update(self.stdout);
+        self.player
+            .borrow_mut()
+            .wall_collide(self.stdout, &self.map.level);
+        self.player.borrow_mut().draw(self.stdout, self.origin);
+        self.stdout.flush().unwrap();
+    }
+
     pub fn update(&mut self) -> bool {
         self.player
             .borrow_mut()
@@ -88,45 +102,35 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
                         self.game_over();
                         return false;
                     }
-                    Key::Up => self.player.borrow_mut().action(self.stdout, Direction::Up),
-                    Key::Down => self
-                        .player
-                        .borrow_mut()
-                        .action(self.stdout, Direction::Down),
-                    Key::Right => self
-                        .player
-                        .borrow_mut()
-                        .action(self.stdout, Direction::Right),
-                    Key::Left => self
-                        .player
-                        .borrow_mut()
-                        .action(self.stdout, Direction::Left),
-                    _ => return true,
+                    Key::Up => self.run(Some(Direction::Up)),
+                    Key::Down => self.run(Some(Direction::Down)),
+                    Key::Right => self.run(Some(Direction::Right)),
+                    Key::Left => self.run(Some(Direction::Left)),
+                    _ => self.run(None),
                 },
                 Event::Mouse(me) => match me {
-                    MouseEvent::Press(_, a, b)
-                    | MouseEvent::Release(a, b)
-                    | MouseEvent::Hold(a, b) => {
-                        // write!(self.stdout, "{}x", cursor::Goto(a, b)).unwrap();
-                        debug::write(
-                            self.stdout,
-                            &format!(
-                                "cursor ({}, {})",
-                                a as i16 - self.origin.x as i16 - 1,
-                                b as i16 - self.origin.y as i16 - 1
-                            ),
-                        );
+                    MouseEvent::Press(_, a, b) => {
+                        let x = a as i16 - self.origin.x as i16 - 1;
+                        let y = b as i16 - self.origin.y as i16 - 1;
+
+                        let sym = if self.map.level.get(&(x as u16, y as u16)).is_some() {
+                            'W'
+                        } else {
+                            ' '
+                        };
+
+                        debug::write(self.stdout, &format!("cursor ({}, {}) {}", x, y, sym));
                     }
+                    _ => (), // MouseEvent::Release(a, b) | MouseEvent::Hold(a, b) => {
+                             //     // write!(self.stdout, "{}x", cursor::Goto(a, b)).unwrap();
+                             // }
                 },
-                _ => return true,
+                _ => self.run(None),
             }
             self.stdout.flush().unwrap();
         }
 
-        self.player.borrow_mut().update(self.stdout);
-        self.player
-            .borrow_mut()
-            .wall_collide(self.stdout, &self.map.level);
+        // run here when not debug
         self.player.borrow_mut().draw(self.stdout, self.origin);
 
         true

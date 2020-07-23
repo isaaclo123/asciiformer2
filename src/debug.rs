@@ -8,7 +8,7 @@ lazy_static! {
     static ref DEBUG_BUF: Mutex<Vec<std::string::String>> = Mutex::new(vec![]);
 }
 
-static MAX_DEBUG_LEN: usize = 20;
+static MAX_DEBUG_LEN: usize = 30;
 
 pub fn write(stdout: &mut impl Write, output: &str) {
     let mut debug_buf = DEBUG_BUF.lock().unwrap();

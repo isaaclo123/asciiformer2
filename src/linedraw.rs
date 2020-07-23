@@ -43,21 +43,22 @@ fn plot_line_low(
     };
     x0_i = x0_f as i16;
     x1_i = x1_f as i16;
-    //
-    debug::write(stdout, "PLOT_LOW-------------");
-    debug::write(stdout, &format!("dy {} dx {}", dy, dx));
-    debug::write(stdout, &format!("slope {}", slope));
-    debug::write(stdout, &format!("di {}", di));
-    debug::write(stdout, &format!("y0 {}", y0));
-    debug::write(stdout, "******");
-    debug::write(stdout, &format!("x0 {} x1 {}", x0, x1));
-    debug::write(stdout, &format!("x0_f {}, x1_f {}", x0_f, x1_f));
-    debug::write(stdout, &format!("x0_i {}, x1_i {}", x0_i, x1_i));
-    debug::write(stdout, "PLOT_LOW-------------");
+    // //
+    // debug::write(stdout, "PLOT_LOW-------------");
+    // debug::write(stdout, &format!("dy {} dx {}", dy, dx));
+    // debug::write(stdout, &format!("slope {}", slope));
+    // debug::write(stdout, &format!("di {}", di));
+    // debug::write(stdout, &format!("y0 {}", y0));
+    // debug::write(stdout, "******");
+    // debug::write(stdout, &format!("x0 {} x1 {}", x0, x1));
+    // debug::write(stdout, &format!("x0_f {}, x1_f {}", x0_f, x1_f));
+    // debug::write(stdout, &format!("x0_i {}, x1_i {}", x0_i, x1_i));
+    // debug::write(stdout, "PLOT_LOW-------------");
 
     // decimal place of x
     let dec_x = x0 - x0_f;
 
+    // let mut y = y0 + di * dec_x;
     let mut y = y0 + di * dec_x;
 
     let mut prev_vec = p0;
@@ -65,41 +66,50 @@ fn plot_line_low(
     let mut x = x0_i;
     let mut end = false;
 
+    // let mut straight_check = true;
+
     loop {
         if x == x1_i {
             // if incrementing and x greater than x1, break
+            // also, should not be straight_check, should be checking with slope change
             end = true
         }
 
-        // debug::write(stdout, "In Loop");
-
-        let y_ceil = y.ceil();
         let y_floor = y.floor();
+        let y_ceil = y.ceil();
+        let y_round = prev_vec.y.round();
 
-        let map_ceil = map.get(&(x as u16, y_ceil as u16));
-        let map_floor = map.get(&(x as u16, y_floor as u16));
-
-        if map_ceil.is_some() {
-            debug::write(stdout, &format!("({}, {}) 'W' ceil", x, y_ceil));
-            return (
-                prev_vec,
-                Some(Vector {
-                    x: x as f32,
-                    y: y_ceil,
-                }),
-            );
-        } else if map_floor.is_some() {
-            debug::write(stdout, &format!("({}, {}) 'W' floor", x, y_floor));
-            return (
-                prev_vec,
-                Some(Vector {
-                    x: x as f32,
-                    y: y_floor,
-                }),
-            );
+        let check_order = if dy > 0.0
+        // going upwards
+        {
+            [y_round, y_floor, y_ceil]
         } else {
-            debug::write(stdout, &format!("({}, {}) ' ' ceil", x, y_ceil));
-            debug::write(stdout, &format!("({}, {}) ' ' floor", x, y_floor));
+            [y_round, y_ceil, y_floor]
+        };
+
+        let mut collide_pos = None;
+        let mut modified = false;
+
+        for y_check in check_order.iter() {
+            let check = map.get(&(x as u16, *y_check as u16));
+
+            if check.is_some() {
+                debug::write(stdout, &format!("check ({}, {}) W", x, y_check));
+                // if area is unable to be walked into
+                collide_pos = Some(Vector {
+                    x: x as f32,
+                    y: *y_check,
+                });
+                break;
+            }
+            debug::write(stdout, &format!("check ({}, {})", x, y_check));
+            modified = true;
+            y = *y_check;
+        }
+        debug::write(stdout, "----");
+
+        if !modified && collide_pos.is_some() {
+            return (prev_vec, collide_pos);
         }
 
         if end {
@@ -109,10 +119,12 @@ fn plot_line_low(
         prev_vec = Vector { x: x as f32, y: y };
 
         x += xi;
-        y += dy;
+        if collide_pos.is_none() {
+            y += dy;
+        }
     }
 
-    return (p1, None);
+    return (prev_vec, None);
 }
 
 fn plot_line_high(
