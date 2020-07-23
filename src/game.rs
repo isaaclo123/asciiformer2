@@ -91,6 +91,8 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
     }
 
     pub fn update(&mut self) -> bool {
+        let debug = false;
+
         self.player
             .borrow_mut()
             .clear(self.stdout, self.origin, &self.map.level);
@@ -106,7 +108,11 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
                     Key::Down => self.run(Some(Direction::Down)),
                     Key::Right => self.run(Some(Direction::Right)),
                     Key::Left => self.run(Some(Direction::Left)),
-                    _ => self.run(None),
+                    _ => {
+                        if debug {
+                            self.run(None);
+                        }
+                    }
                 },
                 Event::Mouse(me) => match me {
                     MouseEvent::Press(_, a, b) => {
@@ -128,6 +134,13 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
                 _ => self.run(None),
             }
             self.stdout.flush().unwrap();
+        }
+
+        if !debug {
+            self.player
+                .borrow_mut()
+                .clear(self.stdout, self.origin, &self.map.level);
+            self.run(None);
         }
 
         // run here when not debug

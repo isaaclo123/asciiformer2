@@ -197,7 +197,7 @@ impl<'a> Player<'a> {
         let gravity_max = 2.0;
         let gravity_inc = 0.25;
         let max_x_speed = 2.0;
-        let friction_x = 0.1;
+        let friction_x = 0.25;
 
         // apply gravity
         if self.velocity.y < gravity_max {

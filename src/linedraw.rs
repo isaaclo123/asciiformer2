@@ -112,11 +112,11 @@ fn plot_line_low(
             return (prev_vec, collide_pos);
         }
 
+        prev_vec = Vector { x: x as f32, y: y };
+
         if end {
             break;
         }
-
-        prev_vec = Vector { x: x as f32, y: y };
 
         x += xi;
         if collide_pos.is_none() {
@@ -167,16 +167,16 @@ fn plot_line_high(
     y0_i = y0_f as i16;
     y1_i = y1_f as i16;
 
-    debug::write(stdout, "PLOT_HIGH-----------");
-    debug::write(stdout, &format!("dy {} dx {}", dy, dx));
-    debug::write(stdout, &format!("slope dx/dy {}", slope));
-    debug::write(stdout, &format!("di {}", di));
-    debug::write(stdout, &format!("x0 {}", y0));
-    debug::write(stdout, "******");
-    debug::write(stdout, &format!("y0 {} y1 {}", y0, y1));
-    debug::write(stdout, &format!("y0_f {}, y1_f {}", y0_f, y1_f));
-    debug::write(stdout, &format!("y0_i {}, y1_i {}", y0_i, y1_i));
-    debug::write(stdout, "PLOT_HIGH------------");
+    // debug::write(stdout, "PLOT_HIGH-----------");
+    // debug::write(stdout, &format!("dy {} dx {}", dy, dx));
+    // debug::write(stdout, &format!("slope dx/dy {}", slope));
+    // debug::write(stdout, &format!("di {}", di));
+    // debug::write(stdout, &format!("x0 {}", y0));
+    // debug::write(stdout, "******");
+    // debug::write(stdout, &format!("y0 {} y1 {}", y0, y1));
+    // debug::write(stdout, &format!("y0_f {}, y1_f {}", y0_f, y1_f));
+    // debug::write(stdout, &format!("y0_i {}, y1_i {}", y0_i, y1_i));
+    // debug::write(stdout, "PLOT_HIGH------------");
 
     // decimal place of x
     let dec_y = y0 - y0_f;
@@ -191,53 +191,60 @@ fn plot_line_high(
     loop {
         if y == y1_i {
             // if incrementing and x greater than x1, break
+            // also, should not be straight_check, should be checking with slope change
             end = true
         }
 
-        // debug::write(stdout, "In Loop");
-
-        let x_ceil = x.ceil();
         let x_floor = x.floor();
+        let x_ceil = x.ceil();
+        let x_round = prev_vec.x.round();
 
-        let map_ceil = map.get(&(x_ceil as u16, y as u16));
-        let map_floor = map.get(&(x_floor as u16, y as u16));
-
-        if map_ceil.is_some() {
-            debug::write(stdout, &format!("({}, {}) 'W' ceil", x_ceil, y));
-            debug::write(stdout, &format!("prev_vec {}", prev_vec));
-            return (
-                prev_vec,
-                Some(Vector {
-                    x: x_ceil,
-                    y: y as f32,
-                }),
-            );
-        } else if map_floor.is_some() {
-            debug::write(stdout, &format!("({}, {}) 'W' floor", x_floor, y));
-            debug::write(stdout, &format!("prev_vec {}", prev_vec));
-            return (
-                prev_vec,
-                Some(Vector {
-                    x: x_floor,
-                    y: y as f32,
-                }),
-            );
+        let check_order = if dx > 0.0
+        // going upwards
+        {
+            [x_round, x_floor, x_ceil]
         } else {
-            debug::write(stdout, &format!("({}, {}) ' ' ceil", x_ceil, y));
-            debug::write(stdout, &format!("({}, {}) ' ' floor", x_floor, y));
+            [x_round, x_ceil, x_floor]
+        };
+
+        let mut collide_pos = None;
+        let mut modified = false;
+
+        for x_check in check_order.iter() {
+            let check = map.get(&(*x_check as u16, y as u16));
+
+            if check.is_some() {
+                debug::write(stdout, &format!("check ({}, {}) W", x_check, y));
+                // if area is unable to be walked into
+                collide_pos = Some(Vector {
+                    x: *x_check,
+                    y: y as f32,
+                });
+                break;
+            }
+            debug::write(stdout, &format!("check ({}, {})", x_check, y));
+            modified = true;
+            x = *x_check;
         }
+        debug::write(stdout, "----");
+
+        if !modified && collide_pos.is_some() {
+            return (prev_vec, collide_pos);
+        }
+
+        prev_vec = Vector { x: x, y: y as f32 };
 
         if end {
             break;
         }
 
-        prev_vec = Vector { x: x, y: y as f32 };
-
-        x += dx;
         y += yi;
+        if collide_pos.is_none() {
+            x += dx;
+        }
     }
 
-    return (p1, None);
+    return (prev_vec, None);
 }
 
 pub fn plot_line(
