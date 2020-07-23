@@ -129,20 +129,6 @@ pub trait Entity<'a> {
     }
 }
 
-// pub fn bresenham_line(p0: (f32, f32), p1: (f32, f32)) -> Vec<(u16, u16)> {
-//     let (x0, y0) = p0;
-//     let (x1, y1) = p1;
-//
-//     let dx = x1 - x0;
-//     let dy = y1 - y0;
-//
-//     let mut points = Vec::new();
-//
-//     if dx.abs() > dy.abs() {
-//         points.push()
-//     }
-// }
-
 /* Player */
 
 // TODO remove pub
@@ -163,46 +149,14 @@ impl<'a> Player<'a> {
         }
     }
 
-    // TODO
-    // pub fn wall_collide(&mut self, stdout: &mut impl Write, map: &MapData) {
-    //     if self.point == self.prev_point {
-    //         return;
-    //     }
-
-    //     let prev_tup = self.prev_point.round_int().to_i16_tuple();
-    //     let tup = self.point.round_int().to_i16_tuple();
-
-    //     let line_vec = plot_line(self.prev_point, self.point);
-
-    //     let mut prev_point = self.prev_point;
-
-    //     for pt in line_vec {
-    //         let (x_i16, y_i16) = pt;
-    //         let pt_u16 = (x_i16 as u16, y_i16 as u16);
-    //         let result = map.get(&pt_u16);
-
-    //         if result.is_some() {
-    //             self.prev_point = prev_point;
-    //             self.point = prev_point;
-    //             return;
-    //         }
-
-    //         prev_point = Vector {
-    //             x: x_i16 as f32,
-    //             y: y_i16 as f32,
-    //         };
-    //     }
-    //     self.prev_point = self.point;
-    // }
-
     pub fn wall_collide(&mut self, stdout: &mut impl Write, map: &MapData) {
-        let new_point = plot_line(stdout, self.prev_point, self.point, map);
+        let (new_point, collision_point) = plot_line(stdout, self.prev_point, self.point, map);
         self.prev_point = new_point;
         self.point = new_point;
     }
 
     pub fn action(&mut self, direction: Direction) {
-        let speed = 2.15;
+        let speed = 1.5;
         let to_add = match direction {
             Direction::Up => Vector {
                 x: 0.0,

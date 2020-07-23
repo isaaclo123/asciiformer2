@@ -50,7 +50,7 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         write!(self.stdout, "{}", cursor::Hide).unwrap();
 
         self.draw_map();
-        self.stdout.flush().unwrap();
+        // self.stdout.flush().unwrap();
 
         let mut before = Instant::now();
         let interval = 10;
@@ -103,8 +103,8 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
                             self.stdout,
                             &format!(
                                 "cursor ({}, {})",
-                                a - self.origin.x - 1,
-                                b - self.origin.y - 1
+                                a as i16 - self.origin.x as i16 - 1,
+                                b as i16 - self.origin.y as i16 - 1
                             ),
                         );
                     }
@@ -117,77 +117,6 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         self.player
             .borrow_mut()
             .wall_collide(self.stdout, &self.map.level);
-        self.player.borrow_mut().draw(self.stdout, self.origin);
-
-        true
-    }
-
-    pub fn debug_update(&mut self) -> bool {
-        self.player
-            .borrow_mut()
-            .clear(self.stdout, self.origin, &self.map.level);
-        self.stdout.flush().unwrap();
-
-        for c in stdin().keys() {
-            debug::write(self.stdout, "stdin loop");
-            match c.unwrap() {
-                Key::Char('q') => {
-                    self.game_over();
-                    return false;
-                }
-                Key::Char('w') => {
-                    debug::write(self.stdout, "Up");
-                    self.player.borrow_mut().action(Direction::Up);
-                    self.player
-                        .borrow_mut()
-                        .wall_collide(self.stdout, &self.map.level);
-                    self.player.borrow_mut().draw(self.stdout, self.origin);
-                    self.stdout.flush().unwrap();
-                    return true;
-                }
-                Key::Char('s') => {
-                    debug::write(self.stdout, "Down");
-                    self.player.borrow_mut().action(Direction::Down);
-                    self.player
-                        .borrow_mut()
-                        .wall_collide(self.stdout, &self.map.level);
-                    self.player.borrow_mut().draw(self.stdout, self.origin);
-                    self.stdout.flush().unwrap();
-                    return true;
-                }
-                Key::Char('d') => {
-                    debug::write(self.stdout, "Left");
-                    self.player.borrow_mut().action(Direction::Right);
-                    self.player
-                        .borrow_mut()
-                        .wall_collide(self.stdout, &self.map.level);
-                    self.player.borrow_mut().draw(self.stdout, self.origin);
-                    self.stdout.flush().unwrap();
-                    return true;
-                }
-                Key::Char('a') => {
-                    debug::write(self.stdout, "Right");
-                    self.player.borrow_mut().action(Direction::Left);
-                    self.player
-                        .borrow_mut()
-                        .wall_collide(self.stdout, &self.map.level);
-                    self.player.borrow_mut().draw(self.stdout, self.origin);
-                    self.stdout.flush().unwrap();
-                    return true;
-                }
-                _ => {
-                    debug::write(self.stdout, "Unknown");
-                    self.stdout.flush().unwrap();
-                    return true;
-                }
-            };
-        }
-
-        debug::write(self.stdout, "AFTER LOOP");
-        self.player
-            .borrow_mut()
-            .wall_collide(self.stdout, &self.map.level);
-        self.player.borrow_mut().draw(self.stdout, self.origin);
         self.player.borrow_mut().draw(self.stdout, self.origin);
 
         true
@@ -216,7 +145,5 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         for (_, entity) in &self.map.level {
             entity.draw(self.stdout, self.origin)
         }
-
-        self.stdout.flush().unwrap();
     }
 }

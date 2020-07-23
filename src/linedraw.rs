@@ -9,7 +9,7 @@ fn plot_line_low(
     p0: Vector<f32>,
     p1: Vector<f32>,
     map: &MapData,
-) -> Vector<f32> {
+) -> (Vector<f32>, Option<Vector<f32>>) {
     let Vector { x: x0, y: y0 } = p0;
     let Vector { x: x1, y: y1 } = p1;
 
@@ -17,10 +17,6 @@ fn plot_line_low(
 
     let (dx, dy) = (x1 - x0, y1 - y0);
     // let Vector { x: dx, dy: dy } = p1 - p0;
-    //
-    if dy == 0.0 && dx == 0.0 {
-        return p0;
-    }
 
     let slope = dy / dx;
 
@@ -86,10 +82,22 @@ fn plot_line_low(
 
         if map_ceil.is_some() {
             debug::write(stdout, &format!("({}, {}) 'W' ceil", x, y_ceil));
-            return prev_vec;
+            return (
+                prev_vec,
+                Some(Vector {
+                    x: x as f32,
+                    y: y_ceil,
+                }),
+            );
         } else if map_floor.is_some() {
             debug::write(stdout, &format!("({}, {}) 'W' floor", x, y_floor));
-            return prev_vec;
+            return (
+                prev_vec,
+                Some(Vector {
+                    x: x as f32,
+                    y: y_floor,
+                }),
+            );
         } else {
             debug::write(stdout, &format!("({}, {}) ' ' ceil", x, y_ceil));
             debug::write(stdout, &format!("({}, {}) ' ' floor", x, y_floor));
@@ -105,7 +113,7 @@ fn plot_line_low(
         y += dy;
     }
 
-    return p1;
+    return (p1, None);
 }
 
 fn plot_line_high(
@@ -113,18 +121,13 @@ fn plot_line_high(
     p0: Vector<f32>,
     p1: Vector<f32>,
     map: &MapData,
-) -> Vector<f32> {
+) -> (Vector<f32>, Option<Vector<f32>>) {
     let Vector { x: x0, y: y0 } = p0;
     let Vector { x: x1, y: y1 } = p1;
 
     debug::write(stdout, "PLOT LINE HIGH");
 
     let (dx, dy) = (x1 - x0, y1 - y0);
-    // let Vector { x: dx, dy: dy } = p1 - p0;
-    //
-    if dy == 0.0 && dx == 0.0 {
-        return p0;
-    }
 
     let slope = dx / dy;
 
@@ -191,11 +194,23 @@ fn plot_line_high(
         if map_ceil.is_some() {
             debug::write(stdout, &format!("({}, {}) 'W' ceil", x_ceil, y));
             debug::write(stdout, &format!("prev_vec {}", prev_vec));
-            return prev_vec;
+            return (
+                prev_vec,
+                Some(Vector {
+                    x: x_ceil,
+                    y: y as f32,
+                }),
+            );
         } else if map_floor.is_some() {
             debug::write(stdout, &format!("({}, {}) 'W' floor", x_floor, y));
             debug::write(stdout, &format!("prev_vec {}", prev_vec));
-            return prev_vec;
+            return (
+                prev_vec,
+                Some(Vector {
+                    x: x_floor,
+                    y: y as f32,
+                }),
+            );
         } else {
             debug::write(stdout, &format!("({}, {}) ' ' ceil", x_ceil, y));
             debug::write(stdout, &format!("({}, {}) ' ' floor", x_floor, y));
@@ -211,7 +226,7 @@ fn plot_line_high(
         y += yi;
     }
 
-    return p1;
+    return (p1, None);
 }
 
 pub fn plot_line(
@@ -219,22 +234,17 @@ pub fn plot_line(
     p0: Vector<f32>,
     p1: Vector<f32>,
     map: &MapData,
-) -> Vector<f32> {
+) -> (Vector<f32>, Option<Vector<f32>>) {
     let Vector { x: x0, y: y0 } = p0;
     let Vector { x: x1, y: y1 } = p1;
 
     if p0 == p1 {
-        return p0;
+        return (p0, None);
     }
 
     if (y1 - y0).abs() < (x1 - x0).abs() {
-        plot_line_low(stdout, p0, p1, map)
-    //     if x0 > x1 {
-    //         plot_line_low(p1, p0)
-    //     } else {
-    //         plot_line_low(p0, p1)
-    //     }
+        return plot_line_low(stdout, p0, p1, map);
     } else {
-        plot_line_high(stdout, p0, p1, map)
+        return plot_line_high(stdout, p0, p1, map);
     }
 }
