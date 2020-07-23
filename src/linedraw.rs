@@ -3,7 +3,6 @@ use crate::map::MapData;
 use crate::vectors::Vector;
 use std::io::Write;
 
-// fn plot_line_low((x0, y0): (i16, i16), (x1, y1): (i16, i16)) -> Vec<(i16, i16)> {
 fn plot_line_low(
     stdout: &mut impl Write,
     p0: Vector<f32>,

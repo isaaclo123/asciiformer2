@@ -10,12 +10,6 @@ lazy_static! {
 
 static MAX_DEBUG_LEN: usize = 20;
 
-// pub fn setup(stdout: &mut impl Write) {
-//     for l in 0..MAX_DEBUG_LEN {
-//         writeln!(stdout, "{}\n", cursor::Goto(1, l as u16)).unwrap()
-//     }
-// }
-
 pub fn write(stdout: &mut impl Write, output: &str) {
     let mut debug_buf = DEBUG_BUF.lock().unwrap();
 

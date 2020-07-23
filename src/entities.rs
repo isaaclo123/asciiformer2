@@ -16,7 +16,7 @@ pub enum Direction {
 }
 
 pub trait Entity<'a> {
-    // fn update(&mut self);
+    fn update(&mut self, stdout: &mut impl Write);
     // fn get_x(&mut self) -> u16;
     // fn get_y(&mut self) -> u16;
     // fn draw(&mut self, stdout: &'a mut impl Write);
@@ -150,13 +150,33 @@ impl<'a> Player<'a> {
     }
 
     pub fn wall_collide(&mut self, stdout: &mut impl Write, map: &MapData) {
-        let (new_point, collision_point) = plot_line(stdout, self.prev_point, self.point, map);
+        let (new_point, coll_opt) = plot_line(stdout, self.prev_point, self.point, map);
+
+        if let Some(coll_point) = coll_opt {
+            let Vector { x: new_x, y: new_y } = new_point;
+            let Vector {
+                x: coll_x,
+                y: coll_y,
+            } = coll_point;
+
+            if (coll_x - new_x).abs() <= 1.0 {
+                // if collision occoured along x axis
+                self.velocity.x = 0.0;
+            }
+            if (coll_y - new_y).abs() <= 1.0 {
+                // if collision occoured along x axis
+                self.velocity.y = 0.0;
+            }
+        }
+
         self.prev_point = new_point;
         self.point = new_point;
     }
 
-    pub fn action(&mut self, direction: Direction) {
-        let speed = 1.5;
+    pub fn apply_gravity(&mut self, _stdout: &mut impl Write) {}
+
+    pub fn action(&mut self, stdout: &mut impl Write, direction: Direction) {
+        let speed = 2.0;
         let to_add = match direction {
             Direction::Up => Vector {
                 x: 0.0,
@@ -170,8 +190,44 @@ impl<'a> Player<'a> {
             Direction::Right => Vector { x: speed, y: 0.0 },
         };
 
+        self.velocity = self.velocity + to_add;
+    }
+
+    pub fn update(&mut self, stdout: &mut impl Write) {
+        let gravity_max = 2.0;
+        let gravity_inc = 0.25;
+        let max_x_speed = 2.0;
+        let friction_x = 0.1;
+
+        // apply gravity
+        if self.velocity.y < gravity_max {
+            self.velocity.y += gravity_inc;
+        }
+
+        // apply left right speed
+        if self.velocity.x.abs() > max_x_speed {
+            self.velocity.x = if self.velocity.x < 0.0 {
+                -1.0 * max_x_speed
+            } else {
+                max_x_speed
+            };
+        }
+
+        // friction
+        if self.velocity.x < gravity_max {
+            self.velocity.x += if self.velocity.x < 0.0 {
+                // if going left, add friction
+                friction_x
+            } else {
+                // if going right, add friction
+                -1.0 * friction_x
+            };
+        }
+
+        debug::write(stdout, &format!("v {}", self.velocity));
+
         self.prev_point = self.point;
-        self.point = self.point + to_add;
+        self.point = self.point + self.velocity;
     }
 }
 
@@ -206,7 +262,8 @@ impl<'a> Entity<'a> for Player<'a> {
     fn to_string(&self) -> &'a str {
         self.name
     }
-    // fn update(&mut self) {}
+
+    fn update(&mut self, _stdout: &mut impl Write) {}
 }
 
 /* Walls */
@@ -248,5 +305,5 @@ impl<'a> Entity<'a> for Wall {
     fn to_string(&self) -> &'a str {
         "Wall"
     }
-    // fn update(&mut self) {}
+    fn update(&mut self, _stdout: &mut impl Write) {}
 }

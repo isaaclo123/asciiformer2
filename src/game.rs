@@ -53,7 +53,7 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         // self.stdout.flush().unwrap();
 
         let mut before = Instant::now();
-        let interval = 10;
+        let interval = 60;
 
         loop {
             // debug::clear(self.stdout);
@@ -88,10 +88,19 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
                         self.game_over();
                         return false;
                     }
-                    Key::Up => self.player.borrow_mut().action(Direction::Up),
-                    Key::Down => self.player.borrow_mut().action(Direction::Down),
-                    Key::Right => self.player.borrow_mut().action(Direction::Right),
-                    Key::Left => self.player.borrow_mut().action(Direction::Left),
+                    Key::Up => self.player.borrow_mut().action(self.stdout, Direction::Up),
+                    Key::Down => self
+                        .player
+                        .borrow_mut()
+                        .action(self.stdout, Direction::Down),
+                    Key::Right => self
+                        .player
+                        .borrow_mut()
+                        .action(self.stdout, Direction::Right),
+                    Key::Left => self
+                        .player
+                        .borrow_mut()
+                        .action(self.stdout, Direction::Left),
                     _ => return true,
                 },
                 Event::Mouse(me) => match me {
@@ -114,6 +123,7 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
             self.stdout.flush().unwrap();
         }
 
+        self.player.borrow_mut().update(self.stdout);
         self.player
             .borrow_mut()
             .wall_collide(self.stdout, &self.map.level);
