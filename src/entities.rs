@@ -1,11 +1,13 @@
 use crate::consts::{EntityType, TEXTURE_MAP};
 // use crate::linedraw::plot_line;
 use crate::debug;
+use crate::game::{Game, GameInfo};
 use crate::linedraw::plot_line;
 use crate::map::MapData;
 use crate::textures::{AirTextures, PlayerTextures, Texture, WallTextures};
 use crate::vectors::Vector;
-use std::io::Write;
+use std::cell::RefCell;
+use std::io::{stdin, stdout, Read, Write};
 use termion::{clear, color, cursor};
 
 pub enum Direction {
@@ -15,30 +17,30 @@ pub enum Direction {
     Right,
 }
 
-pub trait Entity<'a> {
-    fn update(&mut self, stdout: &mut impl Write);
-    // fn get_x(&mut self) -> u16;
-    // fn get_y(&mut self) -> u16;
-    // fn draw(&mut self, stdout: &'a mut impl Write);
-    fn collide(&mut self, entity: &'a mut impl Entity<'a>);
+pub trait Entity<'a, R: Read + 'a, W: Write + 'a> {
+    fn update(&mut self);
 
-    // fn should_draw(&self) -> bool;
+    // fn collide(&mut self, entity: &'a mut impl Entity<'a, R, W>);
 
     fn to_string(&self) -> &'a str;
     fn get_texture(&self) -> Texture;
+    fn get_game_info(&self) -> &RefCell<GameInfo<'a, R, W>>;
     fn get_color(&self) -> Option<&'a dyn color::Color>;
     fn get_point(&self) -> Vector<u16>;
 
-    fn clear(&self, stdout: &mut impl Write, origin: Vector<u16>, map: &MapData) {
+    fn clear(&self) {
         // if !self.should_draw() {
         //     return;
         // }
+        //
+        let origin = &self.get_game_info().borrow().origin;
+        let map = &self.get_game_info().borrow().map;
 
         let Vector {
             x: point_x,
             y: point_y,
         } = self.get_point();
-        let draw_pt = origin + self.get_point();
+        let draw_pt = *origin + self.get_point();
         let Vector {
             x: draw_x,
             y: draw_y,
@@ -48,7 +50,8 @@ pub trait Entity<'a> {
 
         for texture_y in 0..texture.len() {
             for texture_x in 0..texture[texture_y].len() {
-                let bg_texture = map.get(&(texture_x as u16 + point_x, texture_y as u16 + point_y));
+                let bg_texture = map.get((texture_x as u16 + point_x, texture_y as u16 + point_y));
+
                 // AirTextures::AIR_CHAR
 
                 let sym = if let Some(e) = bg_texture {
@@ -58,7 +61,7 @@ pub trait Entity<'a> {
                 };
 
                 writeln!(
-                    stdout,
+                    self.get_game_info().borrow_mut().stdout,
                     "{goto}{sym}",
                     goto = cursor::Goto(
                         draw_x + 1 + texture_x as u16,
@@ -72,13 +75,16 @@ pub trait Entity<'a> {
 
         // TODO overflow issue
 
-        write!(stdout, "{}", color::Fg(color::Reset)).unwrap();
+        write!(
+            self.get_game_info().borrow_mut().stdout,
+            "{}",
+            color::Fg(color::Reset)
+        )
+        .unwrap();
     }
 
     fn draw(
         &self,
-        stdout: &mut impl Write,
-        origin: Vector<u16>,
         // point: Vector<i16>,
         // fg_opt: Option<impl color::Color>,
     ) {
@@ -93,12 +99,14 @@ pub trait Entity<'a> {
         //     PlayerTextures::X_Y_EXTEND => debug::write(stdout, "X_Y_EXTEND"),
         //     _ => (),
         // };
+        //
+        let origin = &self.get_game_info().borrow().origin;
 
         if let Some(c) = self.get_color() {
-            write!(stdout, "{}", color::Fg(c)).unwrap();
+            write!(self.get_game_info().borrow_mut().stdout, "{}", color::Fg(c)).unwrap();
         }
 
-        let draw_pt = origin + self.get_point();
+        let draw_pt = *origin + self.get_point();
         let Vector {
             x: draw_x,
             y: draw_y,
@@ -114,7 +122,7 @@ pub trait Entity<'a> {
         for y in 0..texture.len() {
             for x in 0..texture[y].len() {
                 writeln!(
-                    stdout,
+                    self.get_game_info().borrow_mut().stdout,
                     "{goto}{sym}",
                     goto = cursor::Goto(draw_x + 1 + x as u16, draw_y as u16 + 1 + y as u16),
                     sym = texture[y][x]
@@ -125,32 +133,40 @@ pub trait Entity<'a> {
 
         // TODO overflow issue
 
-        write!(stdout, "{}", color::Fg(color::Reset)).unwrap();
+        write!(
+            self.get_game_info().borrow_mut().stdout,
+            "{}",
+            color::Fg(color::Reset)
+        )
+        .unwrap();
     }
 }
 
 /* Player */
 
 // TODO remove pub
-pub struct Player<'a> {
+pub struct Player<'a, R, W> {
     pub prev_point: Vector<f32>,
     pub point: Vector<f32>,
     pub velocity: Vector<f32>,
     pub name: &'a str,
+    pub game_info: RefCell<GameInfo<'a, R, W>>,
 }
 
-impl<'a> Player<'a> {
-    pub fn new(x: f32, y: f32, name: &'a str) -> Player<'a> {
+impl<'a, R: Read, W: Write> Player<'a, R, W> {
+    pub fn new(game_info: RefCell<GameInfo<'a, R, W>>, point: Vector<f32>, name: &'a str) -> Self {
         Player {
-            name: name,
-            point: Vector { x: x, y: y },
-            prev_point: Vector { x: x, y: y },
+            // game: game,
+            game_info,
+            name,
+            point,
+            prev_point: point,
             velocity: Vector { x: 0.0, y: 0.0 },
         }
     }
 
-    pub fn wall_collide(&mut self, stdout: &mut impl Write, map: &MapData) {
-        let (new_point, coll_opt) = plot_line(stdout, self.prev_point, self.point, map);
+    pub fn wall_collide(&mut self) {
+        let (new_point, coll_opt) = plot_line(self.get_game_info(), self.prev_point, self.point);
 
         if let Some(coll_point) = coll_opt {
             let Vector { x: new_x, y: new_y } = new_point;
@@ -173,9 +189,7 @@ impl<'a> Player<'a> {
         self.point = new_point;
     }
 
-    pub fn apply_gravity(&mut self, _stdout: &mut impl Write) {}
-
-    pub fn action(&mut self, stdout: &mut impl Write, direction: Direction) {
+    pub fn action(&mut self, _stdout: &mut impl Write, direction: Direction) {
         let speed = 2.0;
         let to_add = match direction {
             Direction::Up => Vector {
@@ -193,7 +207,7 @@ impl<'a> Player<'a> {
         self.velocity = self.velocity + to_add;
     }
 
-    pub fn update(&mut self, stdout: &mut impl Write) {
+    pub fn update(&mut self) {
         let gravity_max = 2.0;
         let gravity_inc = 0.25;
         let max_x_speed = 2.0;
@@ -218,23 +232,32 @@ impl<'a> Player<'a> {
             self.velocity.x += if self.velocity.x < 0.0 {
                 // if going left, add friction
                 friction_x
-            } else {
-                // if going right, add friction
+            } else if self.velocity.x > 0.0 {
+                // if going right, reduce friction
                 -1.0 * friction_x
+            } else {
+                0.0
             };
         }
 
-        debug::write(stdout, &format!("v {}", self.velocity));
+        debug::write(
+            self.get_game_info().borrow_mut().stdout,
+            &format!("v {}", self.velocity),
+        );
 
         self.prev_point = self.point;
         self.point = self.point + self.velocity;
     }
 }
 
-impl<'a> Entity<'a> for Player<'a> {
+impl<'a, R: Read, W: Write> Entity<'a, R, W> for Player<'a, R, W> {
     // fn should_draw(&self) -> bool {
     //     !(self.prev_point.round_int() == self.point.round_int())
     // }
+
+    fn get_game_info(&self) -> &RefCell<GameInfo<'a, R, W>> {
+        &self.game_info
+    }
     fn get_texture(&self) -> Texture {
         let floor_pt = self.point.floor_int();
         let round_pt = self.point.round_int();
@@ -257,36 +280,39 @@ impl<'a> Entity<'a> for Player<'a> {
         self.point.floor_int()
     }
 
-    fn collide(&mut self, _entity: &'a mut impl Entity<'a>) {}
+    // fn collide(&mut self, _entity: &'a mut impl Entity<'a>) {}
 
     fn to_string(&self) -> &'a str {
         self.name
     }
 
-    fn update(&mut self, _stdout: &mut impl Write) {}
+    fn update(&mut self) {}
 }
 
 /* Walls */
 
-pub struct Wall {
+pub struct Wall<'a, R, W> {
     pub point: Vector<f32>,
+    pub game_info: RefCell<GameInfo<'a, R, W>>,
 }
 
-impl Wall {
-    pub fn new(x: u16, y: u16) -> Wall {
-        return Wall {
-            point: Vector {
-                x: x as f32,
-                y: y as f32,
-            },
-        };
+impl<'a, R: Read, W: Write> Wall<'a, R, W> {
+    pub fn new(game_info: RefCell<GameInfo<'a, R, W>>, point: Vector<f32>) -> Self {
+        Wall {
+            // game: game,
+            game_info,
+            point,
+        }
     }
 }
 
-impl<'a> Entity<'a> for Wall {
+impl<'a, R: Read, W: Write> Entity<'a, R, W> for Wall<'a, R, W> {
     // fn should_draw(&self) -> bool {
     //     true
     // }
+    fn get_game_info(&self) -> &RefCell<GameInfo<'a, R, W>> {
+        &self.game_info
+    }
 
     fn get_texture(&self) -> Texture {
         return WallTextures::WALL;
@@ -300,10 +326,10 @@ impl<'a> Entity<'a> for Wall {
         self.point.floor_int()
     }
 
-    fn collide(&mut self, _entity: &'a mut impl Entity<'a>) {}
+    // fn collide(&mut self, _entity: &'a mut impl Entity<'a>) {}
 
     fn to_string(&self) -> &'a str {
         "Wall"
     }
-    fn update(&mut self, _stdout: &mut impl Write) {}
+    fn update(&mut self) {}
 }

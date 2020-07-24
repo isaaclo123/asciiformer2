@@ -7,6 +7,12 @@ pub struct Vector<T> {
     pub y: T,
 }
 
+impl<T> Vector<T> {
+    pub fn new(x: T, y: T) -> Self {
+        Self { x, y }
+    }
+}
+
 impl<T: Mul<Output = T>> Vector<T> {
     pub fn to_tuple(self) -> (T, T) {
         (self.x, self.y)

@@ -1,16 +1,19 @@
 use crate::debug;
-use crate::map::MapData;
+use crate::game::GameInfo;
+use crate::map::{Map, MapData};
 use crate::vectors::Vector;
-use std::io::Write;
+use std::cell::RefCell;
+use std::io::{Read, Write};
 
-fn plot_line_low(
-    stdout: &mut impl Write,
+fn plot_line_low<'a, R: Read, W: Write>(
+    game_info: &RefCell<GameInfo<'a, R, W>>,
     p0: Vector<f32>,
     p1: Vector<f32>,
-    map: &MapData,
 ) -> (Vector<f32>, Option<Vector<f32>>) {
     let Vector { x: x0, y: y0 } = p0;
     let Vector { x: x1, y: y1 } = p1;
+
+    let stdout = game_info.borrow_mut().stdout;
 
     // debug::write(stdout, &format!("first {}", p0));
 
@@ -91,7 +94,7 @@ fn plot_line_low(
         let mut modified = false;
 
         for y_check in check_order.iter() {
-            let check = map.get(&(x as u16, *y_check as u16));
+            let check = game_info.borrow().map.get((x as u16, *y_check as u16));
 
             if check.is_some() {
                 debug::write(stdout, &format!("check ({}, {}) W", x, y_check));
@@ -127,16 +130,17 @@ fn plot_line_low(
     return (prev_vec, None);
 }
 
-fn plot_line_high(
-    stdout: &mut impl Write,
+fn plot_line_high<'a, R: Read, W: Write>(
+    game_info: &RefCell<GameInfo<'a, R, W>>,
     p0: Vector<f32>,
     p1: Vector<f32>,
-    map: &MapData,
 ) -> (Vector<f32>, Option<Vector<f32>>) {
     let Vector { x: x0, y: y0 } = p0;
     let Vector { x: x1, y: y1 } = p1;
 
-    debug::write(stdout, "PLOT LINE HIGH");
+    let stdout = &game_info.borrow_mut().stdout;
+
+    debug::write(*stdout, "PLOT LINE HIGH");
 
     let (dx, dy) = (x1 - x0, y1 - y0);
 
@@ -150,14 +154,14 @@ fn plot_line_high(
     let y1_i: i16;
 
     if dy < 0.0 {
-        debug::write(stdout, &format!("Up {}^{}", p0, p1));
+        debug::write(*stdout, &format!("Up {}^{}", p0, p1));
         // going up
         y0_f = y0.ceil();
         y1_f = y1.floor();
         yi = -1;
         di = -1.0 * slope;
     } else {
-        debug::write(stdout, &format!("Down {}V{}", p0, p1));
+        debug::write(*stdout, &format!("Down {}V{}", p0, p1));
         // going down
         y0_f = y0.floor();
         y1_f = y1.ceil();
@@ -211,10 +215,11 @@ fn plot_line_high(
         let mut modified = false;
 
         for x_check in check_order.iter() {
-            let check = map.get(&(*x_check as u16, y as u16));
+            let map = &game_info.borrow().map;
+            let check = map.get((*x_check as u16, y as u16));
 
             if check.is_some() {
-                debug::write(stdout, &format!("check ({}, {}) W", x_check, y));
+                debug::write(*stdout, &format!("check ({}, {}) W", x_check, y));
                 // if area is unable to be walked into
                 collide_pos = Some(Vector {
                     x: *x_check,
@@ -222,11 +227,11 @@ fn plot_line_high(
                 });
                 break;
             }
-            debug::write(stdout, &format!("check ({}, {})", x_check, y));
+            debug::write(*stdout, &format!("check ({}, {})", x_check, y));
             modified = true;
             x = *x_check;
         }
-        debug::write(stdout, "----");
+        debug::write(*stdout, "----");
 
         if !modified && collide_pos.is_some() {
             return (prev_vec, collide_pos);
@@ -247,11 +252,10 @@ fn plot_line_high(
     return (prev_vec, None);
 }
 
-pub fn plot_line(
-    stdout: &mut impl Write,
+pub fn plot_line<'a, R: Read, W: Write>(
+    game_info: &RefCell<GameInfo<'a, R, W>>,
     p0: Vector<f32>,
     p1: Vector<f32>,
-    map: &MapData,
 ) -> (Vector<f32>, Option<Vector<f32>>) {
     let Vector { x: x0, y: y0 } = p0;
     let Vector { x: x1, y: y1 } = p1;
@@ -261,8 +265,8 @@ pub fn plot_line(
     }
 
     if (y1 - y0).abs() < (x1 - x0).abs() {
-        return plot_line_low(stdout, p0, p1, map);
+        return plot_line_low(game_info, p0, p1);
     } else {
-        return plot_line_high(stdout, p0, p1, map);
+        return plot_line_high(game_info, p0, p1);
     }
 }
