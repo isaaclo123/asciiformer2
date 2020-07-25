@@ -31,27 +31,41 @@ impl Map {
     //     }
     // }
     //
-
-    pub fn map_check_wall(&self, location: Vector<f32>) -> bool {
-        let floor = location.floor_int();
-        let Vector { x, y } = floor;
-        let ceil = location.ceil_int();
-
-        // Maybe use if statements instead for speed?
-        let check = match (floor.x != ceil.x, floor.y != ceil.y) {
-            (true, true) => vec![(x, y), (x + 1, y), (x, y + 1), (x + 1, y + 1)],
-            (true, false) => vec![(x, y), (x + 1, y)],
-            (false, true) => vec![(x, y), (x, y + 1)],
-            (false, false) => vec![(x, y)],
-        };
-
-        for point in check {
-            if self.level.get(&point).is_some() {
-                return false;
-            }
+    //
+    pub fn get(&self, x: i16, y: i16) -> Option<&Wall> {
+        if x < 0 || y < 0 || x >= self.width as i16 || y >= self.height as i16 {
+            return None;
         }
-        true
+
+        let pt = (x as u16, y as u16);
+
+        self.level.get(&pt)
     }
+
+    pub fn get_level(&self) -> &MapData {
+        &self.level
+    }
+
+    // pub fn map_check_wall(&self, location: Vector<f32>) -> bool {
+    //     let floor = location.floor_int();
+    //     let Vector { x, y } = floor;
+    //     let ceil = location.ceil_int();
+
+    //     // Maybe use if statements instead for speed?
+    //     let check = match (floor.x != ceil.x, floor.y != ceil.y) {
+    //         (true, true) => vec![(x, y), (x + 1, y), (x, y + 1), (x + 1, y + 1)],
+    //         (true, false) => vec![(x, y), (x + 1, y)],
+    //         (false, true) => vec![(x, y), (x, y + 1)],
+    //         (false, false) => vec![(x, y)],
+    //     };
+
+    //     for point in check {
+    //         if self.level.get(&point).is_some() {
+    //             return false;
+    //         }
+    //     }
+    //     true
+    // }
 
     pub fn load_from_file(filename: impl AsRef<Path>) -> Result<Map, Error> {
         let file = File::open(filename)?;

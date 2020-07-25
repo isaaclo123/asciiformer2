@@ -1,17 +1,17 @@
-use crate::lazy_static;
-use std::io::{stdin, stdout, Read, Write};
-use std::sync::atomic::{AtomicU16, Ordering};
+use std::io::{stdout, Stdout, Write};
 use std::sync::Mutex;
-use termion::{clear, color, cursor};
+use termion::cursor;
 
 lazy_static! {
     static ref DEBUG_BUF: Mutex<Vec<std::string::String>> = Mutex::new(vec![]);
+    static ref DEBUG_STDOUT: Mutex<Stdout> = Mutex::new(stdout());
 }
 
 static MAX_DEBUG_LEN: usize = 30;
 
-pub fn write(stdout: &mut impl Write, output: &str) {
+pub fn write(output: &str) {
     let mut debug_buf = DEBUG_BUF.lock().unwrap();
+    let mut stdout = DEBUG_STDOUT.lock().unwrap();
 
     for (i, line) in debug_buf.iter().enumerate() {
         for j in 0..line.len() {
@@ -39,31 +39,3 @@ pub fn write(stdout: &mut impl Write, output: &str) {
         .unwrap()
     }
 }
-
-// pub fn clear(stdout: &mut impl Write) {
-//     let buf_len = DEBUG_BUF.lock().unwrap().len();
-//
-//     for l in 0..buf_len {
-//         writeln!(
-//             stdout,
-//             "{goto}{clear}\r\n",
-//             goto = cursor::Goto(1, l as u16),
-//             clear = clear::UntilNewline
-//         )
-//         .unwrap()
-//     }
-// }
-//
-// pub fn clear(stdout: &mut impl Write) {
-//     let line_no = DEBUG_LINE_NO.load(Ordering::SeqCst);
-//     for l in 0..line_no {
-//         writeln!(
-//             stdout,
-//             "{}{}",
-//             cursor::Goto(1, l as u16),
-//             clear::UntilNewline
-//         )
-//         .unwrap()
-//     }
-//     DEBUG_LINE_NO.store(1, Ordering::SeqCst);
-// }

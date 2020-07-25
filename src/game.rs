@@ -10,6 +10,7 @@ use std::time::{Duration, Instant};
 use termion::event::*;
 
 use std::cell::RefCell;
+use std::rc::Rc;
 use termion::event::Key;
 use termion::input::{Events, TermRead};
 use termion::{clear, color, cursor, terminal_size};
@@ -19,7 +20,7 @@ pub struct Game<'a, R, W> {
     height: u16,
     stdin: &'a mut R,
     stdout: &'a mut W,
-    map: Map,
+    map: Rc<RefCell<Map>>,
     origin: Vector<u16>,
     player: RefCell<Player<'a>>,
 }
@@ -35,7 +36,7 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         Game {
             width: width,
             height: height,
-            map: map,
+            map: Rc::new(RefCell::new(map)),
             stdin: stdin,
             stdout: stdout,
             origin: Vector {
@@ -78,14 +79,13 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
 
     fn run(&mut self, direction_opt: Option<Direction>) {
         if let Some(d) = direction_opt {
-            self.player.borrow_mut().action(self.stdout, d);
+            self.player.borrow_mut().action(d);
         } else {
-            debug::write(self.stdout, "RUN NONE");
+            debug::write("RUN NONE");
         }
-        self.player.borrow_mut().update(self.stdout);
-        self.player
-            .borrow_mut()
-            .wall_collide(self.stdout, &self.map.level);
+        self.player.borrow_mut().update();
+        self.player.borrow_mut().wall_collide(Rc::clone(&self.map));
+
         self.player.borrow_mut().draw(self.stdout, self.origin);
         self.stdout.flush().unwrap();
     }
@@ -95,7 +95,7 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
 
         self.player
             .borrow_mut()
-            .clear(self.stdout, self.origin, &self.map.level);
+            .clear(self.stdout, self.origin, Rc::clone(&self.map));
 
         if let Some(c) = self.stdin.events().next() {
             match c.unwrap() {
@@ -119,13 +119,13 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
                         let x = a as i16 - self.origin.x as i16 - 1;
                         let y = b as i16 - self.origin.y as i16 - 1;
 
-                        let sym = if self.map.level.get(&(x as u16, y as u16)).is_some() {
+                        let sym = if self.map.borrow().get(x, y).is_some() {
                             'W'
                         } else {
                             ' '
                         };
 
-                        debug::write(self.stdout, &format!("cursor ({}, {}) {}", x, y, sym));
+                        debug::write(&format!("cursor ({}, {}) {}", x, y, sym));
                     }
                     _ => (), // MouseEvent::Release(a, b) | MouseEvent::Hold(a, b) => {
                              //     // write!(self.stdout, "{}x", cursor::Goto(a, b)).unwrap();
@@ -139,7 +139,7 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         if !debug {
             self.player
                 .borrow_mut()
-                .clear(self.stdout, self.origin, &self.map.level);
+                .clear(self.stdout, self.origin, Rc::clone(&self.map));
             self.run(None);
         }
 
@@ -169,7 +169,7 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         )
         .unwrap();
 
-        for (_, entity) in &self.map.level {
+        for (_, entity) in self.map.borrow().get_level() {
             entity.draw(self.stdout, self.origin)
         }
     }

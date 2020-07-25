@@ -1,13 +1,14 @@
 use crate::debug;
-use crate::map::MapData;
+use crate::map::Map;
 use crate::vectors::Vector;
+use std::cell::RefCell;
 use std::io::Write;
+use std::rc::Rc;
 
 fn plot_line_low(
-    stdout: &mut impl Write,
     p0: Vector<f32>,
     p1: Vector<f32>,
-    map: &MapData,
+    map: Rc<RefCell<Map>>,
 ) -> (Vector<f32>, Option<Vector<f32>>) {
     let Vector { x: x0, y: y0 } = p0;
     let Vector { x: x1, y: y1 } = p1;
@@ -27,14 +28,14 @@ fn plot_line_low(
     let x1_i: i16;
 
     if dx < 0.0 {
-        debug::write(stdout, &format!("Left {}<-{}", p1, p0));
+        debug::write(&format!("Left {}<-{}", p1, p0));
         // going left
         x0_f = x0.ceil();
         x1_f = x1.floor();
         xi = -1;
         di = -1.0 * slope;
     } else {
-        debug::write(stdout, &format!("Right {}->{}", p0, p1));
+        debug::write(&format!("Right {}->{}", p0, p1));
         // going right
         x0_f = x0.floor();
         x1_f = x1.ceil();
@@ -91,10 +92,11 @@ fn plot_line_low(
         let mut modified = false;
 
         for y_check in check_order.iter() {
-            let check = map.get(&(x as u16, *y_check as u16));
+            let my_map = map.borrow();
+            let check = my_map.get(x as i16, *y_check as i16);
 
             if check.is_some() {
-                debug::write(stdout, &format!("check ({}, {}) W", x, y_check));
+                debug::write(&format!("check ({}, {}) W", x, y_check));
                 // if area is unable to be walked into
                 collide_pos = Some(Vector {
                     x: x as f32,
@@ -102,11 +104,11 @@ fn plot_line_low(
                 });
                 break;
             }
-            debug::write(stdout, &format!("check ({}, {})", x, y_check));
+            debug::write(&format!("check ({}, {})", x, y_check));
             modified = true;
             y = *y_check;
         }
-        debug::write(stdout, "----");
+        debug::write("----");
 
         if !modified && collide_pos.is_some() {
             return (prev_vec, collide_pos);
@@ -128,15 +130,14 @@ fn plot_line_low(
 }
 
 fn plot_line_high(
-    stdout: &mut impl Write,
     p0: Vector<f32>,
     p1: Vector<f32>,
-    map: &MapData,
+    map: Rc<RefCell<Map>>,
 ) -> (Vector<f32>, Option<Vector<f32>>) {
     let Vector { x: x0, y: y0 } = p0;
     let Vector { x: x1, y: y1 } = p1;
 
-    debug::write(stdout, "PLOT LINE HIGH");
+    debug::write("PLOT LINE HIGH");
 
     let (dx, dy) = (x1 - x0, y1 - y0);
 
@@ -150,14 +151,14 @@ fn plot_line_high(
     let y1_i: i16;
 
     if dy < 0.0 {
-        debug::write(stdout, &format!("Up {}^{}", p0, p1));
+        debug::write(&format!("Up {}^{}", p0, p1));
         // going up
         y0_f = y0.ceil();
         y1_f = y1.floor();
         yi = -1;
         di = -1.0 * slope;
     } else {
-        debug::write(stdout, &format!("Down {}V{}", p0, p1));
+        debug::write(&format!("Down {}V{}", p0, p1));
         // going down
         y0_f = y0.floor();
         y1_f = y1.ceil();
@@ -211,10 +212,11 @@ fn plot_line_high(
         let mut modified = false;
 
         for x_check in check_order.iter() {
-            let check = map.get(&(*x_check as u16, y as u16));
+            let my_map = map.borrow();
+            let check = my_map.get(*x_check as i16, y as i16);
 
             if check.is_some() {
-                debug::write(stdout, &format!("check ({}, {}) W", x_check, y));
+                debug::write(&format!("check ({}, {}) W", x_check, y));
                 // if area is unable to be walked into
                 collide_pos = Some(Vector {
                     x: *x_check,
@@ -222,11 +224,11 @@ fn plot_line_high(
                 });
                 break;
             }
-            debug::write(stdout, &format!("check ({}, {})", x_check, y));
+            debug::write(&format!("check ({}, {})", x_check, y));
             modified = true;
             x = *x_check;
         }
-        debug::write(stdout, "----");
+        debug::write("----");
 
         if !modified && collide_pos.is_some() {
             return (prev_vec, collide_pos);
@@ -248,10 +250,9 @@ fn plot_line_high(
 }
 
 pub fn plot_line(
-    stdout: &mut impl Write,
     p0: Vector<f32>,
     p1: Vector<f32>,
-    map: &MapData,
+    map: Rc<RefCell<Map>>,
 ) -> (Vector<f32>, Option<Vector<f32>>) {
     let Vector { x: x0, y: y0 } = p0;
     let Vector { x: x1, y: y1 } = p1;
@@ -261,8 +262,8 @@ pub fn plot_line(
     }
 
     if (y1 - y0).abs() < (x1 - x0).abs() {
-        return plot_line_low(stdout, p0, p1, map);
+        return plot_line_low(p0, p1, map);
     } else {
-        return plot_line_high(stdout, p0, p1, map);
+        return plot_line_high(p0, p1, map);
     }
 }
