@@ -2,6 +2,7 @@ use crate::entities::Wall;
 use crate::vectors::Vector;
 use std::cell::RefCell;
 use std::collections::HashMap;
+use std::rc::Rc;
 use std::{
     fs::File,
     io::{BufRead, BufReader, Error, Read, Write},
@@ -66,7 +67,7 @@ impl<'a, R: Read, W: Write> Map<'a, R, W> {
 
     pub fn load_from_file(
         &mut self,
-        game_info: RefCell<GameInfo<'a, R, W>>,
+        game_info: Rc<RefCell<GameInfo<'a, R, W>>>,
         filename: impl AsRef<Path>,
     ) -> Result<bool, Error> {
         let file = File::open(filename)?;

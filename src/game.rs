@@ -5,6 +5,7 @@ use crate::map::Map;
 use crate::vectors::Vector;
 use std::io::{stdin, stdout, Read, Write};
 use std::path::Path;
+use std::rc::Rc;
 use std::thread::sleep;
 use std::time::{Duration, Instant};
 use termion::event::*;
@@ -24,7 +25,7 @@ pub struct GameInfo<'a, R, W> {
 }
 
 pub struct Game<'a, R, W> {
-    pub game_info: RefCell<GameInfo<'a, R, W>>,
+    pub game_info: Rc<RefCell<GameInfo<'a, R, W>>>,
     player: RefCell<Player<'a, R, W>>,
     // self_refcell: RefCell<&'a mut Self>,
 }
@@ -57,13 +58,11 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         game_info.borrow_mut().origin =
             Vector::new((width - map.width) / 2, (height - map.height) / 2);
 
+        let game_rc = Rc::new(game_info);
+
         Game {
-            game_info,
-            player: RefCell::new(Player::new(
-                game_info,
-                Vector { x: 20.1, y: 20.7 },
-                "My Name",
-            )),
+            game_info: game_rc,
+            player: RefCell::new(Player::new(game_rc, Vector { x: 20.1, y: 20.7 }, "My Name")),
         }
     }
 

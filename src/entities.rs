@@ -8,6 +8,7 @@ use crate::textures::{AirTextures, PlayerTextures, Texture, WallTextures};
 use crate::vectors::Vector;
 use std::cell::RefCell;
 use std::io::{stdin, stdout, Read, Write};
+use std::rc::Rc;
 use termion::{clear, color, cursor};
 
 pub enum Direction {
@@ -150,11 +151,15 @@ pub struct Player<'a, R, W> {
     pub point: Vector<f32>,
     pub velocity: Vector<f32>,
     pub name: &'a str,
-    pub game_info: RefCell<GameInfo<'a, R, W>>,
+    pub game_info: Rc<RefCell<GameInfo<'a, R, W>>>,
 }
 
 impl<'a, R: Read, W: Write> Player<'a, R, W> {
-    pub fn new(game_info: RefCell<GameInfo<'a, R, W>>, point: Vector<f32>, name: &'a str) -> Self {
+    pub fn new(
+        game_info: Rc<RefCell<GameInfo<'a, R, W>>>,
+        point: Vector<f32>,
+        name: &'a str,
+    ) -> Self {
         Player {
             // game: game,
             game_info,
@@ -293,11 +298,11 @@ impl<'a, R: Read, W: Write> Entity<'a, R, W> for Player<'a, R, W> {
 
 pub struct Wall<'a, R, W> {
     pub point: Vector<f32>,
-    pub game_info: RefCell<GameInfo<'a, R, W>>,
+    pub game_info: Rc<RefCell<GameInfo<'a, R, W>>>,
 }
 
 impl<'a, R: Read, W: Write> Wall<'a, R, W> {
-    pub fn new(game_info: RefCell<GameInfo<'a, R, W>>, point: Vector<f32>) -> Self {
+    pub fn new(game_info: Rc<RefCell<GameInfo<'a, R, W>>>, point: Vector<f32>) -> Self {
         Wall {
             // game: game,
             game_info,
