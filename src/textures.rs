@@ -25,3 +25,13 @@ pub struct AirTextures;
 impl AirTextures {
     pub const AIR: Texture = &[&[' ']];
 }
+
+#[non_exhaustive]
+pub struct BulletTextures;
+impl BulletTextures {
+    pub const BOT_LEFT: Texture = &[&['▖']];
+    pub const BOT_RIGHT: Texture = &[&['▗']];
+    pub const TOP_LEFT: Texture = &[&['▘']];
+    pub const TOP_RIGHT: Texture = &[&['▝']];
+    pub const MID: Texture = &[&['▮']];
+}

@@ -5,7 +5,6 @@ use crate::map::Map;
 use crate::textures::{PlayerTextures, Texture};
 use crate::vectors::Vector;
 use std::cell::RefCell;
-use std::io::Write;
 use std::rc::Rc;
 use termion::color;
 
@@ -30,7 +29,7 @@ impl<'a> Player<'a> {
     }
 
     pub fn wall_collide(&mut self, map: Rc<RefCell<Map>>) {
-        let (new_point, coll_opt) = plot_line(self.prev_point, self.point, Rc::clone(&map));
+        let (new_point, coll_opt) = plot_line(self.prev_point, self.point, Rc::clone(&map), true);
 
         if let Some(coll_point) = coll_opt {
             let Vector { x: new_x, y: new_y } = new_point;

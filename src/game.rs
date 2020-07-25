@@ -1,9 +1,8 @@
-use crate::consts::{EntityType, TEXTURE_MAP};
 use crate::debug;
 use crate::entities::{Direction, Entity, Player};
 use crate::map::Map;
 use crate::vectors::Vector;
-use std::io::{stdin, stdout, Read, Write};
+use std::io::{Read, Write};
 use std::path::Path;
 use std::thread::sleep;
 use std::time::{Duration, Instant};
@@ -12,8 +11,8 @@ use termion::event::*;
 use std::cell::RefCell;
 use std::rc::Rc;
 use termion::event::Key;
-use termion::input::{Events, TermRead};
-use termion::{clear, color, cursor, terminal_size};
+use termion::input::TermRead;
+use termion::{clear, cursor, terminal_size};
 
 pub struct Game<'a, R, W> {
     width: u16,
@@ -51,14 +50,11 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         write!(self.stdout, "{}", cursor::Hide).unwrap();
 
         self.draw_map();
-        // self.stdout.flush().unwrap();
 
         let mut before = Instant::now();
         let interval = 60;
 
         loop {
-            // debug::clear(self.stdout);
-            //self.display_map();
             let now = Instant::now();
             let dt = (now.duration_since(before).subsec_nanos() / 1_000_000) as u64;
 
@@ -71,9 +67,6 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
             if !self.update() {
                 return;
             }
-            // if !self.update() {
-            //     return;
-            // }
         }
     }
 

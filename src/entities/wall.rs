@@ -1,7 +1,6 @@
 use super::Entity;
 use crate::textures::{Texture, WallTextures};
 use crate::vectors::Vector;
-use std::io::Write;
 use termion::color;
 
 /* Walls */
@@ -22,10 +21,6 @@ impl Wall {
 }
 
 impl<'a> Entity<'a> for Wall {
-    // fn should_draw(&self) -> bool {
-    //     true
-    // }
-
     fn get_texture(&self) -> Texture {
         return WallTextures::WALL;
     }
@@ -43,5 +38,6 @@ impl<'a> Entity<'a> for Wall {
     fn to_string(&self) -> &'a str {
         "Wall"
     }
+
     fn update(&mut self) {}
 }

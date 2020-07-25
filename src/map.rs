@@ -1,15 +1,12 @@
 use crate::entities::Wall;
-use crate::vectors::Vector;
-use std::cell::RefCell;
 use std::collections::HashMap;
 use std::{
     fs::File,
     io::{BufRead, BufReader, Error},
     path::Path,
-    vec::Vec,
 };
 
-use crate::consts::{EntityType, EntityTypeVal, LEVEL_MAP};
+use crate::consts::{EntityType, LEVEL_MAP};
 
 // pub type MapData = Vec<Vec<EntityTypeVal>>;
 pub type MapData = HashMap<(u16, u16), Wall>;
@@ -74,7 +71,7 @@ impl Map {
         let mut map: MapData = HashMap::new();
 
         let mut y = 0;
-        let mut x = 0;
+        let mut x;
 
         let mut max_x = 0;
 

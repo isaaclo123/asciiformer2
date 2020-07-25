@@ -2,13 +2,13 @@ use crate::debug;
 use crate::map::Map;
 use crate::vectors::Vector;
 use std::cell::RefCell;
-use std::io::Write;
 use std::rc::Rc;
 
 fn plot_line_low(
     p0: Vector<f32>,
     p1: Vector<f32>,
     map: Rc<RefCell<Map>>,
+    slide: bool,
 ) -> (Vector<f32>, Option<Vector<f32>>) {
     let Vector { x: x0, y: y0 } = p0;
     let Vector { x: x1, y: y1 } = p1;
@@ -102,6 +102,11 @@ fn plot_line_low(
                     x: x as f32,
                     y: *y_check,
                 });
+
+                if !slide {
+                    return (prev_vec, collide_pos);
+                }
+
                 break;
             }
             debug::write(&format!("check ({}, {})", x, y_check));
@@ -133,6 +138,7 @@ fn plot_line_high(
     p0: Vector<f32>,
     p1: Vector<f32>,
     map: Rc<RefCell<Map>>,
+    slide: bool,
 ) -> (Vector<f32>, Option<Vector<f32>>) {
     let Vector { x: x0, y: y0 } = p0;
     let Vector { x: x1, y: y1 } = p1;
@@ -222,6 +228,11 @@ fn plot_line_high(
                     x: *x_check,
                     y: y as f32,
                 });
+
+                if !slide {
+                    return (prev_vec, collide_pos);
+                }
+
                 break;
             }
             debug::write(&format!("check ({}, {})", x_check, y));
@@ -253,6 +264,7 @@ pub fn plot_line(
     p0: Vector<f32>,
     p1: Vector<f32>,
     map: Rc<RefCell<Map>>,
+    slide: bool,
 ) -> (Vector<f32>, Option<Vector<f32>>) {
     let Vector { x: x0, y: y0 } = p0;
     let Vector { x: x1, y: y1 } = p1;
@@ -262,8 +274,8 @@ pub fn plot_line(
     }
 
     if (y1 - y0).abs() < (x1 - x0).abs() {
-        return plot_line_low(p0, p1, map);
+        return plot_line_low(p0, p1, map, slide);
     } else {
-        return plot_line_high(p0, p1, map);
+        return plot_line_high(p0, p1, map, slide);
     }
 }

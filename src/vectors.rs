@@ -7,22 +7,51 @@ pub struct Vector<T> {
     pub y: T,
 }
 
+impl<T> Vector<T> {
+    pub fn new(x: T, y: T) -> Self {
+        Self { x, y }
+    }
+}
+
 impl<T: Mul<Output = T>> Vector<T> {
     pub fn to_tuple(self) -> (T, T) {
         (self.x, self.y)
     }
-
-    // fn mul(self, val: T) -> Vector<T> {
-    //     Vector {
-    //         x: self.x * val,
-    //         y: self.y * val,
-    //     }
-    // }
 }
 
 impl<T: Display> Display for Vector<T> {
     fn fmt(&self, f: &mut Formatter<'_>) -> Result {
         write!(f, "({}, {})", self.x, self.y)
+    }
+}
+
+impl<T: Mul<Output = T>> Mul<T> for Vector<T>
+where
+    T: Copy,
+{
+    // The division of rational numbers is a closed operation.
+    type Output = Self;
+
+    fn mul(self, rhs: T) -> Self::Output {
+        Vector {
+            x: self.x * rhs,
+            y: self.y * rhs,
+        }
+    }
+}
+
+impl<T: Div<Output = T>> Div<T> for Vector<T>
+where
+    T: Copy,
+{
+    // The division of rational numbers is a closed operation.
+    type Output = Self;
+
+    fn div(self, rhs: T) -> Self::Output {
+        Vector {
+            x: self.x / rhs,
+            y: self.y / rhs,
+        }
     }
 }
 
@@ -112,6 +141,22 @@ impl<T: Div<Output = T>> Div for Vector<T> {
 // }
 
 impl Vector<f32> {
+    pub fn magn(self, rhs: Vector<f32>) -> f32 {
+        let Vector {
+            x: diff_x,
+            y: diff_y,
+        } = rhs - self;
+
+        (diff_x.powi(2) + diff_y.powi(2)).sqrt()
+    }
+
+    pub fn fract(self) -> Vector<f32> {
+        Vector {
+            x: self.x.fract(),
+            y: self.y.fract(),
+        }
+    }
+
     pub fn round_i_int(self) -> Vector<i16> {
         Vector {
             x: self.x.round() as i16,
@@ -144,6 +189,7 @@ impl Vector<f32> {
             y: self.y.round(),
         }
     }
+
     pub fn ceil(self) -> Vector<f32> {
         Vector {
             x: self.x.ceil(),
