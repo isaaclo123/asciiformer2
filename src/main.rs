@@ -1,22 +1,19 @@
 #[macro_use]
 extern crate lazy_static;
-
 extern crate termion;
 
 mod consts;
 mod debug;
 mod entities;
 mod game;
-mod linedraw;
 mod map;
 mod textures;
 mod vectors;
 
-use crate::debug as other_debug;
 use game::Game;
 use std::io::stdout;
 use termion::async_stdin;
-use termion::input::{MouseTerminal, TermRead};
+use termion::input::MouseTerminal;
 use termion::raw::IntoRawMode;
 
 fn main() {

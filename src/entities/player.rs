@@ -1,6 +1,5 @@
-use super::{Direction, Entity};
+use super::{plot_line, Direction, Entity};
 use crate::debug;
-use crate::linedraw::plot_line;
 use crate::map::Map;
 use crate::textures::{PlayerTextures, Texture};
 use crate::vectors::Vector;
@@ -26,30 +25,6 @@ impl<'a> Player<'a> {
             prev_point: Vector { x: x, y: y },
             velocity: Vector { x: 0.0, y: 0.0 },
         }
-    }
-
-    pub fn wall_collide(&mut self, map: Rc<RefCell<Map>>) {
-        let (new_point, coll_opt) = plot_line(self.prev_point, self.point, Rc::clone(&map), true);
-
-        if let Some(coll_point) = coll_opt {
-            let Vector { x: new_x, y: new_y } = new_point;
-            let Vector {
-                x: coll_x,
-                y: coll_y,
-            } = coll_point;
-
-            if (coll_x - new_x).abs() <= 1.0 {
-                // if collision occoured along x axis
-                self.velocity.x = 0.0;
-            }
-            if (coll_y - new_y).abs() <= 1.0 {
-                // if collision occoured along x axis
-                self.velocity.y = 0.0;
-            }
-        }
-
-        self.prev_point = new_point;
-        self.point = new_point;
     }
 
     pub fn action(&mut self, direction: Direction) {
@@ -89,6 +64,30 @@ impl<'a> Entity<'a> for Player<'a> {
         texture
     }
 
+    fn collide(&mut self, map: Rc<RefCell<Map>>) {
+        let (new_point, coll_opt) = plot_line(self.prev_point, self.point, Rc::clone(&map), true);
+
+        if let Some(coll_point) = coll_opt {
+            let Vector { x: new_x, y: new_y } = new_point;
+            let Vector {
+                x: coll_x,
+                y: coll_y,
+            } = coll_point;
+
+            if (coll_x - new_x).abs() <= 1.0 {
+                // if collision occoured along x axis
+                self.velocity.x = 0.0;
+            }
+            if (coll_y - new_y).abs() <= 1.0 {
+                // if collision occoured along x axis
+                self.velocity.y = 0.0;
+            }
+        }
+
+        self.prev_point = new_point;
+        self.point = new_point;
+    }
+
     fn get_color(&self) -> Option<&'a dyn color::Color> {
         Some(&color::Red)
     }
@@ -96,8 +95,6 @@ impl<'a> Entity<'a> for Player<'a> {
     fn get_point(&self) -> Vector<u16> {
         self.point.floor_int()
     }
-
-    fn collide(&mut self, _entity: &'a mut impl Entity<'a>) {}
 
     fn to_string(&self) -> &'a str {
         self.name

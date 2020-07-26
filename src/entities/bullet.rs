@@ -1,6 +1,4 @@
-use super::{Direction, Entity};
-use crate::debug;
-use crate::linedraw::plot_line;
+use super::{plot_line, Entity};
 use crate::map::Map;
 use crate::textures::{BulletTextures, Texture};
 use crate::vectors::Vector;
@@ -15,6 +13,7 @@ pub struct Bullet {
     pub prev_point: Vector<f32>,
     pub point: Vector<f32>,
     pub velocity: Vector<f32>,
+    should_remove: bool,
     // pub name: &'a str,
 }
 
@@ -28,33 +27,8 @@ impl Bullet {
             point: p0,
             prev_point: p0,
             velocity,
+            should_remove: false,
         }
-    }
-
-    pub fn wall_collide(&mut self, map: Rc<RefCell<Map>>) {
-        let (new_point, coll_opt) = plot_line(self.prev_point, self.point, Rc::clone(&map), true);
-
-        if let Some(coll_point) = coll_opt {
-            self.velocity = Vector::new(0.0, 0.0);
-
-            // let Vector { x: new_x, y: new_y } = new_point;
-            // let Vector {
-            //     x: coll_x,
-            //     y: coll_y,
-            // } = coll_point;
-
-            // if (coll_x - new_x).abs() <= 1.0 {
-            //     // if collision occoured along x axis
-            //     self.velocity.x = 0.0;
-            // }
-            // if (coll_y - new_y).abs() <= 1.0 {
-            //     // if collision occoured along x axis
-            //     self.velocity.y = 0.0;
-            // }
-        }
-
-        self.prev_point = new_point;
-        self.point = new_point;
     }
 }
 
@@ -75,6 +49,10 @@ impl<'a> Entity<'a> for Bullet {
         }
     }
 
+    fn should_remove(&self) -> bool {
+        self.should_remove
+    }
+
     fn get_color(&self) -> Option<&'a dyn color::Color> {
         Some(&color::Blue)
     }
@@ -83,10 +61,20 @@ impl<'a> Entity<'a> for Bullet {
         self.point.floor_int()
     }
 
-    fn collide(&mut self, _entity: &'a mut impl Entity<'a>) {}
+    fn collide(&mut self, map: Rc<RefCell<Map>>) {
+        let (new_point, coll_opt) = plot_line(self.prev_point, self.point, Rc::clone(&map), true);
+
+        if let Some(coll_point) = coll_opt {
+            self.should_remove = true;
+            return;
+        }
+
+        self.prev_point = new_point;
+        self.point = new_point;
+    }
 
     fn to_string(&self) -> &'a str {
-        "bullet"
+        "Bullet"
     }
 
     fn update(&mut self) {

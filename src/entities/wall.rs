@@ -1,7 +1,6 @@
 use super::Entity;
 use crate::textures::{Texture, WallTextures};
 use crate::vectors::Vector;
-use termion::color;
 
 /* Walls */
 
@@ -25,19 +24,11 @@ impl<'a> Entity<'a> for Wall {
         return WallTextures::WALL;
     }
 
-    fn get_color(&self) -> Option<&'a dyn color::Color> {
-        None
-    }
-
     fn get_point(&self) -> Vector<u16> {
         self.point.floor_int()
     }
 
-    fn collide(&mut self, _entity: &'a mut impl Entity<'a>) {}
-
     fn to_string(&self) -> &'a str {
         "Wall"
     }
-
-    fn update(&mut self) {}
 }

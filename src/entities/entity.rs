@@ -9,18 +9,24 @@ use std::rc::Rc;
 use termion::{color, cursor};
 
 pub trait Entity<'a> {
-    fn update(&mut self);
-    // fn get_x(&mut self) -> u16;
-    // fn get_y(&mut self) -> u16;
-    // fn draw(&mut self, stdout: &'a mut impl Write);
-    fn collide(&mut self, entity: &'a mut impl Entity<'a>);
-
-    // fn should_draw(&self) -> bool;
-
-    fn to_string(&self) -> &'a str;
     fn get_texture(&self) -> Texture;
-    fn get_color(&self) -> Option<&'a dyn color::Color>;
     fn get_point(&self) -> Vector<u16>;
+
+    fn to_string(&self) -> &'a str {
+        "Entity"
+    }
+
+    fn get_color(&self) -> Option<&'a dyn color::Color> {
+        None
+    }
+
+    fn should_remove(&self) -> bool {
+        false
+    }
+
+    fn update(&mut self) {}
+
+    fn collide(&mut self, map: Rc<RefCell<Map>>) {}
 
     fn clear(&self, stdout: &mut impl Write, origin: Vector<u16>, map: Rc<RefCell<Map>>) {
         // if !self.should_draw() {

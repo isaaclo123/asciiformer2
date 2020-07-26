@@ -77,7 +77,7 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
             debug::write("RUN NONE");
         }
         self.player.borrow_mut().update();
-        self.player.borrow_mut().wall_collide(Rc::clone(&self.map));
+        self.player.borrow_mut().collide(Rc::clone(&self.map));
 
         self.player.borrow_mut().draw(self.stdout, self.origin);
         self.stdout.flush().unwrap();
