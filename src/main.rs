@@ -6,7 +6,9 @@ mod consts;
 mod debug;
 mod entities;
 mod game;
+mod genindex;
 mod map;
+mod renderer;
 mod textures;
 mod vectors;
 

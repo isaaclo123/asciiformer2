@@ -8,8 +8,13 @@ lazy_static! {
 }
 
 static MAX_DEBUG_LEN: usize = 30;
+static DEBUG: bool = true;
 
 pub fn write(output: &str) {
+    if !DEBUG {
+        return;
+    }
+
     let mut debug_buf = DEBUG_BUF.lock().unwrap();
     let mut stdout = DEBUG_STDOUT.lock().unwrap();
 

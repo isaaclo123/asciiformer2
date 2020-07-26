@@ -11,3 +11,10 @@ pub use self::entity::Entity;
 pub use self::linedraw::plot_line;
 pub use self::player::Player;
 pub use self::wall::Wall;
+
+// #[derive(Clone, Copy)]
+// pub enum EntityInstance<'a> {
+//     Bullet(Bullet),
+//     Player(Player<'a>),
+//     Wall(Wall),
+// }

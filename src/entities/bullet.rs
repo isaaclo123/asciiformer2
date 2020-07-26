@@ -9,6 +9,7 @@ use termion::color;
 /* Player */
 
 // TODO remove pub
+#[derive(Clone, Copy)]
 pub struct Bullet {
     pub prev_point: Vector<f32>,
     pub point: Vector<f32>,
@@ -32,7 +33,7 @@ impl Bullet {
     }
 }
 
-impl<'a> Entity<'a> for Bullet {
+impl Entity for Bullet {
     fn get_texture(&self) -> Texture {
         let Vector { x, y } = self.point;
 
@@ -53,7 +54,7 @@ impl<'a> Entity<'a> for Bullet {
         self.should_remove
     }
 
-    fn get_color(&self) -> Option<&'a dyn color::Color> {
+    fn get_color(&self) -> Option<&dyn color::Color> {
         Some(&color::Blue)
     }
 
@@ -61,7 +62,7 @@ impl<'a> Entity<'a> for Bullet {
         self.point.floor_int()
     }
 
-    fn collide(&mut self, map: Rc<RefCell<Map>>) {
+    fn collide(&mut self, map: &Rc<RefCell<Map>>) {
         let (new_point, coll_opt) = plot_line(self.prev_point, self.point, Rc::clone(&map), true);
 
         if let Some(coll_point) = coll_opt {
@@ -73,7 +74,7 @@ impl<'a> Entity<'a> for Bullet {
         self.point = new_point;
     }
 
-    fn to_string(&self) -> &'a str {
+    fn to_string(&self) -> &str {
         "Bullet"
     }
 

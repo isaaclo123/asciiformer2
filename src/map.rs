@@ -1,15 +1,21 @@
-use crate::entities::Wall;
+use super::entities::{Entity, Wall};
+use super::renderer;
+use super::vectors::Vector;
+use std::cell::RefCell;
 use std::collections::HashMap;
+use std::io::Write;
+use std::rc::Rc;
 use std::{
     fs::File,
     io::{BufRead, BufReader, Error},
     path::Path,
 };
+use termion::{clear, cursor, terminal_size};
 
-use crate::consts::{EntityType, LEVEL_MAP};
+use super::consts::{EntityType, LEVEL_MAP};
 
 // pub type MapData = Vec<Vec<EntityTypeVal>>;
-pub type MapData = HashMap<(u16, u16), Wall>;
+pub type MapData = HashMap<(u16, u16), Rc<RefCell<dyn Entity>>>;
 
 // #[derive(Debug)]
 pub struct Map {
@@ -29,7 +35,7 @@ impl Map {
     // }
     //
     //
-    pub fn get(&self, x: i16, y: i16) -> Option<&Wall> {
+    pub fn get(&self, x: i16, y: i16) -> Option<&Rc<RefCell<dyn Entity>>> {
         if x < 0 || y < 0 || x >= self.width as i16 || y >= self.height as i16 {
             return None;
         }
@@ -39,8 +45,22 @@ impl Map {
         self.level.get(&pt)
     }
 
-    pub fn get_level(&self) -> &MapData {
-        &self.level
+    // pub fn get_level(&self) -> &MapData {
+    //     &self.level
+    // }
+
+    pub fn draw_map(&self, stdout: &mut impl Write, origin: Vector<u16>) {
+        write!(
+            stdout,
+            "{clear}",
+            // Full screen clear.
+            clear = clear::All,
+        )
+        .unwrap();
+
+        for (_, e) in &self.level {
+            renderer::draw(&e, stdout, origin);
+        }
     }
 
     // pub fn map_check_wall(&self, location: Vector<f32>) -> bool {
@@ -85,7 +105,7 @@ impl Map {
                 match LEVEL_MAP.get(&ch) {
                     Some(e) => match *e {
                         EntityType::WALL => {
-                            map.insert((x, y), Wall::new(x, y));
+                            map.insert((x, y), Rc::new(RefCell::new(Wall::new(x, y))));
                         }
                         _ => (),
                     },

@@ -10,24 +10,27 @@ use termion::color;
 /* Player */
 
 // TODO remove pub
-pub struct Player<'a> {
+#[derive(Clone)]
+pub struct Player {
     pub prev_point: Vector<f32>,
     pub point: Vector<f32>,
     pub velocity: Vector<f32>,
-    pub name: &'a str,
+    pub name: String,
 }
 
-impl<'a> Player<'a> {
-    pub fn new(x: f32, y: f32, name: &'a str) -> Player<'a> {
+impl Player {
+    pub fn new(x: f32, y: f32, name: &str) -> Player {
         Player {
-            name: name,
+            name: String::from(name),
             point: Vector { x: x, y: y },
             prev_point: Vector { x: x, y: y },
             velocity: Vector { x: 0.0, y: 0.0 },
         }
     }
+}
 
-    pub fn action(&mut self, direction: Direction) {
+impl Entity for Player {
+    fn action(&mut self, direction: Direction) {
         let speed = 2.0;
         let to_add = match direction {
             Direction::Up => Vector {
@@ -44,9 +47,6 @@ impl<'a> Player<'a> {
 
         self.velocity = self.velocity + to_add;
     }
-}
-
-impl<'a> Entity<'a> for Player<'a> {
     // fn should_draw(&self) -> bool {
     //     !(self.prev_point.round_int() == self.point.round_int())
     // }
@@ -64,7 +64,7 @@ impl<'a> Entity<'a> for Player<'a> {
         texture
     }
 
-    fn collide(&mut self, map: Rc<RefCell<Map>>) {
+    fn collide(&mut self, map: &Rc<RefCell<Map>>) {
         let (new_point, coll_opt) = plot_line(self.prev_point, self.point, Rc::clone(&map), true);
 
         if let Some(coll_point) = coll_opt {
@@ -88,7 +88,7 @@ impl<'a> Entity<'a> for Player<'a> {
         self.point = new_point;
     }
 
-    fn get_color(&self) -> Option<&'a dyn color::Color> {
+    fn get_color(&self) -> Option<&dyn color::Color> {
         Some(&color::Red)
     }
 
@@ -96,8 +96,8 @@ impl<'a> Entity<'a> for Player<'a> {
         self.point.floor_int()
     }
 
-    fn to_string(&self) -> &'a str {
-        self.name
+    fn to_string(&self) -> &str {
+        &self.name
     }
 
     fn update(&mut self) {

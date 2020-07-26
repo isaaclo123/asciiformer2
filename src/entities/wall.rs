@@ -4,6 +4,7 @@ use crate::vectors::Vector;
 
 /* Walls */
 
+#[derive(Clone, Copy)]
 pub struct Wall {
     pub point: Vector<f32>,
 }
@@ -19,7 +20,7 @@ impl Wall {
     }
 }
 
-impl<'a> Entity<'a> for Wall {
+impl Entity for Wall {
     fn get_texture(&self) -> Texture {
         return WallTextures::WALL;
     }
@@ -28,7 +29,7 @@ impl<'a> Entity<'a> for Wall {
         self.point.floor_int()
     }
 
-    fn to_string(&self) -> &'a str {
+    fn to_string(&self) -> &str {
         "Wall"
     }
 }
