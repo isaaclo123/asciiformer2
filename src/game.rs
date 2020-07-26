@@ -71,6 +71,9 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
     }
 
     fn run(&mut self, direction_opt: Option<Direction>) {
+        self.player
+            .borrow_mut()
+            .clear(self.stdout, self.origin, Rc::clone(&self.map));
         if let Some(d) = direction_opt {
             self.player.borrow_mut().action(d);
         } else {
@@ -80,15 +83,10 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         self.player.borrow_mut().collide(Rc::clone(&self.map));
 
         self.player.borrow_mut().draw(self.stdout, self.origin);
-        self.stdout.flush().unwrap();
     }
 
     pub fn update(&mut self) -> bool {
         let debug = false;
-
-        self.player
-            .borrow_mut()
-            .clear(self.stdout, self.origin, Rc::clone(&self.map));
 
         if let Some(c) = self.stdin.events().next() {
             match c.unwrap() {
@@ -126,7 +124,6 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
                 },
                 _ => self.run(None),
             }
-            self.stdout.flush().unwrap();
         }
 
         if !debug {
@@ -138,6 +135,8 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
 
         // run here when not debug
         self.player.borrow_mut().draw(self.stdout, self.origin);
+
+        self.stdout.flush().unwrap();
 
         true
     }
