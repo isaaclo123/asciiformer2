@@ -9,7 +9,11 @@ use termion::color;
 
 pub trait Entity {
     fn get_texture(&self) -> Texture;
-    fn get_point(&self) -> Vector<u16>;
+    fn get_point(&self) -> Vector<f32>;
+
+    fn get_draw_point(&self) -> Vector<u16> {
+        self.get_point().floor_int()
+    }
 
     fn to_string(&self) -> &str {
         "Entity"

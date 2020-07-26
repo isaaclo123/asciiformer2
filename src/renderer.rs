@@ -22,8 +22,8 @@ pub fn clear(
     let Vector {
         x: point_x,
         y: point_y,
-    } = obj.get_point();
-    let draw_pt = origin + obj.get_point();
+    } = obj.get_draw_point();
+    let draw_pt = origin + obj.get_draw_point();
     let Vector {
         x: draw_x,
         y: draw_y,
@@ -96,7 +96,7 @@ pub fn draw(
         write!(stdout, "{}", color::Fg(c)).unwrap();
     }
 
-    let draw_pt = origin + obj.get_point();
+    let draw_pt = origin + obj.get_draw_point();
     let Vector {
         x: draw_x,
         y: draw_y,

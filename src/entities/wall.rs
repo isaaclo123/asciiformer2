@@ -25,8 +25,8 @@ impl Entity for Wall {
         return WallTextures::WALL;
     }
 
-    fn get_point(&self) -> Vector<u16> {
-        self.point.floor_int()
+    fn get_point(&self) -> Vector<f32> {
+        self.point
     }
 
     fn to_string(&self) -> &str {

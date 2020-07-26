@@ -43,6 +43,9 @@ impl Entity for Player {
                 y: 0.0,
             },
             Direction::Right => Vector { x: speed, y: 0.0 },
+            _ => {
+                return;
+            }
         };
 
         self.velocity = self.velocity + to_add;
@@ -92,8 +95,8 @@ impl Entity for Player {
         Some(&color::Red)
     }
 
-    fn get_point(&self) -> Vector<u16> {
-        self.point.floor_int()
+    fn get_point(&self) -> Vector<f32> {
+        self.point
     }
 
     fn to_string(&self) -> &str {

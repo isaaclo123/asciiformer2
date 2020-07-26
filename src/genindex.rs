@@ -3,6 +3,7 @@ pub struct GenIndex<T: Clone> {
     alloc_indexes: Vec<usize>,
     data: Vec<Option<T>>,
     max_size: usize,
+    index: usize,
 }
 
 impl<T: Clone> GenIndex<T> {
@@ -12,6 +13,7 @@ impl<T: Clone> GenIndex<T> {
             alloc_indexes: vec![],
             data: vec![None; max_size],
             max_size,
+            index: 0,
         }
     }
 
@@ -42,16 +44,18 @@ impl<T: Clone> GenIndex<T> {
         Ok(true)
     }
 
-    pub fn get(&self, index: usize) -> &Option<T> {
+    pub fn get(&self, index: usize) -> Option<T> {
         if index >= self.max_size {
-            return &None;
+            return None;
         }
         let result = self.data.get(index);
 
         if let Some(r) = result {
-            return r;
+            if let Some(x) = r {
+                return Some(x.clone());
+            }
         }
-        &None
+        None
     }
 
     // change to using iter later
@@ -66,6 +70,31 @@ impl<T: Clone> GenIndex<T> {
         }
 
         result
+    }
+}
+
+impl<T: Clone> Iterator for GenIndex<T> {
+    // we will be counting with usize
+    type Item = T;
+
+    // next() is the only required method
+    fn next(&mut self) -> Option<Self::Item> {
+        // Increment our count. This is why we started at zero.
+        // Check to see if we've finished counting or not.
+        if self.index < self.max_size {
+            let alloc_i = self.alloc_indexes.get(self.index).unwrap();
+            let data_result = self.data.get(*alloc_i);
+
+            if let Some(r) = data_result {
+                if let Some(x) = r {
+                    self.index += 1;
+                    return Some(x.clone());
+                }
+            }
+        }
+
+        self.index = 0;
+        None
     }
 }
 

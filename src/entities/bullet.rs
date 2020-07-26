@@ -58,8 +58,8 @@ impl Entity for Bullet {
         Some(&color::Blue)
     }
 
-    fn get_point(&self) -> Vector<u16> {
-        self.point.floor_int()
+    fn get_point(&self) -> Vector<f32> {
+        self.point
     }
 
     fn collide(&mut self, map: &Rc<RefCell<Map>>) {
