@@ -68,8 +68,7 @@ impl Entity for Bullet {
     }
 
     fn collide(&mut self, map: &Rc<RefCell<Map>>) {
-        let (new_point, coll_opt) =
-            plot_line(self.prev_point, self.point, Rc::clone(&map), false, true);
+        let (new_point, coll_opt) = plot_line(self.prev_point, self.point, Rc::clone(&map), false);
 
         if !self.should_remove {
             debug::write(&format!("newpoint {}", new_point));
@@ -78,8 +77,8 @@ impl Entity for Bullet {
         if let Some(coll_point) = coll_opt {
             debug::write(&format!("collided on {}", coll_point));
             // TODO may be able to get rid of this
-            // self.prev_point = coll_point;
-            // self.point = coll_point;
+            self.prev_point = coll_point;
+            self.point = coll_point;
             self.velocity = Vector::new(0.0, 0.0);
             self.should_remove = true;
             return;

@@ -9,7 +9,6 @@ fn plot_line_low(
     p1: Vector<f32>,
     map: Rc<RefCell<Map>>,
     slide: bool,
-    round_check: bool,
 ) -> (Vector<f32>, Option<Vector<f32>>) {
     let Vector { x: x0, y: y0 } = p0;
     let Vector { x: x1, y: y1 } = p1;
@@ -81,11 +80,10 @@ fn plot_line_low(
         let y_ceil = y.ceil();
         let y_round = prev_vec.y.round();
 
-        let check_order = match (dy > 0.0, !round_check) {
-            (true, true) => vec![y_floor, y_ceil],
-            (true, false) => vec![y_round],
-            (false, true) => vec![y_ceil, y_floor],
-            (false, false) => vec![y_round],
+        let check_order = if dy > 0.0 {
+            [y_floor, y_ceil]
+        } else {
+            [y_ceil, y_floor]
         };
 
         let mut collide_pos = None;
@@ -132,7 +130,7 @@ fn plot_line_low(
 
         x += xi;
         if collide_pos.is_none() {
-            y += dy;
+            y += di;
         }
     }
 
@@ -144,7 +142,6 @@ fn plot_line_high(
     p1: Vector<f32>,
     map: Rc<RefCell<Map>>,
     slide: bool,
-    round_check: bool,
 ) -> (Vector<f32>, Option<Vector<f32>>) {
     let Vector { x: x0, y: y0 } = p0;
     let Vector { x: x1, y: y1 } = p1;
@@ -212,11 +209,10 @@ fn plot_line_high(
         let x_ceil = x.ceil();
         let x_round = prev_vec.x.round();
 
-        let check_order = match (dx > 0.0, !round_check) {
-            (true, true) => vec![x_floor, x_ceil],
-            (true, false) => vec![x_round],
-            (false, true) => vec![x_ceil, x_floor],
-            (false, false) => vec![x_round],
+        let check_order = if dx > 0.0 {
+            [x_floor, x_ceil]
+        } else {
+            [x_ceil, x_floor]
         };
 
         let mut collide_pos = None;
@@ -263,7 +259,7 @@ fn plot_line_high(
 
         y += yi;
         if collide_pos.is_none() {
-            x += dx;
+            x += di;
         }
     }
 
@@ -275,7 +271,6 @@ pub fn plot_line(
     p1: Vector<f32>,
     map: Rc<RefCell<Map>>,
     slide: bool,
-    round_check: bool,
 ) -> (Vector<f32>, Option<Vector<f32>>) {
     let Vector { x: x0, y: y0 } = p0;
     let Vector { x: x1, y: y1 } = p1;
@@ -285,8 +280,8 @@ pub fn plot_line(
     }
 
     if (y1 - y0).abs() < (x1 - x0).abs() {
-        return plot_line_low(p0, p1, map, slide, round_check);
+        return plot_line_low(p0, p1, map, slide);
     } else {
-        return plot_line_high(p0, p1, map, slide, round_check);
+        return plot_line_high(p0, p1, map, slide);
     }
 }
