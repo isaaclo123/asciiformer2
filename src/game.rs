@@ -24,6 +24,7 @@ pub struct Game<'a, R, W> {
     stdout: &'a mut W,
     map: Rc<RefCell<Map>>,
     origin: Vector<u16>,
+    origin_float: Vector<f32>,
     // player: RefCell<Player<'a>>,
     player_id: u16,
     gen_index: GenIndex<Rc<RefCell<dyn Entity>>>,
@@ -52,6 +53,10 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
             origin: Vector {
                 x: offset_width,
                 y: offset_height,
+            },
+            origin_float: Vector {
+                x: offset_width as f32,
+                y: offset_height as f32,
             },
             player_id: player_id as u16,
             gen_index,
@@ -123,8 +128,6 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
     pub fn update(&mut self) -> bool {
         let debug = false;
 
-        // let entities = self.gen_index.borrow().to_vec();
-
         for e in &mut self.gen_index {
             renderer::clear(&e, self.stdout, self.origin, &self.map);
         }
@@ -153,13 +156,11 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
                         let x = a as i16 - self.origin.x as i16 - 1;
                         let y = b as i16 - self.origin.y as i16 - 1;
 
-                        let sym = if self.map.borrow().get(x, y).is_some() {
-                            'W'
-                        } else {
-                            ' '
-                        };
-
-                        debug::write(&format!("cursor ({}, {}) {}", x, y, sym));
+                        // let sym = if self.map.borrow().get(x, y).is_some() {
+                        //     'W'
+                        // } else {
+                        //     ' '
+                        // };
 
                         self.run(Direction::To(Vector::new(x as f32, y as f32)));
                     }

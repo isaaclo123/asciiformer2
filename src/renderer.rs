@@ -42,12 +42,12 @@ pub fn clear(
 
             let sym = if let Some(e) = bg_texture {
                 // e.get_texture()[0][0]
-                debug::write(&format!(
-                    "TEXTURE ({}, {} '{}')",
-                    tex_x,
-                    tex_y,
-                    e.borrow().get_texture()[0][0]
-                ));
+                // debug::write(&format!(
+                //     "TEXTURE ({}, {} '{}')",
+                //     tex_x,
+                //     tex_y,
+                //     e.borrow().get_texture()[0][0]
+                // ));
                 e.borrow().get_texture()[0][0]
             } else {
                 AirTextures::AIR[0][0]

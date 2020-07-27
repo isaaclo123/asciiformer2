@@ -1,4 +1,5 @@
 use super::{plot_line, Entity};
+use crate::debug;
 use crate::map::Map;
 use crate::textures::{BulletTextures, Texture};
 use crate::vectors::Vector;
@@ -21,8 +22,12 @@ pub struct Bullet {
 impl Bullet {
     // todo vectors maybe?
     pub fn new(p0: Vector<f32>, p1: Vector<f32>) -> Self {
-        let speed = 2.5;
-        let velocity = ((p1 - p0) / p1.magn(p0)) * speed;
+        let speed = 3.5;
+        // let velocity = ((p1 - p0) / p1.magn(p0)) * speed;
+        // let velocity = (p1 - p0) / p0.magn(p1);
+        let velocity = (p1 - p0) * speed / p0.magn(p1);
+
+        debug::write(&format!("velocity {} ({} -> {})", velocity, p0, p1));
 
         Self {
             point: p0,
@@ -63,15 +68,25 @@ impl Entity for Bullet {
     }
 
     fn collide(&mut self, map: &Rc<RefCell<Map>>) {
-        let (new_point, coll_opt) = plot_line(self.prev_point, self.point, Rc::clone(&map), true);
+        let (new_point, coll_opt) =
+            plot_line(self.prev_point, self.point, Rc::clone(&map), false, true);
+
+        if !self.should_remove {
+            debug::write(&format!("newpoint {}", new_point));
+        }
 
         if let Some(coll_point) = coll_opt {
+            debug::write(&format!("collided on {}", coll_point));
+            // TODO may be able to get rid of this
+            // self.prev_point = coll_point;
+            // self.point = coll_point;
+            self.velocity = Vector::new(0.0, 0.0);
             self.should_remove = true;
             return;
         }
 
-        self.prev_point = new_point;
-        self.point = new_point;
+        // self.prev_point = new_point;
+        // self.point = new_point;
     }
 
     fn to_string(&self) -> &str {

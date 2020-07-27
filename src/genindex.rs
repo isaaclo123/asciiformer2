@@ -81,7 +81,7 @@ impl<T: Clone> Iterator for GenIndex<T> {
     fn next(&mut self) -> Option<Self::Item> {
         // Increment our count. This is why we started at zero.
         // Check to see if we've finished counting or not.
-        if self.index < self.max_size {
+        if self.index < self.alloc_indexes.len() {
             let alloc_i = self.alloc_indexes.get(self.index).unwrap();
             let data_result = self.data.get(*alloc_i);
 
