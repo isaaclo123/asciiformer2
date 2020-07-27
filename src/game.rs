@@ -38,7 +38,7 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         let offset_width = (width - map.width) / 2;
         let offset_height = (height - map.height) / 2;
 
-        let mut gen_index: GenIndex<Rc<RefCell<dyn Entity>>> = GenIndex::new(50);
+        let mut gen_index: GenIndex<Rc<RefCell<dyn Entity>>> = GenIndex::new(100);
 
         let player = Rc::new(RefCell::new(Player::new(20.1, 20.7, "My Name")));
 

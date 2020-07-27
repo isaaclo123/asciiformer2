@@ -68,7 +68,8 @@ impl Entity for Player {
     }
 
     fn collide(&mut self, map: &Rc<RefCell<Map>>) {
-        let (new_point, coll_opt) = plot_line(self.prev_point, self.point, Rc::clone(&map), true);
+        let (new_point, coll_opt) =
+            plot_line(self.prev_point, self.point, Rc::clone(&map), true, false);
 
         if let Some(coll_point) = coll_opt {
             let Vector { x: new_x, y: new_y } = new_point;

@@ -42,7 +42,7 @@ impl Entity for Bullet {
     fn get_texture(&self) -> Texture {
         let Vector { x, y } = self.point;
 
-        if x > 0.25 && x < 0.75 && y > 0.25 && y < 0.75 {
+        if x > 0.4 && x < 0.6 && y > 0.4 && y < 0.6 {
             return BulletTextures::MID;
         }
 
@@ -68,7 +68,8 @@ impl Entity for Bullet {
     }
 
     fn collide(&mut self, map: &Rc<RefCell<Map>>) {
-        let (new_point, coll_opt) = plot_line(self.prev_point, self.point, Rc::clone(&map), false);
+        let (new_point, coll_opt) =
+            plot_line(self.prev_point, self.point, Rc::clone(&map), false, true);
 
         if !self.should_remove {
             debug::write(&format!("newpoint {}", new_point));
