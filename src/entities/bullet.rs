@@ -16,6 +16,7 @@ pub struct Bullet {
     pub point: Vector<f32>,
     pub velocity: Vector<f32>,
     should_remove: bool,
+    id: Option<usize>,
     // pub name: &'a str,
 }
 
@@ -30,6 +31,7 @@ impl Bullet {
         debug::write(&format!("velocity {} ({} -> {})", velocity, p0, p1));
 
         Self {
+            id: None,
             point: p0,
             prev_point: p0,
             velocity,
@@ -39,10 +41,18 @@ impl Bullet {
 }
 
 impl Entity for Bullet {
+    fn get_id(&self) -> Option<usize> {
+        self.id
+    }
+
+    fn set_id(&mut self, id: usize) {
+        self.id = Some(id);
+    }
+
     fn get_texture(&self) -> Texture {
         let Vector { x, y } = self.point;
 
-        if x > 0.4 && x < 0.6 && y > 0.4 && y < 0.6 {
+        if x > 0.45 && x < 0.55 && y > 0.45 && y < 0.55 {
             return BulletTextures::MID;
         }
 
@@ -80,7 +90,6 @@ impl Entity for Bullet {
             // TODO may be able to get rid of this
             self.prev_point = coll_point;
             self.point = coll_point;
-            self.velocity = Vector::new(0.0, 0.0);
             self.should_remove = true;
             return;
         }

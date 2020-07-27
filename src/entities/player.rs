@@ -16,11 +16,13 @@ pub struct Player {
     pub point: Vector<f32>,
     pub velocity: Vector<f32>,
     pub name: String,
+    id: Option<usize>,
 }
 
 impl Player {
     pub fn new(x: f32, y: f32, name: &str) -> Player {
         Player {
+            id: None,
             name: String::from(name),
             point: Vector { x: x, y: y },
             prev_point: Vector { x: x, y: y },
@@ -30,6 +32,14 @@ impl Player {
 }
 
 impl Entity for Player {
+    fn get_id(&self) -> Option<usize> {
+        self.id
+    }
+
+    fn set_id(&mut self, id: usize) {
+        self.id = Some(id);
+    }
+
     fn action(&mut self, direction: Direction) {
         let speed = 2.0;
         let to_add = match direction {

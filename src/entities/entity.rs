@@ -11,6 +11,12 @@ pub trait Entity {
     fn get_texture(&self) -> Texture;
     fn get_point(&self) -> Vector<f32>;
 
+    fn set_id(&mut self, id: usize) {}
+
+    fn get_id(&self) -> Option<usize> {
+        None
+    }
+
     fn get_draw_point(&self) -> Vector<u16> {
         self.get_point().floor_int()
     }

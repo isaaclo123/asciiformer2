@@ -38,6 +38,12 @@ impl<T: Clone> GenIndex<T> {
             return Err("Index was not allocated");
         }
 
+        let remove_index = self.alloc_indexes.iter().position(|x| *x == index);
+
+        if let Some(i) = remove_index {
+            self.alloc_indexes.remove(i);
+        }
+
         self.data[index] = None;
         self.free_indexes.push(index);
 

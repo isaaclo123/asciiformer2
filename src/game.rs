@@ -38,11 +38,16 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         let offset_width = (width - map.width) / 2;
         let offset_height = (height - map.height) / 2;
 
-        let mut gen_index: GenIndex<Rc<RefCell<dyn Entity>>> = GenIndex::new(100);
+        let mut gen_index: GenIndex<Rc<RefCell<dyn Entity>>> = GenIndex::new(1000);
 
         let player = Rc::new(RefCell::new(Player::new(20.1, 20.7, "My Name")));
 
         let player_id = gen_index.alloc_index(player).unwrap();
+        gen_index
+            .get(player_id)
+            .unwrap()
+            .borrow_mut()
+            .set_id(player_id);
 
         Game {
             width: width,
@@ -97,8 +102,16 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
 
         match direction {
             Direction::To(end) => {
+                let bullet_id = self
+                    .gen_index
+                    .alloc_index(Rc::new(RefCell::new(Bullet::new(player.get_point(), end))))
+                    .unwrap();
+
                 self.gen_index
-                    .alloc_index(Rc::new(RefCell::new(Bullet::new(player.get_point(), end))));
+                    .get(bullet_id)
+                    .unwrap()
+                    .borrow_mut()
+                    .set_id(bullet_id);
             }
             Direction::None => (),
             _ => player.action(direction),
@@ -173,6 +186,24 @@ impl<'a, R: Read, W: Write> Game<'a, R, W> {
         } else {
             if !debug {
                 self.run(Direction::None)
+            }
+        }
+
+        let mut to_remove: Vec<usize> = Vec::new();
+
+        for e in &mut self.gen_index {
+            if e.borrow().should_remove() {
+                if let Some(id) = e.borrow().get_id() {
+                    to_remove.push(id);
+                }
+            }
+        }
+
+        for id in to_remove {
+            debug::write(&format!("Remove ID {}", id));
+            let remove = self.gen_index.free_index(id);
+            if let Err(e) = remove {
+                debug::write(&format!("Remove ID ERROR! {}", e));
             }
         }
 
