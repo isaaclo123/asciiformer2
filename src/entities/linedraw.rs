@@ -1,5 +1,5 @@
 use crate::debug;
-use crate::map::Map;
+use crate::map::{Map, MapSync};
 use crate::vectors::Vector;
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -7,7 +7,7 @@ use std::rc::Rc;
 fn plot_line_low(
     p0: Vector<f32>,
     p1: Vector<f32>,
-    map: Rc<RefCell<Map>>,
+    map: &MapSync,
     slide: bool,
     round_check: bool,
 ) -> (Vector<f32>, Option<Vector<f32>>) {
@@ -83,16 +83,16 @@ fn plot_line_low(
 
         let check_order = match (dy > 0.0, !round_check) {
             (true, true) => [y_floor, y_ceil],
-            (true, false) => [y_floor, y_round],
+            (true, false) => [y_floor, y_ceil],
             (false, true) => [y_ceil, y_floor],
-            (false, false) => [y_ceil, y_round],
+            (false, false) => [y_ceil, y_floor],
         };
 
         let mut collide_pos = None;
         let mut modified = false;
 
         for y_check in check_order.iter() {
-            let my_map = map.borrow();
+            let my_map = map.lock().unwrap();
             let check = my_map.get(x as i16, *y_check as i16);
 
             if check.is_some() {
@@ -142,7 +142,7 @@ fn plot_line_low(
 fn plot_line_high(
     p0: Vector<f32>,
     p1: Vector<f32>,
-    map: Rc<RefCell<Map>>,
+    map: &MapSync,
     slide: bool,
     round_check: bool,
 ) -> (Vector<f32>, Option<Vector<f32>>) {
@@ -214,16 +214,16 @@ fn plot_line_high(
 
         let check_order = match (dx > 0.0, !round_check) {
             (true, true) => [x_floor, x_ceil],
-            (true, false) => [x_floor, x_round],
+            (true, false) => [x_floor, x_ceil],
             (false, true) => [x_ceil, x_floor],
-            (false, false) => [x_ceil, x_round],
+            (false, false) => [x_ceil, x_floor],
         };
 
         let mut collide_pos = None;
         let mut modified = false;
 
         for x_check in check_order.iter() {
-            let my_map = map.borrow();
+            let my_map = map.lock().unwrap();
             let check = my_map.get(*x_check as i16, y as i16);
 
             if check.is_some() {
@@ -273,7 +273,7 @@ fn plot_line_high(
 pub fn plot_line(
     p0: Vector<f32>,
     p1: Vector<f32>,
-    map: Rc<RefCell<Map>>,
+    map: &MapSync,
     slide: bool,
     round_check: bool,
 ) -> (Vector<f32>, Option<Vector<f32>>) {

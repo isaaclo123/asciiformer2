@@ -1,6 +1,6 @@
 use super::debug;
-use super::entities::Entity;
-use super::map::Map;
+use super::entities::{Entity, EntitySync};
+use super::map::MapSync;
 use super::textures::AirTextures;
 use super::vectors::Vector;
 use std::cell::RefCell;
@@ -8,16 +8,13 @@ use std::io::Write;
 use std::rc::Rc;
 use termion::{color, cursor};
 
-pub fn clear(
-    ref_obj: &Rc<RefCell<dyn Entity>>,
-    stdout: &mut impl Write,
-    origin: Vector<u16>,
-    map: &Rc<RefCell<Map>>,
-) {
+use std::sync::{Arc, Mutex};
+
+pub fn clear(ref_obj: &EntitySync, stdout: &mut impl Write, origin: Vector<u16>, map: &MapSync) {
     // if !obj.should_draw() {
     //     return;
     // }
-    let obj = ref_obj.borrow();
+    let obj = ref_obj.lock().unwrap();
 
     let Vector {
         x: point_x,
@@ -37,7 +34,7 @@ pub fn clear(
                 point_x as i16 + texture_x as i16,
                 point_y as i16 + texture_y as i16,
             );
-            let my_map = map.borrow();
+            let my_map = map.lock().unwrap();
             let bg_texture = my_map.get(tex_x, tex_y);
 
             let sym = if let Some(e) = bg_texture {
@@ -48,7 +45,7 @@ pub fn clear(
                 //     tex_y,
                 //     e.borrow().get_texture()[0][0]
                 // ));
-                e.borrow().get_texture()[0][0]
+                e.lock().unwrap().get_texture()[0][0]
             } else {
                 AirTextures::AIR[0][0]
             };
@@ -73,13 +70,13 @@ pub fn clear(
 }
 
 pub fn draw(
-    ref_obj: &Rc<RefCell<dyn Entity>>,
+    ref_obj: &EntitySync,
     stdout: &mut impl Write,
     origin: Vector<u16>,
     // point: Vector<i16>,
     // fg_opt: Option<impl color::Color>,
 ) {
-    let obj = ref_obj.borrow();
+    let obj = ref_obj.lock().unwrap();
     // if !obj.should_draw() {
     //     return;
     // }

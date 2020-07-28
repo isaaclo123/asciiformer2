@@ -7,7 +7,11 @@ use std::cell::RefCell;
 use std::rc::Rc;
 use termion::color;
 
-pub trait Entity {
+use std::sync::{Arc, Mutex};
+
+pub type EntitySync = Arc<Mutex<dyn Entity>>;
+
+pub trait Entity: Send + Sync {
     fn get_texture(&self) -> Texture;
     fn get_point(&self) -> Vector<f32>;
 
@@ -37,5 +41,5 @@ pub trait Entity {
 
     fn action(&mut self, direction: Direction) {}
 
-    fn collide(&mut self, map: &Rc<RefCell<Map>>) {}
+    fn collide(&mut self, map: &Arc<Mutex<Map>>) {}
 }

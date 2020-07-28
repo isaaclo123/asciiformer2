@@ -1,6 +1,6 @@
 use crate::vectors::Vector;
 
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 pub enum Direction {
     Up,
     Down,
@@ -9,3 +9,5 @@ pub enum Direction {
     To(Vector<f32>),
     None,
 }
+unsafe impl Send for Direction {}
+unsafe impl Sync for Direction {}

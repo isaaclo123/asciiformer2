@@ -1,11 +1,14 @@
 use super::{plot_line, Direction, Entity};
 use crate::debug;
-use crate::map::Map;
 use crate::textures::{PlayerTextures, Texture};
 use crate::vectors::Vector;
 use std::cell::RefCell;
+
 use std::rc::Rc;
+use std::sync::{Arc, Mutex};
 use termion::color;
+
+use crate::map::{Map, MapSync};
 
 /* Player */
 
@@ -77,9 +80,8 @@ impl Entity for Player {
         texture
     }
 
-    fn collide(&mut self, map: &Rc<RefCell<Map>>) {
-        let (new_point, coll_opt) =
-            plot_line(self.prev_point, self.point, Rc::clone(&map), true, false);
+    fn collide(&mut self, map: &MapSync) {
+        let (new_point, coll_opt) = plot_line(self.prev_point, self.point, map, true, false);
 
         if let Some(coll_point) = coll_opt {
             let Vector { x: new_x, y: new_y } = new_point;

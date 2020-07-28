@@ -1,10 +1,10 @@
-use super::entities::{Entity, Wall};
+use super::entities::{Entity, EntitySync, Wall};
 use super::renderer;
+
 use super::vectors::Vector;
-use std::cell::RefCell;
 use std::collections::HashMap;
 use std::io::Write;
-use std::rc::Rc;
+use std::sync::{Arc, Mutex};
 use std::{
     fs::File,
     io::{BufRead, BufReader, Error},
@@ -15,7 +15,9 @@ use termion::{clear, cursor, terminal_size};
 use super::consts::{EntityType, LEVEL_MAP};
 
 // pub type MapData = Vec<Vec<EntityTypeVal>>;
-pub type MapData = HashMap<(u16, u16), Rc<RefCell<dyn Entity>>>;
+pub type MapData = HashMap<(u16, u16), Arc<Mutex<dyn Entity>>>;
+
+pub type MapSync = Arc<Mutex<Map>>;
 
 // #[derive(Debug)]
 pub struct Map {
@@ -35,7 +37,7 @@ impl Map {
     // }
     //
     //
-    pub fn get(&self, x: i16, y: i16) -> Option<&Rc<RefCell<dyn Entity>>> {
+    pub fn get(&self, x: i16, y: i16) -> Option<&EntitySync> {
         if x < 0 || y < 0 || x >= self.width as i16 || y >= self.height as i16 {
             return None;
         }
@@ -105,7 +107,7 @@ impl Map {
                 match LEVEL_MAP.get(&ch) {
                     Some(e) => match *e {
                         EntityType::WALL => {
-                            map.insert((x, y), Rc::new(RefCell::new(Wall::new(x, y))));
+                            map.insert((x, y), Arc::new(Mutex::new(Wall::new(x, y))));
                         }
                         _ => (),
                     },

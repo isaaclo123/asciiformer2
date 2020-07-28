@@ -8,6 +8,7 @@ pub mod wall;
 pub use self::bullet::Bullet;
 pub use self::directions::Direction;
 pub use self::entity::Entity;
+pub use self::entity::EntitySync;
 pub use self::linedraw::plot_line;
 pub use self::player::Player;
 pub use self::wall::Wall;

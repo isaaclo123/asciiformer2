@@ -1,6 +1,6 @@
 use super::{plot_line, Entity};
 use crate::debug;
-use crate::map::Map;
+use crate::map::{Map, MapSync};
 use crate::textures::{BulletTextures, Texture};
 use crate::vectors::Vector;
 use std::cell::RefCell;
@@ -77,9 +77,8 @@ impl Entity for Bullet {
         self.point
     }
 
-    fn collide(&mut self, map: &Rc<RefCell<Map>>) {
-        let (new_point, coll_opt) =
-            plot_line(self.prev_point, self.point, Rc::clone(&map), false, true);
+    fn collide(&mut self, map: &MapSync) {
+        let (new_point, coll_opt) = plot_line(self.prev_point, self.point, map, true, false);
 
         if !self.should_remove {
             debug::write(&format!("newpoint {}", new_point));
