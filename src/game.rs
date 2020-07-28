@@ -1,10 +1,11 @@
+use super::helpers::{unlock, wrap};
 use crate::debug;
 use crate::entities::{Bullet, Direction, Entity, EntitySync, Player};
 use std::sync::mpsc::channel;
 use std::sync::{Arc, Mutex};
 use termion::async_stdin;
 
-use crate::genindex::GenIndex;
+use crate::genindex::GenIndexSync;
 use crate::map::{Map, MapSync};
 use crate::renderer;
 use crate::vectors::Vector;
@@ -30,7 +31,7 @@ pub struct Game<'a, R, W> {
     origin_float: Vector<f32>,
     // player: RefCell<Player<'a>>,
     player_id: u16,
-    gen_index: GenIndex<EntitySync>,
+    gen_index: GenIndexSync<EntitySync>,
 }
 
 impl<'a, R: Read + Send, W: Write + Send> Game<'a, R, W> {
@@ -41,22 +42,15 @@ impl<'a, R: Read + Send, W: Write + Send> Game<'a, R, W> {
         let offset_width = (width - map.width) / 2;
         let offset_height = (height - map.height) / 2;
 
-        let mut gen_index: GenIndex<EntitySync> = GenIndex::new(100);
+        let mut gen_index: GenIndexSync<EntitySync> = GenIndexSync::new(100);
 
-        let player = Arc::new(Mutex::new(Player::new(20.1, 20.7, "My Name")));
-
-        let player_id = gen_index.alloc_index(player).unwrap();
-        gen_index
-            .get(player_id)
-            .unwrap()
-            .lock()
-            .unwrap()
-            .set_id(player_id);
+        let player = wrap(Player::new(20.1, 20.7, "My Name"));
+        let player_id = gen_index.alloc_entity(player).unwrap();
 
         Game {
             width: width,
             height: height,
-            map: Arc::new(Mutex::new(map)),
+            map: wrap(map),
             stdin,
             stdout: stdout,
             origin: Vector {
@@ -68,15 +62,14 @@ impl<'a, R: Read + Send, W: Write + Send> Game<'a, R, W> {
                 y: offset_height as f32,
             },
             player_id: player_id as u16,
-            gen_index,
-            // player: RefCell::new(Player::new(20.1, 20.7, "My Name")),
+            gen_index, // player: RefCell::new(Player::new(20.1, 20.7, "My Name")),
         }
     }
 
     pub fn start(&mut self) {
         write!(self.stdout, "{}", cursor::Hide).unwrap();
 
-        self.map.lock().unwrap().draw_map(self.stdout, self.origin);
+        unlock(&self.map).draw_map(self.stdout, self.origin);
 
         let mut before = Instant::now();
         let interval = 60;
@@ -86,6 +79,8 @@ impl<'a, R: Read + Send, W: Write + Send> Game<'a, R, W> {
         // let stdin = self.stdin;
         let origin = self.origin;
         let stdin = Arc::new(stdin());
+        let mut gen_index = self.gen_index.clone();
+        let player_id = self.player_id;
 
         thread::spawn(move || {
             debug::write("Spawned Input Thread");
@@ -120,9 +115,8 @@ impl<'a, R: Read + Send, W: Write + Send> Game<'a, R, W> {
                     },
                     _ => Direction::None,
                 };
-                // sender.send(result).unwrap();
 
-                self.run(result)
+                Self::run(&mut gen_index, player_id, result)
             }
         });
 
@@ -138,8 +132,6 @@ impl<'a, R: Read + Send, W: Write + Send> Game<'a, R, W> {
 
             before = now;
 
-            self.clear();
-
             // let my_receiver = &receiver;
             // my_receiver.recv().into_iter().for_each(|d| {
             //     // let result = d.get();
@@ -153,92 +145,38 @@ impl<'a, R: Read + Send, W: Write + Send> Game<'a, R, W> {
         }
     }
 
-    fn run(&mut self, direction: Direction) {
-        let player_opt = self.gen_index.get(self.player_id as usize).unwrap();
-        let mut player = player_opt.lock().unwrap();
+    fn run(gen_index: &mut GenIndexSync<EntitySync>, player_id: u16, direction: Direction) {
+        let player_opt = gen_index.get(player_id as usize).unwrap();
+        let mut player = unlock(&player_opt);
 
         match direction {
             Direction::To(end) => {
-                let bullet_id = self
-                    .gen_index
-                    .alloc_index(Arc::new(Mutex::new(Bullet::new(player.get_point(), end))))
-                    .unwrap();
-
-                self.gen_index
-                    .get(bullet_id)
-                    .unwrap()
-                    .lock()
-                    .unwrap()
-                    .set_id(bullet_id);
+                gen_index.alloc_entity(wrap(Bullet::new(player.get_point(), end)));
             }
             Direction::None => (),
             _ => player.action(direction),
         }
     }
 
-    pub fn clear(&mut self) {
-        for e in &mut self.gen_index {
-            renderer::clear(&e, self.stdout, self.origin, &self.map);
-        }
-    }
-
     pub fn update(&mut self) -> bool {
         let debug = false;
 
-        // Clear
+        for e in self.gen_index.clone() {
+            renderer::clear(&e, self.stdout, self.origin, &self.map);
+        }
 
-        // if let Some(c) = self.stdin.events().next() {
-        //     match c.unwrap() {
-        //         Event::Key(ke) => match ke {
-        //             Key::Char('q') => {
-        //                 // self.game_over();
-        //                 return false;
-        //             }
-        //             Key::Up | Key::Char('w') | Key::Char(' ') => self.run(Direction::Up),
-        //             Key::Down | Key::Char('s') => self.run(Direction::Down),
-        //             Key::Right | Key::Char('d') => self.run(Direction::Right),
-        //             Key::Left | Key::Char('a') => self.run(Direction::Left),
-        //             _ => {
-        //                 if debug {
-        //                     self.run(Direction::None)
-        //                 }
-        //             }
-        //         },
-        //         Event::Mouse(me) => match me {
-        //             MouseEvent::Press(_, a, b) => {
-        //                 let x = a as i16 - self.origin.x as i16 - 1;
-        //                 let y = b as i16 - self.origin.y as i16 - 1;
+        // clear
+        for e in self.gen_index.clone() {
+            let mut e_lock = unlock(&e);
 
-        //                 // let sym = if self.map.borrow().get(x, y).is_some() {
-        //                 //     'W'
-        //                 // } else {
-        //                 //     ' '
-        //                 // };
-
-        //                 self.run(Direction::To(Vector::new(x as f32, y as f32)));
-        //             }
-        //             _ => (), // MouseEvent::Release(a, b) | MouseEvent::Hold(a, b) => {
-        //                      //     // write!(self.stdout, "{}x", cursor::Goto(a, b)).unwrap();
-        //                      // }
-        //         },
-        //         _ => self.run(Direction::None),
-        //     }
-        // } else {
-        //     if !debug {
-        //         self.run(Direction::None)
-        //     }
-        // }
-
-        for e in &mut self.gen_index {
-            let e_lock = e.lock().unwrap();
             e_lock.update();
             e_lock.collide(&self.map);
         }
 
         let mut to_remove: Vec<usize> = Vec::new();
 
-        for e in &mut self.gen_index {
-            let e_lock = e.lock().unwrap();
+        for e in self.gen_index.clone() {
+            let e_lock = unlock(&e);
             if e_lock.should_remove() {
                 renderer::clear(&e, self.stdout, self.origin, &self.map);
 
@@ -256,7 +194,7 @@ impl<'a, R: Read + Send, W: Write + Send> Game<'a, R, W> {
             }
         }
 
-        for e in &mut self.gen_index {
+        for e in self.gen_index.clone() {
             renderer::draw(&e, self.stdout, self.origin);
         }
 

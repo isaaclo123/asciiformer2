@@ -1,5 +1,6 @@
 use super::debug;
 use super::entities::{Entity, EntitySync};
+use super::helpers::{unlock, wrap};
 use super::map::MapSync;
 use super::textures::AirTextures;
 use super::vectors::Vector;
@@ -14,7 +15,7 @@ pub fn clear(ref_obj: &EntitySync, stdout: &mut impl Write, origin: Vector<u16>,
     // if !obj.should_draw() {
     //     return;
     // }
-    let obj = ref_obj.lock().unwrap();
+    let obj = unlock(ref_obj);
 
     let Vector {
         x: point_x,
@@ -28,13 +29,14 @@ pub fn clear(ref_obj: &EntitySync, stdout: &mut impl Write, origin: Vector<u16>,
 
     let texture = obj.get_texture();
 
+    let my_map = unlock(map);
+
     for texture_y in 0..texture.len() {
         for texture_x in 0..texture[texture_y].len() {
             let (tex_x, tex_y) = (
                 point_x as i16 + texture_x as i16,
                 point_y as i16 + texture_y as i16,
             );
-            let my_map = map.lock().unwrap();
             let bg_texture = my_map.get(tex_x, tex_y);
 
             let sym = if let Some(e) = bg_texture {
@@ -45,7 +47,7 @@ pub fn clear(ref_obj: &EntitySync, stdout: &mut impl Write, origin: Vector<u16>,
                 //     tex_y,
                 //     e.borrow().get_texture()[0][0]
                 // ));
-                e.lock().unwrap().get_texture()[0][0]
+                unlock(&e).get_texture()[0][0]
             } else {
                 AirTextures::AIR[0][0]
             };
@@ -76,7 +78,7 @@ pub fn draw(
     // point: Vector<i16>,
     // fg_opt: Option<impl color::Color>,
 ) {
-    let obj = ref_obj.lock().unwrap();
+    let obj = unlock(ref_obj);
     // if !obj.should_draw() {
     //     return;
     // }

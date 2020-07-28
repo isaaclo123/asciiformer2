@@ -1,4 +1,6 @@
 use crate::debug;
+
+use crate::helpers::{unlock, wrap};
 use crate::map::{Map, MapSync};
 use crate::vectors::Vector;
 use std::cell::RefCell;
@@ -91,8 +93,9 @@ fn plot_line_low(
         let mut collide_pos = None;
         let mut modified = false;
 
+        let my_map = unlock(map);
+
         for y_check in check_order.iter() {
-            let my_map = map.lock().unwrap();
             let check = my_map.get(x as i16, *y_check as i16);
 
             if check.is_some() {
@@ -222,8 +225,9 @@ fn plot_line_high(
         let mut collide_pos = None;
         let mut modified = false;
 
+        let my_map = unlock(map);
+
         for x_check in check_order.iter() {
-            let my_map = map.lock().unwrap();
             let check = my_map.get(*x_check as i16, y as i16);
 
             if check.is_some() {
