@@ -61,7 +61,7 @@ impl Map {
         .unwrap();
 
         for (_, e) in &self.level {
-            renderer::draw(&e, stdout, origin);
+            renderer::draw(&*e.lock().unwrap(), stdout, origin);
         }
     }
 

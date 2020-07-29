@@ -9,13 +9,13 @@ use std::io::Write;
 use std::rc::Rc;
 use termion::{color, cursor};
 
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, Mutex, MutexGuard};
 
-pub fn clear(ref_obj: &EntitySync, stdout: &mut impl Write, origin: Vector<u16>, map: &MapSync) {
+pub fn clear(obj: &dyn Entity, stdout: &mut impl Write, origin: Vector<u16>, map: &MapSync) {
     // if !obj.should_draw() {
     //     return;
     // }
-    let obj = unlock(ref_obj);
+    // let obj = unlock(ref_obj);
 
     let Vector {
         x: point_x,
@@ -72,13 +72,14 @@ pub fn clear(ref_obj: &EntitySync, stdout: &mut impl Write, origin: Vector<u16>,
 }
 
 pub fn draw(
-    ref_obj: &EntitySync,
+    // ref_obj: &EntitySync,
+    obj: &dyn Entity,
     stdout: &mut impl Write,
     origin: Vector<u16>,
     // point: Vector<i16>,
     // fg_opt: Option<impl color::Color>,
 ) {
-    let obj = unlock(ref_obj);
+    // let obj = unlock(ref_obj);
     // if !obj.should_draw() {
     //     return;
     // }

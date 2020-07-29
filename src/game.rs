@@ -161,29 +161,25 @@ impl<'a, R: Read + Send, W: Write + Send> Game<'a, R, W> {
     pub fn update(&mut self) -> bool {
         let debug = false;
 
-        for e in self.gen_index.clone() {
-            renderer::clear(&e, self.stdout, self.origin, &self.map);
-        }
+        let mut to_remove: Vec<usize> = Vec::new();
 
         // clear
         for e in self.gen_index.clone() {
             let mut e_lock = unlock(&e);
 
+            renderer::clear(&*e_lock, self.stdout, self.origin, &self.map);
+
             e_lock.update();
             e_lock.collide(&self.map);
-        }
 
-        let mut to_remove: Vec<usize> = Vec::new();
-
-        for e in self.gen_index.clone() {
-            let e_lock = unlock(&e);
             if e_lock.should_remove() {
-                renderer::clear(&e, self.stdout, self.origin, &self.map);
-
                 if let Some(id) = e_lock.get_id() {
                     to_remove.push(id);
+                    continue;
                 }
             }
+
+            renderer::draw(&*e_lock, self.stdout, self.origin);
         }
 
         for id in to_remove {
@@ -193,18 +189,6 @@ impl<'a, R: Read + Send, W: Write + Send> Game<'a, R, W> {
                 debug::write(&format!("Remove ID ERROR! {}", e));
             }
         }
-
-        for e in self.gen_index.clone() {
-            renderer::draw(&e, self.stdout, self.origin);
-        }
-
-        // if !debug {
-        //     self.run(&gen_index, None)
-        // }
-
-        //     // run here when not debug
-        //     self.player.borrow_mut().draw(self.stdout, self.origin);
-        // }
 
         self.stdout.flush().unwrap();
 
