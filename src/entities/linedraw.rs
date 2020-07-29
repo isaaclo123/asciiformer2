@@ -84,10 +84,10 @@ fn plot_line_low(
         let y_round = prev_vec.y.round();
 
         let check_order = match (dy > 0.0, !round_check) {
-            (true, true) => [y_floor, y_ceil],
-            (true, false) => [y_floor, y_ceil],
-            (false, true) => [y_ceil, y_floor],
-            (false, false) => [y_ceil, y_floor],
+            (true, true) => vec![y_floor, y_ceil],
+            (true, false) => vec![y_round, y_floor, y_ceil],
+            (false, true) => vec![y_ceil, y_floor],
+            (false, false) => vec![y_round, y_ceil, y_floor],
         };
 
         let mut collide_pos = None;
@@ -216,10 +216,10 @@ fn plot_line_high(
         let x_round = prev_vec.x.round();
 
         let check_order = match (dx > 0.0, !round_check) {
-            (true, true) => [x_floor, x_ceil],
-            (true, false) => [x_floor, x_ceil],
-            (false, true) => [x_ceil, x_floor],
-            (false, false) => [x_ceil, x_floor],
+            (true, true) => vec![x_floor, x_ceil],
+            (true, false) => vec![x_round, x_floor, x_ceil],
+            (false, true) => vec![x_ceil, x_floor],
+            (false, false) => vec![x_round, x_ceil, x_floor],
         };
 
         let mut collide_pos = None;

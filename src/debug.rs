@@ -1,3 +1,4 @@
+use std::fs::File;
 use std::io::{stdout, Stdout, Write};
 use std::sync::Mutex;
 use termion::cursor;
@@ -5,6 +6,7 @@ use termion::cursor;
 lazy_static! {
     static ref DEBUG_BUF: Mutex<Vec<std::string::String>> = Mutex::new(vec![]);
     static ref DEBUG_STDOUT: Mutex<Stdout> = Mutex::new(stdout());
+    static ref DEBUG_FILE: Mutex<File> = Mutex::new(File::create("game_log.txt").unwrap());
 }
 
 static MAX_DEBUG_LEN: usize = 30;
@@ -17,6 +19,9 @@ pub fn write(output: &str) {
 
     let mut debug_buf = DEBUG_BUF.lock().unwrap();
     let mut stdout = DEBUG_STDOUT.lock().unwrap();
+    let mut file = DEBUG_FILE.lock().unwrap();
+
+    writeln!(file, "{}", output).unwrap();
 
     for (i, line) in debug_buf.iter().enumerate() {
         for j in 0..line.len() {

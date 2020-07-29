@@ -52,7 +52,7 @@ impl Entity for Bullet {
     fn get_texture(&self) -> Texture {
         let Vector { x, y } = self.point;
 
-        if x > 0.45 && x < 0.55 && y > 0.45 && y < 0.55 {
+        if x > 0.33 && x < 0.66 && y > 0.33 && y < 0.66 {
             return BulletTextures::MID;
         }
 
@@ -78,15 +78,13 @@ impl Entity for Bullet {
     }
 
     fn collide(&mut self, map: &MapSync) {
-        let (new_point, coll_opt) = plot_line(self.prev_point, self.point, map, true, false);
-
-        if !self.should_remove {
-            debug::write(&format!("newpoint {}", new_point));
-        }
+        let (new_point, coll_opt) = plot_line(self.prev_point, self.point, map, false, true);
 
         if let Some(coll_point) = coll_opt {
             debug::write(&format!("collided on {}", coll_point));
             // TODO may be able to get rid of this
+            self.velocity.x = 0.0;
+            self.velocity.y = 0.0;
             self.prev_point = coll_point;
             self.point = coll_point;
             self.should_remove = true;

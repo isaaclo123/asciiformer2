@@ -83,19 +83,18 @@ impl<'a, R: Read + Send, W: Write + Send> Game<'a, R, W> {
         let player_id = self.player_id;
 
         thread::spawn(move || {
-            debug::write("Spawned Input Thread");
             // let sender = sender.clone();
             // let my_stdin = Arc::clone(&stdin);
             // let mut stdin = stdin.lock();
             // for c in stdin.unwrap().events() {
             for c in stdin.lock().events() {
-                debug::write("Event !");
                 let result = match c.unwrap() {
                     Event::Key(ke) => match ke {
                         Key::Char('q') =>
                         // self.game_over();
                         // return false;
                         {
+                            Self::game_over();
                             Direction::None
                         }
                         Key::Up | Key::Char('w') | Key::Char(' ') => Direction::Up,
@@ -121,7 +120,6 @@ impl<'a, R: Read + Send, W: Write + Send> Game<'a, R, W> {
         });
 
         loop {
-            debug::write(&format!("LOOP"));
             let now = Instant::now();
             let dt = (now.duration_since(before).subsec_nanos() / 1_000_000) as u64;
 
@@ -159,8 +157,6 @@ impl<'a, R: Read + Send, W: Write + Send> Game<'a, R, W> {
     }
 
     pub fn update(&mut self) -> bool {
-        let debug = false;
-
         let mut to_remove: Vec<usize> = Vec::new();
 
         // clear
@@ -178,9 +174,10 @@ impl<'a, R: Read + Send, W: Write + Send> Game<'a, R, W> {
                     continue;
                 }
             }
-
             renderer::draw(&*e_lock, self.stdout, self.origin);
         }
+
+        self.stdout.flush().unwrap();
 
         for id in to_remove {
             debug::write(&format!("Remove ID {}", id));
@@ -190,19 +187,14 @@ impl<'a, R: Read + Send, W: Write + Send> Game<'a, R, W> {
             }
         }
 
-        self.stdout.flush().unwrap();
-
         true
     }
 
-    pub fn game_over(&mut self) {
-        write!(
-            self.stdout,
-            "{clear}Thank you for playing!",
-            clear = clear::All
-        )
-        .unwrap();
+    // pub fn game_over(stdout: &mut impl Write) {
+    pub fn game_over() {
+        // write!(stdout, "{clear}Thank you for playing!", clear = clear::All).unwrap();
 
-        write!(self.stdout, "{}", cursor::Show).unwrap();
+        // write!(stdout, "{}", cursor::Show).unwrap();
+        std::process::exit(1);
     }
 }
