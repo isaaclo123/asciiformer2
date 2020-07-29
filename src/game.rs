@@ -165,19 +165,18 @@ impl<'a, R: Read + Send, W: Write + Send> Game<'a, R, W> {
 
             renderer::clear(&*e_lock, self.stdout, self.origin, &self.map);
 
-            e_lock.update();
-            e_lock.collide(&self.map);
-
             if e_lock.should_remove() {
                 if let Some(id) = e_lock.get_id() {
                     to_remove.push(id);
                     continue;
                 }
             }
+
+            e_lock.update();
+            e_lock.collide(&self.map);
+
             renderer::draw(&*e_lock, self.stdout, self.origin);
         }
-
-        self.stdout.flush().unwrap();
 
         for id in to_remove {
             debug::write(&format!("Remove ID {}", id));
@@ -186,6 +185,8 @@ impl<'a, R: Read + Send, W: Write + Send> Game<'a, R, W> {
                 debug::write(&format!("Remove ID ERROR! {}", e));
             }
         }
+
+        self.stdout.flush().unwrap();
 
         true
     }

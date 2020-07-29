@@ -85,8 +85,8 @@ impl Entity for Bullet {
             // TODO may be able to get rid of this
             self.velocity.x = 0.0;
             self.velocity.y = 0.0;
-            self.prev_point = coll_point;
-            self.point = coll_point;
+            self.prev_point = new_point;
+            self.point = new_point;
             self.should_remove = true;
             return;
         }
