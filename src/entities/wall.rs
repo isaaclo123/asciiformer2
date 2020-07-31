@@ -21,6 +21,10 @@ impl Wall {
 }
 
 impl Entity for Wall {
+    fn get_id(&self) -> Option<i16> {
+        Some(-1)
+    }
+
     fn get_texture(&self) -> Texture {
         return WallTextures::WALL;
     }

@@ -1,1936 +1,1997 @@
-velocity (3.4956331, 0.17478167) ((41, 1) -> (81, 3))
-check (41, 1) ' '
-check (41, 1) ' '
-check (41, 1) ' '
-check (42, 1) ' '
-check (42, 1) ' '
-check (42, 2) ' '
-check (43, 2) ' '
-check (43, 2) ' '
-check (43, 3) ' '
-check (44, 3) ' '
-check (44, 3) ' '
-check (44, 4) ' '
-check (45, 4) ' '
-check (45, 4) ' '
-check (45, 5) ' '
-check (44, 1) ' '
-check (44, 1) ' '
-check (44, 2) ' '
-check (45, 2) ' '
-check (45, 2) ' '
-check (45, 3) ' '
-check (46, 3) ' '
-check (46, 3) ' '
-check (46, 4) ' '
-check (47, 4) ' '
-check (47, 4) ' '
-check (47, 5) ' '
-check (48, 5) ' '
-check (48, 5) ' '
-check (48, 6) ' '
-velocity (3.4856265, 0.31687513) ((41, 1) -> (85, 5))
-check (47, 1) ' '
-check (47, 1) ' '
-check (47, 2) ' '
-check (48, 2) ' '
-check (48, 2) ' '
-check (48, 3) ' '
-check (49, 3) ' '
-check (49, 3) ' '
-check (49, 4) ' '
-check (50, 4) ' '
-check (50, 4) ' '
-check (50, 5) ' '
-check (51, 5) ' '
-check (51, 5) ' '
-check (51, 6) ' '
-check (52, 6) ' '
-check (52, 6) ' '
-check (52, 7) ' '
-check (41, 1) ' '
-check (41, 1) ' '
-check (41, 1) ' '
-check (42, 1) ' '
-check (42, 1) ' '
-check (42, 2) ' '
-check (43, 2) ' '
-check (43, 2) ' '
-check (43, 3) ' '
-check (44, 3) ' '
-check (44, 3) ' '
-check (44, 4) ' '
-check (45, 4) ' '
-check (45, 4) ' '
-check (45, 5) ' '
-check (51, 2) ' '
-check (51, 1) ' '
-check (51, 2) ' '
-check (52, 2) ' '
-check (52, 2) ' '
-check (52, 3) ' '
-check (53, 3) ' '
-check (53, 3) ' '
-check (53, 4) ' '
-check (54, 4) ' '
-check (54, 4) ' '
-check (54, 5) ' '
-check (55, 5) ' '
-check (55, 5) ' '
-check (55, 6) ' '
-check (44, 1) ' '
-check (44, 1) ' '
-check (44, 2) ' '
-check (45, 2) ' '
-check (45, 2) ' '
-check (45, 3) ' '
-check (46, 3) ' '
-check (46, 3) ' '
-check (46, 4) ' '
-check (47, 4) ' '
-check (47, 4) ' '
-check (47, 5) ' '
-check (48, 5) ' '
-check (48, 5) ' '
-check (48, 6) ' '
-check (54, 2) ' '
-check (54, 1) ' '
-check (54, 2) ' '
-check (55, 2) ' '
-check (55, 2) ' '
-check (55, 3) ' '
-check (56, 3) ' '
-check (56, 3) ' '
-check (56, 4) ' '
-check (57, 4) ' '
-check (57, 4) ' '
-check (57, 5) ' '
-check (58, 5) ' '
-check (58, 5) ' '
-check (58, 6) ' '
-check (59, 6) ' '
-check (59, 6) ' '
-check (59, 7) ' '
-check (47, 2) ' '
-check (47, 1) ' '
-check (47, 2) ' '
-check (48, 2) ' '
-check (48, 2) ' '
-check (48, 3) ' '
-check (49, 3) ' '
-check (49, 3) ' '
-check (49, 4) ' '
-check (50, 4) ' '
-check (50, 4) ' '
-check (50, 5) ' '
-check (51, 5) ' '
-check (51, 5) ' '
-check (51, 6) ' '
-check (52, 6) ' '
-check (52, 6) ' '
-check (52, 7) ' '
-velocity (-2.3252735, -2.6159327) ((45, 6) -> (37, -3))
-check (58, 2) ' '
-check (58, 1) ' '
-check (58, 2) ' '
-check (59, 2) ' '
-check (59, 2) ' '
-check (59, 3) ' '
-check (60, 3) ' '
-check (60, 3) ' '
-check (60, 4) ' '
-check (61, 4) ' '
-check (61, 4) ' '
-check (61, 5) ' '
-check (62, 5) ' '
-check (62, 5) ' '
-check (62, 6) ' '
-check (51, 2) ' '
-check (51, 1) ' '
-check (51, 2) ' '
-check (52, 2) ' '
-check (52, 2) ' '
-check (52, 3) ' '
-check (53, 3) ' '
-check (53, 3) ' '
-check (53, 4) ' '
-check (54, 4) ' '
-check (54, 4) ' '
-check (54, 5) ' '
-check (55, 5) ' '
-check (55, 5) ' '
-check (55, 6) ' '
-check (45, 6) ' '
-check (45, 6) ' '
-check (45, 6) ' '
-check (45, 5) ' '
-check (45, 5) ' '
-check (44, 5) ' '
-check (44, 4) ' '
-check (44, 4) ' '
-check (43, 4) ' '
-check (43, 3) ' '
-check (43, 3) ' '
-check (42, 3) ' '
-check (61, 2) ' '
-check (61, 2) ' '
-check (61, 3) ' '
-check (62, 3) ' '
-check (62, 3) ' '
-check (62, 4) ' '
-check (63, 4) ' '
-check (63, 4) ' '
-check (63, 5) ' '
-check (64, 5) ' '
-check (64, 5) ' '
-check (64, 6) ' '
-check (65, 6) ' '
-check (65, 6) ' '
-check (65, 7) ' '
-check (66, 7) ' '
-check (66, 7) ' '
-check (66, 8) ' '
-check (54, 2) ' '
-check (54, 2) ' '
-check (54, 3) ' '
-check (55, 3) ' '
-check (55, 3) ' '
-check (55, 4) ' '
-check (56, 4) ' '
-check (56, 4) ' '
-check (56, 5) ' '
-check (57, 5) ' '
-check (57, 5) ' '
-check (57, 6) ' '
-check (58, 6) ' '
-check (58, 6) ' '
-check (58, 7) ' '
-check (59, 7) ' '
-check (59, 7) ' '
-check (59, 8) ' '
-check (43, 4) ' '
-check (44, 4) ' '
-check (43, 4) ' '
-check (43, 3) ' '
-check (43, 3) ' '
-check (42, 3) ' '
-check (42, 2) ' '
-check (42, 2) ' '
-check (41, 2) ' '
-check (41, 1) ' '
-check (41, 1) ' '
-check (40, 1) ' '
-check (40, 0) W
-collided on (40, 0)
-check (65, 2) ' '
-check (65, 2) ' '
-check (65, 3) ' '
-check (66, 3) ' '
-check (66, 3) ' '
-check (66, 4) ' '
-check (67, 4) ' '
-check (67, 4) ' '
-check (67, 5) ' '
-check (68, 5) ' '
-check (68, 5) ' '
-check (68, 6) ' '
-check (69, 6) ' '
-check (69, 6) ' '
-check (69, 7) ' '
-check (58, 3) ' '
-check (58, 2) ' '
-check (58, 3) ' '
-check (59, 3) ' '
-check (59, 3) ' '
-check (59, 4) ' '
-check (60, 4) ' '
-check (60, 4) ' '
-check (60, 5) ' '
-check (61, 5) ' '
-check (61, 5) ' '
-check (61, 6) ' '
-check (62, 6) ' '
-check (62, 6) ' '
-check (62, 7) ' '
-Remove ID 96
-velocity (-3.3954988, -0.8488747) ((49, 2) -> (37, -1))
-check (68, 2) ' '
-check (68, 2) ' '
-check (68, 3) ' '
-check (69, 3) ' '
-check (69, 3) ' '
-check (69, 4) ' '
-check (70, 4) ' '
-check (70, 4) ' '
-check (70, 5) ' '
-check (71, 5) ' '
-check (71, 5) ' '
-check (71, 6) ' '
-check (72, 6) ' '
-check (72, 6) ' '
-check (72, 7) ' '
-check (73, 7) ' '
-check (73, 7) ' '
-check (73, 8) ' '
-check (61, 3) ' '
-check (61, 2) ' '
-check (61, 3) ' '
-check (62, 3) ' '
-check (62, 3) ' '
-check (62, 4) ' '
-check (63, 4) ' '
-check (63, 4) ' '
-check (63, 5) ' '
-check (64, 5) ' '
-check (64, 5) ' '
-check (64, 6) ' '
-check (65, 6) ' '
-check (65, 6) ' '
-check (65, 7) ' '
-check (66, 7) ' '
-check (66, 7) ' '
-check (66, 8) ' '
-check (49, 2) ' '
-check (49, 2) ' '
-check (49, 2) ' '
-check (48, 2) ' '
-check (48, 2) ' '
-check (48, 1) ' '
-check (47, 1) ' '
-check (47, 1) ' '
-check (47, 0) W
-collided on (47, 0)
-check (72, 3) ' '
-check (72, 2) ' '
-check (72, 3) ' '
-check (73, 3) ' '
-check (73, 3) ' '
-check (73, 4) ' '
-check (74, 4) ' '
-check (74, 4) ' '
-check (74, 5) ' '
-check (75, 5) W
-collided on (75, 5)
-check (65, 3) ' '
-check (65, 3) ' '
-check (65, 4) ' '
-check (66, 4) ' '
-check (66, 4) ' '
-check (66, 5) ' '
-check (67, 5) ' '
-check (67, 5) ' '
-check (67, 6) ' '
-check (68, 6) ' '
-check (68, 6) ' '
-check (68, 7) ' '
-check (69, 7) ' '
-check (69, 7) ' '
-check (69, 8) ' '
-Remove ID 96
-check (68, 4) ' '
-check (68, 3) ' '
-check (68, 4) ' '
-check (69, 4) ' '
-check (69, 4) ' '
-check (69, 5) ' '
-check (70, 5) ' '
-check (70, 5) ' '
-check (70, 6) ' '
-check (71, 6) ' '
-check (71, 6) ' '
-check (71, 7) ' '
-check (72, 7) ' '
-check (72, 7) ' '
-check (72, 8) ' '
-check (73, 8) ' '
-check (73, 8) ' '
-check (73, 9) ' '
-Remove ID 98
-velocity (2.9121761, 1.9414507) ((51, 2) -> (54, 4))
-check (72, 4) ' '
-check (72, 3) ' '
-check (72, 4) ' '
-check (73, 4) ' '
-check (73, 4) ' '
-check (73, 5) ' '
-check (74, 5) ' '
-check (74, 5) ' '
-check (74, 6) ' '
-check (75, 6) W
-collided on (75, 6)
-check (51, 2) ' '
-check (51, 2) ' '
-check (51, 2) ' '
-check (52, 2) ' '
-check (52, 2) ' '
-check (52, 3) ' '
-check (53, 3) ' '
-check (53, 3) ' '
-check (53, 4) ' '
-check (54, 4) ' '
-check (54, 4) ' '
-check (54, 5) ' '
-check (53, 4) ' '
-check (53, 4) ' '
-check (53, 5) ' '
-check (54, 5) ' '
-check (54, 5) ' '
-check (54, 6) ' '
-check (55, 6) ' '
-check (55, 6) ' '
-check (55, 7) ' '
-check (56, 7) ' '
-check (56, 7) ' '
-check (56, 8) ' '
-check (57, 8) ' '
-check (57, 8) ' '
-check (57, 9) ' '
-Remove ID 97
-check (56, 6) ' '
-check (56, 6) ' '
-check (56, 7) ' '
-check (57, 7) ' '
-check (57, 7) ' '
-check (57, 8) ' '
-check (58, 8) ' '
-check (58, 8) ' '
-check (58, 9) ' '
-check (59, 9) ' '
-check (59, 9) ' '
-check (59, 10) ' '
-check (60, 10) ' '
-check (60, 10) ' '
-check (60, 11) ' '
-velocity (3.459301, -0.53220016) ((51, 5) -> (64, 3))
-check (59, 8) ' '
-check (59, 8) ' '
-check (59, 9) ' '
-check (60, 9) ' '
-check (60, 9) ' '
-check (60, 10) ' '
-check (61, 10) ' '
-check (61, 10) ' '
-check (61, 11) ' '
-check (62, 11) ' '
-check (62, 11) ' '
-check (62, 12) ' '
-check (63, 12) ' '
-check (63, 12) ' '
-check (63, 13) ' '
-check (51, 5) ' '
-check (51, 5) ' '
-check (51, 5) ' '
-check (52, 5) ' '
-check (52, 5) ' '
-check (52, 4) ' '
-check (53, 4) ' '
-check (53, 4) ' '
-check (53, 3) ' '
-check (54, 3) ' '
-check (54, 3) ' '
-check (54, 2) ' '
-check (55, 2) ' '
-check (55, 2) ' '
-check (55, 1) ' '
-check (62, 10) ' '
-check (62, 10) ' '
-check (62, 11) ' '
-check (63, 11) ' '
-check (63, 11) ' '
-check (63, 12) ' '
-check (64, 12) ' '
-check (64, 12) ' '
-check (64, 13) ' '
-check (65, 13) ' '
-check (65, 13) ' '
-check (65, 14) ' '
-check (66, 14) ' '
-check (66, 14) ' '
-check (66, 15) ' '
-check (54, 4) ' '
-check (54, 5) ' '
-check (54, 4) ' '
-check (55, 4) ' '
-check (55, 4) ' '
-check (55, 3) ' '
-check (56, 3) ' '
-check (56, 3) ' '
-check (56, 2) ' '
-check (57, 2) ' '
-check (57, 2) ' '
-check (57, 1) ' '
-check (58, 1) ' '
-check (58, 1) ' '
-check (58, 0) W
-collided on (58, 0)
-check (65, 12) ' '
-check (65, 12) ' '
-check (65, 13) ' '
-check (66, 13) ' '
-check (66, 13) ' '
-check (66, 14) ' '
-check (67, 14) ' '
-check (67, 14) ' '
-check (67, 15) ' '
-check (68, 15) ' '
-check (68, 15) ' '
+NONE at 1 1
+NONE at 2 1
+NONE at 3 1
+NONE at 4 1
+NONE at 5 1
+NONE at 6 1
+NONE at 7 1
+NONE at 8 1
+NONE at 9 1
+NONE at 10 1
+NONE at 11 1
+NONE at 12 1
+NONE at 13 1
+NONE at 14 1
+NONE at 15 1
+NONE at 16 1
+NONE at 17 1
+NONE at 18 1
+NONE at 19 1
+NONE at 20 1
+NONE at 21 1
+NONE at 22 1
+NONE at 23 1
+NONE at 24 1
+NONE at 25 1
+NONE at 26 1
+NONE at 27 1
+NONE at 28 1
+NONE at 29 1
+NONE at 30 1
+NONE at 31 1
+NONE at 32 1
+NONE at 33 1
+NONE at 34 1
+NONE at 35 1
+NONE at 36 1
+NONE at 37 1
+NONE at 38 1
+NONE at 39 1
+NONE at 40 1
+NONE at 41 1
+NONE at 42 1
+NONE at 43 1
+NONE at 44 1
+NONE at 45 1
+NONE at 46 1
+NONE at 47 1
+NONE at 48 1
+NONE at 49 1
+NONE at 50 1
+NONE at 51 1
+NONE at 52 1
+NONE at 53 1
+NONE at 54 1
+NONE at 55 1
+NONE at 56 1
+NONE at 57 1
+NONE at 58 1
+NONE at 59 1
+NONE at 60 1
+NONE at 61 1
+NONE at 62 1
+NONE at 63 1
+NONE at 64 1
+NONE at 65 1
+NONE at 66 1
+NONE at 67 1
+NONE at 68 1
+NONE at 69 1
+NONE at 70 1
+NONE at 71 1
+NONE at 72 1
+NONE at 73 1
+NONE at 74 1
+NONE at 1 2
+NONE at 2 2
+NONE at 3 2
+NONE at 4 2
+NONE at 5 2
+NONE at 6 2
+NONE at 7 2
+NONE at 8 2
+NONE at 9 2
+NONE at 10 2
+NONE at 11 2
+NONE at 12 2
+NONE at 13 2
+NONE at 14 2
+NONE at 15 2
+NONE at 16 2
+NONE at 17 2
+NONE at 18 2
+NONE at 19 2
+NONE at 20 2
+NONE at 21 2
+NONE at 22 2
+NONE at 23 2
+NONE at 24 2
+NONE at 25 2
+NONE at 26 2
+NONE at 27 2
+NONE at 28 2
+NONE at 29 2
+NONE at 30 2
+NONE at 31 2
+NONE at 32 2
+NONE at 33 2
+NONE at 34 2
+NONE at 35 2
+NONE at 36 2
+NONE at 37 2
+NONE at 38 2
+NONE at 39 2
+NONE at 40 2
+NONE at 41 2
+NONE at 42 2
+NONE at 43 2
+NONE at 44 2
+NONE at 45 2
+NONE at 46 2
+NONE at 47 2
+NONE at 48 2
+NONE at 49 2
+NONE at 50 2
+NONE at 51 2
+NONE at 52 2
+NONE at 53 2
+NONE at 54 2
+NONE at 55 2
+NONE at 56 2
+NONE at 57 2
+NONE at 58 2
+NONE at 59 2
+NONE at 60 2
+NONE at 61 2
+NONE at 62 2
+NONE at 63 2
+NONE at 64 2
+NONE at 65 2
+NONE at 66 2
+NONE at 67 2
+NONE at 68 2
+NONE at 69 2
+NONE at 70 2
+NONE at 71 2
+NONE at 72 2
+NONE at 73 2
+NONE at 74 2
+NONE at 1 3
+NONE at 2 3
+NONE at 3 3
+NONE at 4 3
+NONE at 5 3
+NONE at 6 3
+NONE at 7 3
+NONE at 8 3
+NONE at 9 3
+NONE at 10 3
+NONE at 11 3
+NONE at 12 3
+NONE at 13 3
+NONE at 14 3
+NONE at 15 3
+NONE at 16 3
+NONE at 17 3
+NONE at 18 3
+NONE at 19 3
+NONE at 20 3
+NONE at 21 3
+NONE at 22 3
+NONE at 23 3
+NONE at 24 3
+NONE at 25 3
+NONE at 26 3
+NONE at 27 3
+NONE at 28 3
+NONE at 29 3
+NONE at 30 3
+NONE at 31 3
+NONE at 32 3
+NONE at 33 3
+NONE at 34 3
+NONE at 35 3
+NONE at 36 3
+NONE at 37 3
+NONE at 38 3
+NONE at 39 3
+NONE at 40 3
+NONE at 41 3
+NONE at 42 3
+NONE at 43 3
+NONE at 44 3
+NONE at 45 3
+NONE at 46 3
+NONE at 47 3
+NONE at 48 3
+NONE at 49 3
+NONE at 50 3
+NONE at 51 3
+NONE at 52 3
+NONE at 53 3
+NONE at 54 3
+NONE at 55 3
+NONE at 56 3
+NONE at 57 3
+NONE at 58 3
+NONE at 59 3
+NONE at 60 3
+NONE at 61 3
+NONE at 62 3
+NONE at 63 3
+NONE at 64 3
+NONE at 65 3
+NONE at 66 3
+NONE at 67 3
+NONE at 68 3
+NONE at 69 3
+NONE at 70 3
+NONE at 71 3
+NONE at 72 3
+NONE at 73 3
+NONE at 74 3
+NONE at 1 4
+NONE at 2 4
+NONE at 3 4
+NONE at 4 4
+NONE at 5 4
+NONE at 6 4
+NONE at 7 4
+NONE at 8 4
+NONE at 9 4
+NONE at 10 4
+NONE at 11 4
+NONE at 12 4
+NONE at 13 4
+NONE at 14 4
+NONE at 15 4
+NONE at 16 4
+NONE at 17 4
+NONE at 18 4
+NONE at 19 4
+NONE at 20 4
+NONE at 21 4
+NONE at 22 4
+NONE at 23 4
+NONE at 24 4
+NONE at 25 4
+NONE at 26 4
+NONE at 27 4
+NONE at 28 4
+NONE at 29 4
+NONE at 30 4
+NONE at 31 4
+NONE at 32 4
+NONE at 33 4
+NONE at 34 4
+NONE at 35 4
+NONE at 36 4
+NONE at 37 4
+NONE at 38 4
+NONE at 39 4
+NONE at 40 4
+NONE at 41 4
+NONE at 42 4
+NONE at 43 4
+NONE at 44 4
+NONE at 45 4
+NONE at 46 4
+NONE at 47 4
+NONE at 48 4
+NONE at 49 4
+NONE at 50 4
+NONE at 51 4
+NONE at 52 4
+NONE at 53 4
+NONE at 54 4
+NONE at 55 4
+NONE at 56 4
+NONE at 57 4
+NONE at 58 4
+NONE at 59 4
+NONE at 60 4
+NONE at 61 4
+NONE at 62 4
+NONE at 63 4
+NONE at 64 4
+NONE at 65 4
+NONE at 66 4
+NONE at 67 4
+NONE at 68 4
+NONE at 69 4
+NONE at 70 4
+NONE at 71 4
+NONE at 72 4
+NONE at 73 4
+NONE at 74 4
+NONE at 1 5
+NONE at 2 5
+NONE at 3 5
+NONE at 4 5
+NONE at 5 5
+NONE at 6 5
+NONE at 7 5
+NONE at 8 5
+NONE at 9 5
+NONE at 10 5
+NONE at 11 5
+NONE at 12 5
+NONE at 13 5
+NONE at 14 5
+NONE at 15 5
+NONE at 16 5
+NONE at 17 5
+NONE at 18 5
+NONE at 19 5
+NONE at 20 5
+NONE at 21 5
+NONE at 22 5
+NONE at 23 5
+NONE at 24 5
+NONE at 25 5
+NONE at 26 5
+NONE at 27 5
+NONE at 28 5
+NONE at 29 5
+NONE at 30 5
+NONE at 31 5
+NONE at 32 5
+NONE at 33 5
+NONE at 34 5
+NONE at 35 5
+NONE at 36 5
+NONE at 37 5
+NONE at 38 5
+NONE at 39 5
+NONE at 40 5
+NONE at 41 5
+NONE at 42 5
+NONE at 43 5
+NONE at 44 5
+NONE at 45 5
+NONE at 46 5
+NONE at 47 5
+NONE at 48 5
+NONE at 49 5
+NONE at 50 5
+NONE at 51 5
+NONE at 52 5
+NONE at 53 5
+NONE at 54 5
+NONE at 55 5
+NONE at 56 5
+NONE at 57 5
+NONE at 58 5
+NONE at 59 5
+NONE at 60 5
+NONE at 61 5
+NONE at 62 5
+NONE at 63 5
+NONE at 64 5
+NONE at 65 5
+NONE at 66 5
+NONE at 67 5
+NONE at 68 5
+NONE at 69 5
+NONE at 70 5
+NONE at 71 5
+NONE at 72 5
+NONE at 73 5
+NONE at 74 5
+NONE at 1 6
+NONE at 2 6
+NONE at 3 6
+NONE at 4 6
+NONE at 5 6
+NONE at 6 6
+NONE at 7 6
+NONE at 8 6
+NONE at 9 6
+NONE at 10 6
+NONE at 11 6
+NONE at 12 6
+NONE at 13 6
+NONE at 14 6
+NONE at 15 6
+NONE at 16 6
+NONE at 17 6
+NONE at 18 6
+NONE at 19 6
+NONE at 20 6
+NONE at 21 6
+NONE at 22 6
+NONE at 23 6
+NONE at 24 6
+NONE at 25 6
+NONE at 26 6
+NONE at 27 6
+NONE at 28 6
+NONE at 29 6
+NONE at 30 6
+NONE at 31 6
+NONE at 32 6
+NONE at 33 6
+NONE at 34 6
+NONE at 35 6
+NONE at 36 6
+NONE at 37 6
+NONE at 38 6
+NONE at 39 6
+NONE at 40 6
+NONE at 41 6
+NONE at 42 6
+NONE at 43 6
+NONE at 44 6
+NONE at 45 6
+NONE at 46 6
+NONE at 47 6
+NONE at 48 6
+NONE at 49 6
+NONE at 50 6
+NONE at 51 6
+NONE at 52 6
+NONE at 53 6
+NONE at 54 6
+NONE at 55 6
+NONE at 56 6
+NONE at 57 6
+NONE at 58 6
+NONE at 59 6
+NONE at 60 6
+NONE at 61 6
+NONE at 62 6
+NONE at 63 6
+NONE at 64 6
+NONE at 65 6
+NONE at 66 6
+NONE at 67 6
+NONE at 68 6
+NONE at 69 6
+NONE at 70 6
+NONE at 71 6
+NONE at 72 6
+NONE at 73 6
+NONE at 74 6
+NONE at 1 7
+NONE at 2 7
+NONE at 3 7
+NONE at 4 7
+NONE at 5 7
+NONE at 6 7
+NONE at 7 7
+NONE at 8 7
+NONE at 9 7
+NONE at 10 7
+NONE at 11 7
+NONE at 12 7
+NONE at 13 7
+NONE at 14 7
+NONE at 15 7
+NONE at 16 7
+NONE at 17 7
+NONE at 18 7
+NONE at 19 7
+NONE at 20 7
+NONE at 21 7
+NONE at 22 7
+NONE at 23 7
+NONE at 24 7
+NONE at 25 7
+NONE at 26 7
+NONE at 27 7
+NONE at 28 7
+NONE at 29 7
+NONE at 30 7
+NONE at 31 7
+NONE at 32 7
+NONE at 33 7
+NONE at 34 7
+NONE at 35 7
+NONE at 36 7
+NONE at 37 7
+NONE at 38 7
+NONE at 39 7
+NONE at 40 7
+NONE at 41 7
+NONE at 42 7
+NONE at 43 7
+NONE at 44 7
+NONE at 45 7
+NONE at 46 7
+NONE at 47 7
+NONE at 48 7
+NONE at 49 7
+NONE at 50 7
+NONE at 51 7
+NONE at 52 7
+NONE at 53 7
+NONE at 54 7
+NONE at 55 7
+NONE at 56 7
+NONE at 57 7
+NONE at 58 7
+NONE at 59 7
+NONE at 60 7
+NONE at 61 7
+NONE at 62 7
+NONE at 63 7
+NONE at 64 7
+NONE at 65 7
+NONE at 66 7
+NONE at 67 7
+NONE at 68 7
+NONE at 69 7
+NONE at 70 7
+NONE at 71 7
+NONE at 72 7
+NONE at 73 7
+NONE at 74 7
+NONE at 1 8
+NONE at 2 8
+NONE at 3 8
+NONE at 4 8
+NONE at 5 8
+NONE at 6 8
+NONE at 7 8
+NONE at 8 8
+NONE at 9 8
+NONE at 10 8
+NONE at 11 8
+NONE at 12 8
+NONE at 13 8
+NONE at 14 8
+NONE at 15 8
+NONE at 16 8
+NONE at 17 8
+NONE at 18 8
+NONE at 19 8
+NONE at 20 8
+NONE at 21 8
+NONE at 22 8
+NONE at 23 8
+NONE at 24 8
+NONE at 25 8
+NONE at 26 8
+NONE at 27 8
+NONE at 28 8
+NONE at 29 8
+NONE at 30 8
+NONE at 31 8
+NONE at 32 8
+NONE at 33 8
+NONE at 34 8
+NONE at 35 8
+NONE at 36 8
+NONE at 37 8
+NONE at 38 8
+NONE at 39 8
+NONE at 40 8
+NONE at 41 8
+NONE at 42 8
+NONE at 43 8
+NONE at 44 8
+NONE at 45 8
+NONE at 46 8
+NONE at 47 8
+NONE at 48 8
+NONE at 49 8
+NONE at 50 8
+NONE at 51 8
+NONE at 52 8
+NONE at 53 8
+NONE at 54 8
+NONE at 55 8
+NONE at 56 8
+NONE at 57 8
+NONE at 58 8
+NONE at 59 8
+NONE at 60 8
+NONE at 61 8
+NONE at 62 8
+NONE at 63 8
+NONE at 64 8
+NONE at 65 8
+NONE at 66 8
+NONE at 67 8
+NONE at 68 8
+NONE at 69 8
+NONE at 70 8
+NONE at 71 8
+NONE at 72 8
+NONE at 73 8
+NONE at 74 8
+NONE at 1 9
+NONE at 2 9
+NONE at 3 9
+NONE at 4 9
+NONE at 5 9
+NONE at 6 9
+NONE at 7 9
+NONE at 8 9
+NONE at 9 9
+NONE at 10 9
+NONE at 11 9
+NONE at 12 9
+NONE at 13 9
+NONE at 14 9
+NONE at 15 9
+NONE at 16 9
+NONE at 17 9
+NONE at 18 9
+NONE at 19 9
+NONE at 20 9
+NONE at 21 9
+NONE at 22 9
+NONE at 23 9
+NONE at 24 9
+NONE at 25 9
+NONE at 26 9
+NONE at 27 9
+NONE at 28 9
+NONE at 29 9
+NONE at 30 9
+NONE at 31 9
+NONE at 32 9
+NONE at 33 9
+NONE at 34 9
+NONE at 35 9
+NONE at 46 9
+NONE at 47 9
+NONE at 48 9
+NONE at 49 9
+NONE at 50 9
+NONE at 51 9
+NONE at 52 9
+NONE at 53 9
+NONE at 54 9
+NONE at 55 9
+NONE at 56 9
+NONE at 57 9
+NONE at 58 9
+NONE at 59 9
+NONE at 60 9
+NONE at 61 9
+NONE at 62 9
+NONE at 63 9
+NONE at 64 9
+NONE at 65 9
+NONE at 66 9
+NONE at 67 9
+NONE at 68 9
+NONE at 69 9
+NONE at 70 9
+NONE at 71 9
+NONE at 72 9
+NONE at 73 9
+NONE at 74 9
+NONE at 1 10
+NONE at 2 10
+NONE at 3 10
+NONE at 4 10
+NONE at 5 10
+NONE at 6 10
+NONE at 7 10
+NONE at 8 10
+NONE at 9 10
+NONE at 10 10
+NONE at 11 10
+NONE at 12 10
+NONE at 13 10
+NONE at 14 10
+NONE at 15 10
+NONE at 16 10
+NONE at 17 10
+NONE at 18 10
+NONE at 19 10
+NONE at 20 10
+NONE at 21 10
+NONE at 22 10
+NONE at 23 10
+NONE at 24 10
+NONE at 25 10
+NONE at 26 10
+NONE at 27 10
+NONE at 28 10
+NONE at 29 10
+NONE at 30 10
+NONE at 31 10
+NONE at 32 10
+NONE at 33 10
+NONE at 34 10
+NONE at 35 10
+NONE at 37 10
+NONE at 38 10
+NONE at 39 10
+NONE at 40 10
+NONE at 41 10
+NONE at 42 10
+NONE at 43 10
+NONE at 44 10
+NONE at 45 10
+NONE at 47 10
+NONE at 48 10
+NONE at 49 10
+NONE at 50 10
+NONE at 51 10
+NONE at 52 10
+NONE at 53 10
+NONE at 54 10
+NONE at 55 10
+NONE at 56 10
+NONE at 57 10
+NONE at 58 10
+NONE at 59 10
+NONE at 60 10
+NONE at 61 10
+NONE at 62 10
+NONE at 63 10
+NONE at 64 10
+NONE at 65 10
+NONE at 66 10
+NONE at 67 10
+NONE at 68 10
+NONE at 69 10
+NONE at 70 10
+NONE at 71 10
+NONE at 72 10
+NONE at 73 10
+NONE at 74 10
+NONE at 1 11
+NONE at 2 11
+NONE at 3 11
+NONE at 4 11
+NONE at 5 11
+NONE at 6 11
+NONE at 7 11
+NONE at 8 11
+NONE at 9 11
+NONE at 10 11
+NONE at 11 11
+NONE at 12 11
+NONE at 13 11
+NONE at 14 11
+NONE at 15 11
+NONE at 16 11
+NONE at 17 11
+NONE at 18 11
+NONE at 19 11
+NONE at 20 11
+NONE at 21 11
+NONE at 22 11
+NONE at 23 11
+NONE at 24 11
+NONE at 25 11
+NONE at 26 11
+NONE at 27 11
+NONE at 28 11
+NONE at 29 11
+NONE at 30 11
+NONE at 31 11
+NONE at 32 11
+NONE at 33 11
+NONE at 36 11
+NONE at 37 11
+NONE at 38 11
+NONE at 39 11
+NONE at 40 11
+NONE at 41 11
+NONE at 42 11
+NONE at 43 11
+NONE at 44 11
+NONE at 45 11
+NONE at 46 11
+NONE at 48 11
+NONE at 49 11
+NONE at 50 11
+NONE at 51 11
+NONE at 52 11
+NONE at 53 11
+NONE at 54 11
+NONE at 55 11
+NONE at 56 11
+NONE at 57 11
+NONE at 58 11
+NONE at 59 11
+NONE at 60 11
+NONE at 61 11
+NONE at 62 11
+NONE at 63 11
+NONE at 64 11
+NONE at 65 11
+NONE at 66 11
+NONE at 67 11
+NONE at 68 11
+NONE at 69 11
+NONE at 70 11
+NONE at 71 11
+NONE at 72 11
+NONE at 73 11
+NONE at 74 11
+NONE at 1 12
+NONE at 2 12
+NONE at 3 12
+NONE at 4 12
+NONE at 5 12
+NONE at 6 12
+NONE at 7 12
+NONE at 8 12
+NONE at 9 12
+NONE at 10 12
+NONE at 11 12
+NONE at 12 12
+NONE at 13 12
+NONE at 14 12
+NONE at 15 12
+NONE at 16 12
+NONE at 17 12
+NONE at 18 12
+NONE at 19 12
+NONE at 20 12
+NONE at 21 12
+NONE at 22 12
+NONE at 23 12
+NONE at 24 12
+NONE at 25 12
+NONE at 26 12
+NONE at 27 12
+NONE at 28 12
+NONE at 29 12
+NONE at 30 12
+NONE at 31 12
+NONE at 32 12
+NONE at 33 12
+NONE at 34 12
+NONE at 35 12
+NONE at 36 12
+NONE at 37 12
+NONE at 38 12
+NONE at 39 12
+NONE at 40 12
+NONE at 41 12
+NONE at 42 12
+NONE at 43 12
+NONE at 44 12
+NONE at 45 12
+NONE at 46 12
+NONE at 47 12
+NONE at 48 12
+NONE at 49 12
+NONE at 50 12
+NONE at 51 12
+NONE at 52 12
+NONE at 53 12
+NONE at 54 12
+NONE at 55 12
+NONE at 56 12
+NONE at 57 12
+NONE at 58 12
+NONE at 59 12
+NONE at 60 12
+NONE at 61 12
+NONE at 62 12
+NONE at 63 12
+NONE at 64 12
+NONE at 65 12
+NONE at 66 12
+NONE at 67 12
+NONE at 68 12
+NONE at 69 12
+NONE at 70 12
+NONE at 71 12
+NONE at 72 12
+NONE at 73 12
+NONE at 74 12
+NONE at 1 13
+NONE at 2 13
+NONE at 3 13
+NONE at 4 13
+NONE at 5 13
+NONE at 6 13
+NONE at 7 13
+NONE at 8 13
+NONE at 9 13
+NONE at 10 13
+NONE at 11 13
+NONE at 12 13
+NONE at 13 13
+NONE at 14 13
+NONE at 15 13
+NONE at 16 13
+NONE at 17 13
+NONE at 18 13
+NONE at 19 13
+NONE at 20 13
+NONE at 21 13
+NONE at 22 13
+NONE at 23 13
+NONE at 24 13
+NONE at 25 13
+NONE at 26 13
+NONE at 27 13
+NONE at 28 13
+NONE at 29 13
+NONE at 30 13
+NONE at 31 13
+NONE at 32 13
+NONE at 33 13
+NONE at 34 13
+NONE at 35 13
+NONE at 36 13
+NONE at 37 13
+NONE at 38 13
+NONE at 39 13
+NONE at 40 13
+NONE at 41 13
+NONE at 42 13
+NONE at 43 13
+NONE at 44 13
+NONE at 45 13
+NONE at 46 13
+NONE at 47 13
+NONE at 48 13
+NONE at 49 13
+NONE at 50 13
+NONE at 51 13
+NONE at 52 13
+NONE at 53 13
+NONE at 54 13
+NONE at 55 13
+NONE at 56 13
+NONE at 57 13
+NONE at 58 13
+NONE at 59 13
+NONE at 60 13
+NONE at 61 13
+NONE at 62 13
+NONE at 63 13
+NONE at 64 13
+NONE at 65 13
+NONE at 66 13
+NONE at 67 13
+NONE at 68 13
+NONE at 69 13
+NONE at 70 13
+NONE at 71 13
+NONE at 72 13
+NONE at 73 13
+NONE at 74 13
+NONE at 1 14
+NONE at 2 14
+NONE at 3 14
+NONE at 4 14
+NONE at 5 14
+NONE at 6 14
+NONE at 7 14
+NONE at 8 14
+NONE at 9 14
+NONE at 10 14
+NONE at 11 14
+NONE at 12 14
+NONE at 13 14
+NONE at 14 14
+NONE at 15 14
+NONE at 16 14
+NONE at 17 14
+NONE at 18 14
+NONE at 19 14
+NONE at 20 14
+NONE at 21 14
+NONE at 22 14
+NONE at 23 14
+NONE at 24 14
+NONE at 25 14
+NONE at 26 14
+NONE at 27 14
+NONE at 28 14
+NONE at 29 14
+NONE at 30 14
+NONE at 31 14
+NONE at 32 14
+NONE at 33 14
+NONE at 34 14
+NONE at 35 14
+NONE at 36 14
+NONE at 37 14
+NONE at 38 14
+NONE at 39 14
+NONE at 40 14
+NONE at 41 14
+NONE at 42 14
+NONE at 43 14
+NONE at 44 14
+NONE at 45 14
+NONE at 46 14
+NONE at 47 14
+NONE at 48 14
+NONE at 49 14
+NONE at 50 14
+NONE at 51 14
+NONE at 52 14
+NONE at 53 14
+NONE at 54 14
+NONE at 55 14
+NONE at 56 14
+NONE at 57 14
+NONE at 58 14
+NONE at 59 14
+NONE at 60 14
+NONE at 61 14
+NONE at 62 14
+NONE at 63 14
+NONE at 64 14
+NONE at 65 14
+NONE at 66 14
+NONE at 67 14
+NONE at 68 14
+NONE at 69 14
+NONE at 70 14
+NONE at 71 14
+NONE at 72 14
+NONE at 73 14
+NONE at 74 14
+NONE at 1 15
+NONE at 2 15
+NONE at 3 15
+NONE at 4 15
+NONE at 5 15
+NONE at 6 15
+NONE at 7 15
+NONE at 8 15
+NONE at 9 15
+NONE at 10 15
+NONE at 11 15
+NONE at 12 15
+NONE at 13 15
+NONE at 14 15
+NONE at 15 15
+NONE at 16 15
+NONE at 17 15
+NONE at 18 15
+NONE at 19 15
+NONE at 20 15
+NONE at 21 15
+NONE at 22 15
+NONE at 23 15
+NONE at 24 15
+NONE at 25 15
+NONE at 26 15
+NONE at 27 15
+NONE at 28 15
+NONE at 29 15
+NONE at 30 15
+NONE at 31 15
+NONE at 32 15
+NONE at 33 15
+NONE at 34 15
+NONE at 35 15
+NONE at 36 15
+NONE at 37 15
+NONE at 38 15
+NONE at 39 15
+NONE at 40 15
+NONE at 41 15
+NONE at 42 15
+NONE at 43 15
+NONE at 44 15
+NONE at 45 15
+NONE at 46 15
+NONE at 47 15
+NONE at 48 15
+NONE at 49 15
+NONE at 50 15
+NONE at 51 15
+NONE at 52 15
+NONE at 53 15
+NONE at 54 15
+NONE at 55 15
+NONE at 56 15
+NONE at 57 15
+NONE at 58 15
+NONE at 59 15
+NONE at 60 15
+NONE at 61 15
+NONE at 62 15
+NONE at 63 15
+NONE at 64 15
+NONE at 65 15
+NONE at 66 15
+NONE at 67 15
+NONE at 68 15
+NONE at 69 15
+NONE at 70 15
+NONE at 71 15
+NONE at 72 15
+NONE at 73 15
+NONE at 74 15
+NONE at 1 16
+NONE at 2 16
+NONE at 3 16
+NONE at 4 16
+NONE at 5 16
+NONE at 6 16
+NONE at 7 16
+NONE at 8 16
+NONE at 9 16
+NONE at 10 16
+NONE at 11 16
+NONE at 12 16
+NONE at 13 16
+NONE at 14 16
+NONE at 15 16
+NONE at 16 16
+NONE at 17 16
+NONE at 18 16
+NONE at 19 16
+NONE at 20 16
+NONE at 21 16
+NONE at 22 16
+NONE at 23 16
+NONE at 24 16
+NONE at 25 16
+NONE at 26 16
+NONE at 27 16
+NONE at 28 16
+NONE at 29 16
+NONE at 30 16
+NONE at 31 16
+NONE at 32 16
+NONE at 33 16
+NONE at 34 16
+NONE at 35 16
+NONE at 36 16
+NONE at 37 16
+NONE at 38 16
+NONE at 39 16
+NONE at 40 16
+NONE at 41 16
+NONE at 42 16
+NONE at 43 16
+NONE at 44 16
+NONE at 45 16
+NONE at 46 16
+NONE at 47 16
+NONE at 48 16
+NONE at 49 16
+NONE at 50 16
+NONE at 51 16
+NONE at 52 16
+NONE at 53 16
+NONE at 54 16
+NONE at 55 16
+NONE at 56 16
+NONE at 57 16
+NONE at 58 16
+NONE at 59 16
+NONE at 60 16
+NONE at 61 16
+NONE at 62 16
+NONE at 63 16
+NONE at 64 16
+NONE at 65 16
+NONE at 66 16
+NONE at 67 16
+NONE at 68 16
+NONE at 69 16
+NONE at 70 16
+NONE at 71 16
+NONE at 72 16
+NONE at 73 16
+NONE at 74 16
+NONE at 1 17
+NONE at 2 17
+NONE at 3 17
+NONE at 4 17
+NONE at 5 17
+NONE at 6 17
+NONE at 7 17
+NONE at 8 17
+NONE at 9 17
+NONE at 10 17
+NONE at 11 17
+NONE at 12 17
+NONE at 13 17
+NONE at 14 17
+NONE at 15 17
+NONE at 16 17
+NONE at 24 17
+NONE at 25 17
+NONE at 26 17
+NONE at 27 17
+NONE at 28 17
+NONE at 29 17
+NONE at 30 17
+NONE at 31 17
+NONE at 32 17
+NONE at 33 17
+NONE at 34 17
+NONE at 35 17
+NONE at 36 17
+NONE at 37 17
+NONE at 38 17
+NONE at 39 17
+NONE at 40 17
+NONE at 41 17
+NONE at 42 17
+NONE at 43 17
+NONE at 44 17
+NONE at 45 17
+NONE at 46 17
+NONE at 47 17
+NONE at 48 17
+NONE at 49 17
+NONE at 50 17
+NONE at 51 17
+NONE at 52 17
+NONE at 53 17
+NONE at 54 17
+NONE at 55 17
+NONE at 56 17
+NONE at 57 17
+NONE at 58 17
+NONE at 59 17
+NONE at 60 17
+NONE at 61 17
+NONE at 62 17
+NONE at 63 17
+NONE at 64 17
+NONE at 65 17
+NONE at 66 17
+NONE at 67 17
+NONE at 68 17
+NONE at 69 17
+NONE at 70 17
+NONE at 71 17
+NONE at 72 17
+NONE at 73 17
+NONE at 74 17
+NONE at 1 18
+NONE at 2 18
+NONE at 3 18
+NONE at 4 18
+NONE at 5 18
+NONE at 6 18
+NONE at 7 18
+NONE at 8 18
+NONE at 9 18
+NONE at 10 18
+NONE at 11 18
+NONE at 12 18
+NONE at 13 18
+NONE at 14 18
+NONE at 15 18
+NONE at 16 18
+NONE at 17 18
+NONE at 18 18
+NONE at 19 18
+NONE at 20 18
+NONE at 21 18
+NONE at 22 18
+NONE at 23 18
+NONE at 24 18
+NONE at 25 18
+NONE at 26 18
+NONE at 27 18
+NONE at 28 18
+NONE at 29 18
+NONE at 30 18
+NONE at 31 18
+NONE at 32 18
+NONE at 33 18
+NONE at 34 18
+NONE at 35 18
+NONE at 36 18
+NONE at 37 18
+NONE at 38 18
+NONE at 39 18
+NONE at 40 18
+NONE at 41 18
+NONE at 42 18
+NONE at 43 18
+NONE at 44 18
+NONE at 45 18
+NONE at 46 18
+NONE at 47 18
+NONE at 48 18
+NONE at 49 18
+NONE at 55 18
+NONE at 56 18
+NONE at 57 18
+NONE at 58 18
+NONE at 59 18
+NONE at 60 18
+NONE at 61 18
+NONE at 62 18
+NONE at 63 18
+NONE at 64 18
+NONE at 65 18
+NONE at 66 18
+NONE at 67 18
+NONE at 68 18
+NONE at 69 18
+NONE at 70 18
+NONE at 71 18
+NONE at 72 18
+NONE at 73 18
+NONE at 74 18
+NONE at 1 19
+NONE at 2 19
+NONE at 3 19
+NONE at 4 19
+NONE at 5 19
+NONE at 6 19
+NONE at 7 19
+NONE at 8 19
+NONE at 9 19
+NONE at 10 19
+NONE at 11 19
+NONE at 12 19
+NONE at 13 19
+NONE at 14 19
+NONE at 15 19
+NONE at 16 19
+NONE at 17 19
+NONE at 18 19
+NONE at 19 19
+NONE at 20 19
+NONE at 21 19
+NONE at 22 19
+NONE at 23 19
+NONE at 24 19
+NONE at 25 19
+NONE at 26 19
+NONE at 27 19
+NONE at 28 19
+NONE at 29 19
+NONE at 30 19
+NONE at 31 19
+NONE at 32 19
+NONE at 33 19
+NONE at 34 19
+NONE at 35 19
+NONE at 36 19
+NONE at 37 19
+NONE at 38 19
+NONE at 39 19
+NONE at 40 19
+NONE at 41 19
+NONE at 42 19
+NONE at 43 19
+NONE at 44 19
+NONE at 45 19
+NONE at 46 19
+NONE at 47 19
+NONE at 48 19
+NONE at 49 19
+NONE at 50 19
+NONE at 51 19
+NONE at 52 19
+NONE at 53 19
+NONE at 54 19
+NONE at 56 19
+NONE at 57 19
+NONE at 58 19
+NONE at 59 19
+NONE at 60 19
+NONE at 61 19
+NONE at 62 19
+NONE at 63 19
+NONE at 64 19
+NONE at 65 19
+NONE at 66 19
+NONE at 67 19
+NONE at 68 19
+NONE at 69 19
+NONE at 70 19
+NONE at 71 19
+NONE at 72 19
+NONE at 73 19
+NONE at 74 19
+NONE at 1 20
+NONE at 2 20
+NONE at 3 20
+NONE at 4 20
+NONE at 5 20
+NONE at 14 20
+NONE at 15 20
+NONE at 16 20
+NONE at 17 20
+NONE at 18 20
+NONE at 19 20
+NONE at 20 20
+NONE at 21 20
+NONE at 22 20
+NONE at 24 20
+NONE at 25 20
+NONE at 26 20
+NONE at 27 20
+NONE at 28 20
+NONE at 29 20
+NONE at 30 20
+NONE at 31 20
+NONE at 32 20
+NONE at 33 20
+NONE at 34 20
+NONE at 35 20
+NONE at 36 20
+NONE at 37 20
+NONE at 38 20
+NONE at 39 20
+NONE at 40 20
+NONE at 41 20
+NONE at 42 20
+NONE at 43 20
+NONE at 44 20
+NONE at 45 20
+NONE at 46 20
+NONE at 47 20
+NONE at 48 20
+NONE at 49 20
+NONE at 50 20
+NONE at 51 20
+NONE at 52 20
+NONE at 53 20
+NONE at 54 20
+NONE at 55 20
+NONE at 57 20
+NONE at 58 20
+NONE at 59 20
+NONE at 60 20
+NONE at 61 20
+NONE at 62 20
+NONE at 63 20
+NONE at 64 20
+NONE at 65 20
+NONE at 66 20
+NONE at 67 20
+NONE at 68 20
+NONE at 69 20
+NONE at 70 20
+NONE at 71 20
+NONE at 72 20
+NONE at 73 20
+NONE at 74 20
+NONE at 1 21
+NONE at 2 21
+NONE at 3 21
+NONE at 4 21
+NONE at 5 21
+NONE at 6 21
+NONE at 7 21
+NONE at 8 21
+NONE at 9 21
+NONE at 10 21
+NONE at 11 21
+NONE at 12 21
+NONE at 13 21
+NONE at 14 21
+NONE at 15 21
+NONE at 16 21
+NONE at 17 21
+NONE at 18 21
+NONE at 19 21
+NONE at 20 21
+NONE at 21 21
+NONE at 22 21
+NONE at 24 21
+NONE at 25 21
+NONE at 26 21
+NONE at 27 21
+NONE at 28 21
+NONE at 29 21
+NONE at 30 21
+NONE at 31 21
+NONE at 32 21
+NONE at 33 21
+NONE at 34 21
+NONE at 35 21
+NONE at 36 21
+NONE at 37 21
+NONE at 38 21
+NONE at 39 21
+NONE at 40 21
+NONE at 41 21
+NONE at 42 21
+NONE at 43 21
+NONE at 44 21
+NONE at 45 21
+NONE at 46 21
+NONE at 47 21
+NONE at 48 21
+NONE at 49 21
+NONE at 50 21
+NONE at 51 21
+NONE at 52 21
+NONE at 53 21
+NONE at 54 21
+NONE at 55 21
+NONE at 56 21
+NONE at 58 21
+NONE at 59 21
+NONE at 60 21
+NONE at 61 21
+NONE at 62 21
+NONE at 63 21
+NONE at 64 21
+NONE at 65 21
+NONE at 66 21
+NONE at 67 21
+NONE at 68 21
+NONE at 69 21
+NONE at 70 21
+NONE at 71 21
+NONE at 72 21
+NONE at 73 21
+NONE at 74 21
+height 23 width 76
+v (0, -1.75)
+v (0, -1.5)
+v (0, 0.25)
+v (0, 0.5)
+v (0, 0.75)
+v (0, 1)
+v (1.75, 0.25)
+v (1.5, 0.5)
+v (0, -1.75)
+v (0, -1.5)
+v (1.75, 0.25)
+v (1.5, 0.5)
+v (1.25, 0.75)
+v (1, 1)
+v (0, 0.25)
+v (0, 0.25)
+v (1.75, 0.25)
+v (1.5, -1.5)
+v (1.25, -1.25)
+v (1, -1)
+velocity (3.5, 0) ((35, 16) -> (54, 16))
+v (-0.75, -0.75)
+check (35, 16) ' '
+check (35, 16) ' '
+check (35, 16) ' '
+check (36, 16) ' '
+check (36, 16) ' '
+check (36, 16) ' '
+check (37, 16) ' '
+check (37, 16) ' '
+check (37, 16) ' '
+check (38, 16) ' '
+check (38, 16) ' '
+check (38, 16) ' '
+check (39, 16) ' '
+check (39, 16) ' '
+check (39, 16) ' '
+v (-0.5, -0.5)
+check (38, 16) ' '
+check (38, 16) ' '
+check (38, 16) ' '
+check (39, 16) ' '
+check (39, 16) ' '
+check (39, 16) ' '
+check (40, 16) ' '
+check (40, 16) ' '
+check (40, 16) ' '
+check (41, 16) ' '
+check (41, 16) ' '
+check (41, 16) ' '
+check (42, 16) ' '
+check (42, 16) ' '
+check (42, 16) ' '
+v (-0.25, -0.25)
+check (42, 16) ' '
+check (42, 16) ' '
+check (42, 16) ' '
+check (43, 16) ' '
+check (43, 16) ' '
+check (43, 16) ' '
+check (44, 16) ' '
+check (44, 16) ' '
+check (44, 16) ' '
+check (45, 16) ' '
+check (45, 16) ' '
+check (45, 16) ' '
+check (46, 16) ' '
+check (46, 16) ' '
+check (46, 16) ' '
+velocity (3.461277, 0.51919156) ((32, 13) -> (52, 16))
+v (0, 0)
+check (45, 16) ' '
+check (45, 16) ' '
+check (45, 16) ' '
+check (46, 16) ' '
+check (46, 16) ' '
+check (46, 16) ' '
+check (47, 16) ' '
+check (47, 16) ' '
+check (47, 16) ' '
+check (48, 16) ' '
+check (48, 16) ' '
+check (48, 16) ' '
+check (49, 16) ' '
+check (49, 16) ' '
+check (49, 16) ' '
+check (32, 13) ' '
+check (32, 13) ' '
+check (32, 13) ' '
+check (33, 13) ' '
+check (33, 13) ' '
+check (33, 14) ' '
+check (34, 14) ' '
+check (34, 14) ' '
+check (34, 15) ' '
+check (35, 15) ' '
+check (35, 15) ' '
+check (35, 16) ' '
+check (36, 16) ' '
+check (36, 16) ' '
+check (36, 17) ' '
+v (0, 0.25)
+check (49, 16) ' '
+check (49, 16) ' '
+check (49, 16) ' '
+check (50, 16) ' '
+check (50, 16) ' '
+check (50, 16) ' '
+check (51, 16) ' '
+check (51, 16) ' '
+check (51, 16) ' '
+check (52, 16) ' '
+check (52, 16) ' '
+check (52, 16) ' '
+check (53, 16) ' '
+check (53, 16) ' '
+check (53, 16) ' '
+check (35, 14) ' '
+check (35, 13) ' '
+check (35, 14) ' '
+check (36, 14) ' '
+check (36, 14) ' '
+check (36, 15) ' '
+check (37, 15) ' '
+check (37, 15) ' '
+check (37, 16) ' '
+check (38, 16) ' '
+check (38, 16) ' '
+check (38, 17) ' '
+check (39, 17) ' '
+check (39, 17) ' '
+check (39, 18) ' '
+v (-1.75, 0.5)
+check (52, 16) ' '
+check (52, 16) ' '
+check (52, 16) ' '
+check (53, 16) ' '
+check (53, 16) ' '
+check (53, 16) ' '
+check (54, 16) ' '
+check (54, 16) ' '
+check (54, 16) ' '
+check (55, 16) ' '
+check (55, 16) ' '
+check (55, 16) ' '
+check (56, 16) ' '
+check (56, 16) ' '
+check (56, 16) ' '
+check (38, 14) ' '
+check (38, 14) ' '
+check (38, 15) ' '
+check (39, 15) ' '
+check (39, 15) ' '
+check (39, 16) ' '
+check (40, 16) ' '
+check (40, 16) ' '
+check (40, 17) ' '
+check (41, 17) ' '
+check (41, 17) ' '
+check (41, 18) ' '
+check (42, 18) ' '
+check (42, 18) ' '
+check (42, 19) ' '
+check (43, 19) ' '
+check (43, 19) ' '
+check (43, 20) ' '
+v (-1.5, 0.75)
+check (56, 16) ' '
+check (56, 16) ' '
+check (56, 16) ' '
+check (57, 16) ' '
+check (57, 16) ' '
+check (57, 16) ' '
+check (58, 16) ' '
+check (58, 16) ' '
+check (58, 16) ' '
+check (59, 16) ' '
+check (59, 16) ' '
+check (59, 16) ' '
+check (60, 16) ' '
+check (60, 16) ' '
+check (60, 16) ' '
+check (42, 15) ' '
+check (42, 14) ' '
+check (42, 15) ' '
+check (43, 15) ' '
+check (43, 15) ' '
+check (43, 16) ' '
+check (44, 16) ' '
+check (44, 16) ' '
+check (44, 17) ' '
+check (45, 17) ' '
+check (45, 17) ' '
+check (45, 18) ' '
+check (46, 18) ' '
+check (46, 18) ' '
+check (46, 19) ' '
+v (-1.25, 1)
+check (59, 16) ' '
+check (59, 16) ' '
+check (59, 16) ' '
+check (60, 16) ' '
+check (60, 16) ' '
+check (60, 16) ' '
+check (61, 16) ' '
+check (61, 16) ' '
+check (61, 16) ' '
+check (62, 16) ' '
+check (62, 16) ' '
+check (62, 16) ' '
+check (63, 16) ' '
+check (63, 16) ' '
+check (63, 16) ' '
+check (45, 15) ' '
+check (45, 15) ' '
+check (45, 16) ' '
+check (46, 16) ' '
+check (46, 16) ' '
+check (46, 17) ' '
+check (47, 17) ' '
+check (47, 17) ' '
+check (47, 18) ' '
+check (48, 18) ' '
+check (48, 18) ' '
+check (48, 19) ' '
+check (49, 19) ' '
+check (49, 19) ' '
+check (49, 20) ' '
+check (50, 20) ' '
+check (50, 20) ' '
+check (50, 21) ' '
+velocity (3.4773645, -0.39741307) ((26, 20) -> (61, 16))
+v (-1, 1.25)
+check (63, 16) ' '
+check (63, 16) ' '
+check (63, 16) ' '
+check (64, 16) ' '
+check (64, 16) ' '
+check (64, 16) ' '
+check (65, 16) ' '
+check (65, 16) ' '
+check (65, 16) ' '
+check (66, 16) ' '
+check (66, 16) ' '
+check (66, 16) ' '
+check (67, 16) ' '
+check (67, 16) ' '
+check (67, 16) ' '
+check (49, 16) ' '
+check (49, 15) ' '
+check (49, 16) ' '
+check (50, 16) ' '
+check (50, 16) ' '
+check (50, 17) ' '
+check (51, 17) ' '
+check (51, 17) ' '
+check (51, 18) W
+collided on (51, 18)
+check (26, 20) ' '
+check (26, 20) ' '
+check (26, 20) ' '
+check (27, 20) ' '
+check (27, 20) ' '
+check (27, 19) ' '
+check (28, 19) ' '
+check (28, 19) ' '
+check (28, 18) ' '
+check (29, 18) ' '
+check (29, 18) ' '
+check (29, 17) ' '
+check (30, 17) ' '
+check (30, 17) ' '
+check (30, 16) ' '
+v (0, 0.25)
+check (66, 16) ' '
+check (66, 16) ' '
+check (66, 16) ' '
+check (67, 16) ' '
+check (67, 16) ' '
+check (67, 16) ' '
+check (68, 16) ' '
+check (68, 16) ' '
 check (68, 16) ' '
 check (69, 16) ' '
 check (69, 16) ' '
-check (69, 17) ' '
+check (69, 16) ' '
+check (70, 16) ' '
+check (70, 16) ' '
+check (70, 16) ' '
+check (29, 20) ' '
+check (29, 20) ' '
+check (29, 19) ' '
+check (30, 19) ' '
+check (30, 19) ' '
+check (30, 18) ' '
+check (31, 18) ' '
+check (31, 18) ' '
+check (31, 17) ' '
+check (32, 17) ' '
+check (32, 17) ' '
+check (32, 16) ' '
+check (33, 16) ' '
+check (33, 16) ' '
+check (33, 15) ' '
 Remove ID 97
-velocity (3.4856265, -0.31687513) ((51, 11) -> (73, 9))
-check (68, 14) ' '
-check (68, 13) ' '
-check (68, 14) ' '
-check (69, 14) ' '
-check (69, 14) ' '
-check (69, 15) ' '
-check (70, 15) ' '
-check (70, 15) ' '
+v (0, 0.25)
+check (70, 16) ' '
+check (70, 16) ' '
 check (70, 16) ' '
 check (71, 16) ' '
 check (71, 16) ' '
-check (71, 17) ' '
-check (72, 17) ' '
-check (72, 17) ' '
-check (72, 18) ' '
-check (51, 11) ' '
-check (51, 11) ' '
-check (51, 11) ' '
-check (52, 11) ' '
-check (52, 11) ' '
-check (52, 10) ' '
-check (53, 10) ' '
-check (53, 10) ' '
-check (53, 9) ' '
-check (54, 9) ' '
-check (54, 9) ' '
-check (54, 8) ' '
-check (55, 8) ' '
-check (55, 8) ' '
-check (55, 7) ' '
-check (71, 16) ' '
-check (71, 15) ' '
 check (71, 16) ' '
 check (72, 16) ' '
 check (72, 16) ' '
-check (72, 17) ' '
-check (73, 17) ' '
-check (73, 17) ' '
-check (73, 18) ' '
-check (74, 18) ' '
-check (74, 18) ' '
-check (74, 19) ' '
-check (75, 19) W
-collided on (75, 19)
-check (54, 11) ' '
-check (54, 11) ' '
-check (54, 10) ' '
-check (55, 10) ' '
-check (55, 10) ' '
-check (55, 9) ' '
-check (56, 9) ' '
-check (56, 9) ' '
-check (56, 8) ' '
-check (57, 8) ' '
-check (57, 8) ' '
-check (57, 7) ' '
-check (58, 7) ' '
-check (58, 7) ' '
-check (58, 6) ' '
-velocity (3.3483586, -1.0190657) ((51, 16) -> (74, 9))
-check (57, 10) ' '
-check (57, 11) ' '
-check (57, 10) ' '
-check (58, 10) ' '
-check (58, 10) ' '
-check (58, 9) ' '
-check (59, 9) ' '
-check (59, 9) ' '
-check (59, 8) ' '
-check (60, 8) ' '
-check (60, 8) ' '
-check (60, 7) ' '
-check (61, 7) ' '
-check (61, 7) ' '
-check (61, 6) ' '
-check (62, 6) ' '
-check (62, 6) ' '
-check (62, 5) ' '
-check (51, 16) ' '
-check (51, 16) ' '
-check (51, 16) ' '
-check (52, 16) ' '
-check (52, 16) ' '
-check (52, 15) ' '
-check (53, 15) ' '
-check (53, 15) ' '
-check (53, 14) ' '
-check (54, 14) ' '
-check (54, 14) ' '
-check (54, 13) ' '
-check (55, 13) ' '
-check (55, 13) ' '
-check (55, 12) ' '
-Remove ID 98
-check (61, 10) ' '
-check (61, 11) ' '
-check (61, 10) ' '
-check (62, 10) ' '
-check (62, 10) ' '
-check (62, 9) ' '
-check (63, 9) ' '
-check (63, 9) ' '
-check (63, 8) ' '
-check (64, 8) ' '
-check (64, 8) ' '
-check (64, 7) ' '
-check (65, 7) ' '
-check (65, 7) ' '
-check (65, 6) ' '
-check (54, 15) ' '
-check (54, 15) ' '
-check (54, 14) ' '
-check (55, 14) ' '
-check (55, 14) ' '
-check (55, 13) ' '
-check (56, 13) ' '
-check (56, 13) ' '
-check (56, 12) ' '
-check (57, 12) ' '
-check (57, 12) ' '
-check (57, 11) ' '
-check (58, 11) ' '
-check (58, 11) ' '
-check (58, 10) ' '
-check (64, 10) ' '
-check (64, 10) ' '
-check (64, 9) ' '
-check (65, 9) ' '
-check (65, 9) ' '
-check (65, 8) ' '
-check (66, 8) ' '
-check (66, 8) ' '
-check (66, 7) ' '
-check (67, 7) ' '
-check (67, 7) ' '
-check (67, 6) ' '
-check (68, 6) ' '
-check (68, 6) ' '
-check (68, 5) ' '
-check (69, 5) ' '
-check (69, 5) ' '
-check (69, 4) ' '
-check (57, 14) ' '
-check (57, 14) ' '
-check (57, 13) ' '
-check (58, 13) ' '
-check (58, 13) ' '
-check (58, 12) ' '
-check (59, 12) ' '
-check (59, 12) ' '
-check (59, 11) ' '
-check (60, 11) ' '
-check (60, 11) ' '
-check (60, 10) ' '
-check (61, 10) ' '
-check (61, 10) ' '
-check (61, 9) ' '
-check (62, 9) ' '
-check (62, 9) ' '
-check (62, 8) ' '
-velocity (3.36, -0.98) ((51, 17) -> (75, 10))
-check (68, 9) ' '
-check (68, 10) ' '
-check (68, 9) ' '
-check (69, 9) ' '
-check (69, 9) ' '
-check (69, 8) ' '
-check (70, 8) ' '
-check (70, 8) ' '
-check (70, 7) ' '
-check (71, 7) ' '
-check (71, 7) ' '
-check (71, 6) ' '
-check (72, 6) ' '
-check (72, 6) ' '
-check (72, 5) ' '
-check (61, 13) ' '
-check (61, 13) ' '
-check (61, 12) ' '
-check (62, 12) ' '
-check (62, 12) ' '
-check (62, 11) ' '
-check (63, 11) ' '
-check (63, 11) ' '
-check (63, 10) ' '
-check (64, 10) ' '
-check (64, 10) ' '
-check (64, 9) ' '
-check (65, 9) ' '
-check (65, 9) ' '
-check (65, 8) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (52, 17) ' '
-check (52, 17) ' '
-check (52, 16) ' '
-check (53, 16) ' '
-check (53, 16) ' '
-check (53, 15) ' '
-check (54, 15) ' '
-check (54, 15) ' '
-check (54, 14) ' '
-check (55, 14) ' '
-check (55, 14) ' '
-check (55, 13) ' '
-check (71, 9) ' '
-check (71, 10) ' '
-check (71, 9) ' '
-check (72, 9) ' '
-check (72, 9) ' '
-check (72, 8) ' '
-check (73, 8) ' '
-check (73, 8) ' '
-check (73, 7) ' '
-check (74, 7) ' '
-check (74, 7) ' '
-check (74, 6) ' '
-check (75, 6) W
-collided on (75, 6)
-check (64, 12) ' '
-check (64, 12) ' '
-check (64, 11) ' '
-check (65, 11) ' '
-check (65, 11) ' '
-check (65, 10) ' '
-check (66, 10) ' '
-check (66, 10) ' '
-check (66, 9) ' '
-check (67, 9) ' '
-check (67, 9) ' '
-check (67, 8) ' '
-check (68, 8) ' '
-check (68, 8) ' '
-check (68, 7) ' '
-check (54, 16) ' '
-check (54, 16) ' '
-check (54, 15) ' '
-check (55, 15) ' '
-check (55, 15) ' '
-check (55, 14) ' '
-check (56, 14) ' '
-check (56, 14) ' '
-check (56, 13) ' '
-check (57, 13) ' '
-check (57, 13) ' '
-check (57, 12) ' '
-check (58, 12) ' '
-check (58, 12) ' '
-check (58, 11) ' '
-check (67, 11) ' '
-check (67, 11) ' '
-check (67, 10) ' '
-check (68, 10) ' '
-check (68, 10) ' '
-check (68, 9) ' '
-check (69, 9) ' '
-check (69, 9) ' '
-check (69, 8) ' '
-check (70, 8) ' '
-check (70, 8) ' '
-check (70, 7) ' '
-check (71, 7) ' '
-check (71, 7) ' '
-check (71, 6) ' '
-check (72, 6) ' '
-check (72, 6) ' '
-check (72, 5) ' '
-check (57, 15) ' '
-check (57, 15) ' '
-check (57, 14) ' '
-check (58, 14) ' '
-check (58, 14) ' '
-check (58, 13) ' '
-check (59, 13) ' '
-check (59, 13) ' '
-check (59, 12) ' '
-check (60, 12) ' '
-check (60, 12) ' '
-check (60, 11) ' '
-check (61, 11) ' '
-check (61, 11) ' '
-check (61, 10) ' '
-check (62, 10) ' '
-check (62, 10) ' '
-check (62, 9) ' '
-Remove ID 97
-velocity (3.36, -0.98) ((51, 17) -> (75, 10))
-check (71, 10) ' '
-check (71, 10) ' '
-check (71, 9) ' '
-check (72, 9) ' '
-check (72, 9) ' '
-check (72, 8) ' '
-check (73, 8) ' '
-check (73, 8) ' '
-check (73, 7) ' '
-check (74, 7) ' '
-check (74, 7) ' '
-check (74, 6) ' '
-check (75, 6) W
-collided on (75, 6)
-check (61, 14) ' '
-check (61, 15) ' '
-check (61, 14) ' '
-check (62, 14) ' '
-check (62, 14) ' '
-check (62, 13) ' '
-check (63, 13) ' '
-check (63, 13) ' '
-check (63, 12) ' '
-check (64, 12) ' '
-check (64, 12) ' '
-check (64, 11) ' '
-check (65, 11) ' '
-check (65, 11) ' '
-check (65, 10) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (52, 17) ' '
-check (52, 17) ' '
-check (52, 16) ' '
-check (53, 16) ' '
-check (53, 16) ' '
-check (53, 15) ' '
-check (54, 15) ' '
-check (54, 15) ' '
-check (54, 14) ' '
-check (55, 14) ' '
-check (55, 14) ' '
-check (55, 13) ' '
-check (64, 13) ' '
-check (64, 13) ' '
-check (64, 12) ' '
-check (65, 12) ' '
-check (65, 12) ' '
-check (65, 11) ' '
-check (66, 11) ' '
-check (66, 11) ' '
-check (66, 10) ' '
-check (67, 10) ' '
-check (67, 10) ' '
-check (67, 9) ' '
-check (68, 9) ' '
-check (68, 9) ' '
-check (68, 8) ' '
-check (54, 16) ' '
-check (54, 16) ' '
-check (54, 15) ' '
-check (55, 15) ' '
-check (55, 15) ' '
-check (55, 14) ' '
-check (56, 14) ' '
-check (56, 14) ' '
-check (56, 13) ' '
-check (57, 13) ' '
-check (57, 13) ' '
-check (57, 12) ' '
-check (58, 12) ' '
-check (58, 12) ' '
-check (58, 11) ' '
-Remove ID 96
-check (67, 12) ' '
-check (67, 12) ' '
-check (67, 11) ' '
-check (68, 11) ' '
-check (68, 11) ' '
-check (68, 10) ' '
-check (69, 10) ' '
-check (69, 10) ' '
-check (69, 9) ' '
-check (70, 9) ' '
-check (70, 9) ' '
-check (70, 8) ' '
-check (71, 8) ' '
-check (71, 8) ' '
-check (71, 7) ' '
-check (72, 7) ' '
-check (72, 7) ' '
-check (72, 6) ' '
-check (57, 15) ' '
-check (57, 15) ' '
-check (57, 14) ' '
-check (58, 14) ' '
-check (58, 14) ' '
-check (58, 13) ' '
-check (59, 13) ' '
-check (59, 13) ' '
-check (59, 12) ' '
-check (60, 12) ' '
-check (60, 12) ' '
-check (60, 11) ' '
-check (61, 11) ' '
-check (61, 11) ' '
-check (61, 10) ' '
-check (62, 10) ' '
-check (62, 10) ' '
-check (62, 9) ' '
-velocity (3.305739, -1.1498222) ((51, 17) -> (74, 9))
-check (71, 11) ' '
-check (71, 12) ' '
-check (71, 11) ' '
-check (72, 11) ' '
-check (72, 11) ' '
-check (72, 10) ' '
-check (73, 10) ' '
-check (73, 10) ' '
-check (73, 9) ' '
-check (74, 9) ' '
-check (74, 9) ' '
-check (74, 8) ' '
-check (75, 8) W
-collided on (75, 8)
-check (61, 14) ' '
-check (61, 15) ' '
-check (61, 14) ' '
-check (62, 14) ' '
-check (62, 14) ' '
-check (62, 13) ' '
-check (63, 13) ' '
-check (63, 13) ' '
-check (63, 12) ' '
-check (64, 12) ' '
-check (64, 12) ' '
-check (64, 11) ' '
-check (65, 11) ' '
-check (65, 11) ' '
-check (65, 10) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (52, 17) ' '
-check (52, 17) ' '
-check (52, 16) ' '
-check (53, 16) ' '
-check (53, 16) ' '
-check (53, 15) ' '
-check (54, 15) ' '
-check (54, 15) ' '
-check (54, 14) ' '
-check (55, 14) ' '
-check (55, 14) ' '
-check (55, 13) ' '
-check (64, 13) ' '
-check (64, 13) ' '
-check (64, 12) ' '
-check (65, 12) ' '
-check (65, 12) ' '
-check (65, 11) ' '
-check (66, 11) ' '
-check (66, 11) ' '
-check (66, 10) ' '
-check (67, 10) ' '
-check (67, 10) ' '
-check (67, 9) ' '
-check (68, 9) ' '
-check (68, 9) ' '
-check (68, 8) ' '
-check (54, 16) ' '
-check (54, 16) ' '
-check (54, 15) ' '
-check (55, 15) ' '
-check (55, 15) ' '
-check (55, 14) ' '
-check (56, 14) ' '
-check (56, 14) ' '
-check (56, 13) ' '
-check (57, 13) ' '
-check (57, 13) ' '
-check (57, 12) ' '
-check (58, 12) ' '
-check (58, 12) ' '
-check (58, 11) ' '
-Remove ID 98
-check (67, 12) ' '
-check (67, 12) ' '
-check (67, 11) ' '
-check (68, 11) ' '
-check (68, 11) ' '
-check (68, 10) ' '
-check (69, 10) ' '
-check (69, 10) ' '
-check (69, 9) ' '
-check (70, 9) ' '
-check (70, 9) ' '
-check (70, 8) ' '
-check (71, 8) ' '
-check (71, 8) ' '
-check (71, 7) ' '
-check (72, 7) ' '
-check (72, 7) ' '
-check (72, 6) ' '
-check (57, 15) ' '
-check (57, 15) ' '
-check (57, 14) ' '
-check (58, 14) ' '
-check (58, 14) ' '
-check (58, 13) ' '
-check (59, 13) ' '
-check (59, 13) ' '
-check (59, 12) ' '
-check (60, 12) ' '
-check (60, 12) ' '
-check (60, 11) ' '
-check (61, 11) ' '
-check (61, 11) ' '
-check (61, 10) ' '
-velocity (3.305739, -1.1498222) ((51, 17) -> (74, 9))
-check (71, 11) ' '
-check (71, 12) ' '
-check (71, 11) ' '
-check (72, 11) ' '
-check (72, 11) ' '
-check (72, 10) ' '
-check (73, 10) ' '
-check (73, 10) ' '
-check (73, 9) ' '
-check (74, 9) ' '
-check (74, 9) ' '
-check (74, 8) ' '
-check (75, 8) W
-collided on (75, 8)
-check (60, 14) ' '
-check (60, 14) ' '
-check (60, 13) ' '
-check (61, 13) ' '
-check (61, 13) ' '
-check (61, 12) ' '
-check (62, 12) ' '
-check (62, 12) ' '
-check (62, 11) ' '
-check (63, 11) ' '
-check (63, 11) ' '
-check (63, 10) ' '
-check (64, 10) ' '
-check (64, 10) ' '
-check (64, 9) ' '
-check (65, 9) ' '
-check (65, 9) ' '
-check (65, 8) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (52, 17) ' '
-check (52, 17) ' '
-check (52, 16) ' '
-check (53, 16) ' '
-check (53, 16) ' '
-check (53, 15) ' '
-check (54, 15) ' '
-check (54, 15) ' '
-check (54, 14) ' '
-check (55, 14) ' '
-check (55, 14) ' '
-check (55, 13) ' '
-check (64, 12) ' '
-check (64, 13) ' '
-check (64, 12) ' '
-check (65, 12) ' '
-check (65, 12) ' '
-check (65, 11) ' '
-check (66, 11) ' '
-check (66, 11) ' '
-check (66, 10) ' '
-check (67, 10) ' '
-check (67, 10) ' '
-check (67, 9) ' '
-check (68, 9) ' '
-check (68, 9) ' '
-check (68, 8) ' '
-check (54, 16) ' '
-check (54, 16) ' '
-check (54, 15) ' '
-check (55, 15) ' '
-check (55, 15) ' '
-check (55, 14) ' '
-check (56, 14) ' '
-check (56, 14) ' '
-check (56, 13) ' '
-check (57, 13) ' '
-check (57, 13) ' '
-check (57, 12) ' '
-check (58, 12) ' '
-check (58, 12) ' '
-check (58, 11) ' '
-Remove ID 97
-velocity (3.3703742, -0.9437047) ((51, 17) -> (76, 10))
-check (67, 11) ' '
-check (67, 12) ' '
-check (67, 11) ' '
-check (68, 11) ' '
-check (68, 11) ' '
-check (68, 10) ' '
-check (69, 10) ' '
-check (69, 10) ' '
-check (69, 9) ' '
-check (70, 9) ' '
-check (70, 9) ' '
-check (70, 8) ' '
-check (71, 8) ' '
-check (71, 8) ' '
-check (71, 7) ' '
-check (57, 15) ' '
-check (57, 15) ' '
-check (57, 14) ' '
-check (58, 14) ' '
-check (58, 14) ' '
-check (58, 13) ' '
-check (59, 13) ' '
-check (59, 13) ' '
-check (59, 12) ' '
-check (60, 12) ' '
-check (60, 12) ' '
-check (60, 11) ' '
-check (61, 11) ' '
-check (61, 11) ' '
-check (61, 10) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (52, 17) ' '
-check (52, 17) ' '
-check (52, 16) ' '
-check (53, 16) ' '
-check (53, 16) ' '
-check (53, 15) ' '
-check (54, 15) ' '
-check (54, 15) ' '
-check (54, 14) ' '
-check (55, 14) ' '
-check (55, 14) ' '
-check (55, 13) ' '
-check (70, 10) ' '
-check (70, 10) ' '
-check (70, 9) ' '
-check (71, 9) ' '
-check (71, 9) ' '
-check (71, 8) ' '
-check (72, 8) ' '
-check (72, 8) ' '
-check (72, 7) ' '
-check (73, 7) ' '
-check (73, 7) ' '
-check (73, 6) ' '
-check (74, 6) ' '
-check (74, 6) ' '
-check (74, 5) ' '
-check (75, 5) W
-collided on (75, 5)
-check (60, 14) ' '
-check (60, 14) ' '
-check (60, 13) ' '
-check (61, 13) ' '
-check (61, 13) ' '
-check (61, 12) ' '
-check (62, 12) ' '
-check (62, 12) ' '
-check (62, 11) ' '
-check (63, 11) ' '
-check (63, 11) ' '
-check (63, 10) ' '
-check (64, 10) ' '
-check (64, 10) ' '
-check (64, 9) ' '
-check (65, 9) ' '
-check (65, 9) ' '
-check (65, 8) ' '
-check (54, 16) ' '
-check (54, 16) ' '
-check (54, 15) ' '
-check (55, 15) ' '
-check (55, 15) ' '
-check (55, 14) ' '
-check (56, 14) ' '
-check (56, 14) ' '
-check (56, 13) ' '
-check (57, 13) ' '
-check (57, 13) ' '
-check (57, 12) ' '
-check (58, 12) ' '
-check (58, 12) ' '
-check (58, 11) ' '
-check (64, 12) ' '
-check (64, 13) ' '
-check (64, 12) ' '
-check (65, 12) ' '
-check (65, 12) ' '
-check (65, 11) ' '
-check (66, 11) ' '
-check (66, 11) ' '
-check (66, 10) ' '
-check (67, 10) ' '
-check (67, 10) ' '
-check (67, 9) ' '
-check (68, 9) ' '
-check (68, 9) ' '
-check (68, 8) ' '
-check (57, 15) ' '
-check (57, 15) ' '
-check (57, 14) ' '
-check (58, 14) ' '
-check (58, 14) ' '
-check (58, 13) ' '
-check (59, 13) ' '
-check (59, 13) ' '
-check (59, 12) ' '
-check (60, 12) ' '
-check (60, 12) ' '
-check (60, 11) ' '
-check (61, 11) ' '
-check (61, 11) ' '
-check (61, 10) ' '
-check (62, 10) ' '
-check (62, 10) ' '
-check (62, 9) ' '
-Remove ID 96
-velocity (3.4033554, -0.8168053) ((51, 17) -> (76, 11))
-check (67, 11) ' '
-check (67, 12) ' '
-check (67, 11) ' '
-check (68, 11) ' '
-check (68, 11) ' '
-check (68, 10) ' '
-check (69, 10) ' '
-check (69, 10) ' '
-check (69, 9) ' '
-check (70, 9) ' '
-check (70, 9) ' '
-check (70, 8) ' '
-check (71, 8) ' '
-check (71, 8) ' '
-check (71, 7) ' '
-check (61, 14) ' '
-check (61, 15) ' '
-check (61, 14) ' '
-check (62, 14) ' '
-check (62, 14) ' '
-check (62, 13) ' '
-check (63, 13) ' '
-check (63, 13) ' '
-check (63, 12) ' '
-check (64, 12) ' '
-check (64, 12) ' '
-check (64, 11) ' '
-check (65, 11) ' '
-check (65, 11) ' '
-check (65, 10) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (52, 17) ' '
-check (52, 17) ' '
-check (52, 16) ' '
-check (53, 16) ' '
-check (53, 16) ' '
-check (53, 15) ' '
-check (54, 15) ' '
-check (54, 15) ' '
-check (54, 14) ' '
-check (55, 14) ' '
-check (55, 14) ' '
-check (55, 13) ' '
-check (70, 10) ' '
-check (70, 10) ' '
-check (70, 9) ' '
-check (71, 9) ' '
-check (71, 9) ' '
-check (71, 8) ' '
-check (72, 8) ' '
-check (72, 8) ' '
-check (72, 7) ' '
-check (73, 7) ' '
-check (73, 7) ' '
-check (73, 6) ' '
-check (74, 6) ' '
-check (74, 6) ' '
-check (74, 5) ' '
-check (75, 5) W
-collided on (75, 5)
-check (64, 13) ' '
-check (64, 14) ' '
-check (64, 13) ' '
-check (65, 13) ' '
-check (65, 13) ' '
-check (65, 12) ' '
-check (66, 12) ' '
-check (66, 12) ' '
-check (66, 11) ' '
-check (67, 11) ' '
-check (67, 11) ' '
-check (67, 10) ' '
-check (68, 10) ' '
-check (68, 10) ' '
-check (68, 9) ' '
-check (54, 16) ' '
-check (54, 17) ' '
-check (54, 16) ' '
-check (55, 16) ' '
-check (55, 16) ' '
-check (55, 15) ' '
-check (56, 15) ' '
-check (56, 15) ' '
-check (56, 14) ' '
-check (57, 14) ' '
-check (57, 14) ' '
-check (57, 13) ' '
-check (58, 13) ' '
-check (58, 13) ' '
-check (58, 12) ' '
-check (67, 12) ' '
-check (67, 13) ' '
-check (67, 12) ' '
-check (68, 12) ' '
-check (68, 12) ' '
-check (68, 11) ' '
-check (69, 11) ' '
-check (69, 11) ' '
-check (69, 10) ' '
-check (70, 10) ' '
-check (70, 10) ' '
-check (70, 9) ' '
-check (71, 9) ' '
-check (71, 9) ' '
-check (71, 8) ' '
-check (72, 8) ' '
-check (72, 8) ' '
-check (72, 7) ' '
-check (57, 15) ' '
-check (57, 16) ' '
-check (57, 15) ' '
-check (58, 15) ' '
-check (58, 15) ' '
-check (58, 14) ' '
-check (59, 14) ' '
-check (59, 14) ' '
-check (59, 13) ' '
-check (60, 13) ' '
-check (60, 13) ' '
-check (60, 12) ' '
-check (61, 12) ' '
-check (61, 12) ' '
-check (61, 11) ' '
-check (62, 11) ' '
-check (62, 11) ' '
-check (62, 10) ' '
-Remove ID 98
-velocity (2.9441247, -1.8926517) ((51, 17) -> (65, 8))
-check (71, 11) ' '
-check (71, 12) ' '
-check (71, 11) ' '
-check (72, 11) ' '
-check (72, 11) ' '
-check (72, 10) ' '
-check (73, 10) ' '
-check (73, 10) ' '
-check (73, 9) ' '
-check (74, 9) ' '
-check (74, 9) ' '
-check (74, 8) ' '
-check (75, 8) W
-collided on (75, 8)
-check (61, 15) ' '
-check (61, 15) ' '
-check (61, 14) ' '
-check (62, 14) ' '
-check (62, 14) ' '
-check (62, 13) ' '
-check (63, 13) ' '
-check (63, 13) ' '
-check (63, 12) ' '
-check (64, 12) ' '
-check (64, 12) ' '
-check (64, 11) ' '
-check (65, 11) ' '
-check (65, 11) ' '
-check (65, 10) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (52, 17) ' '
-check (52, 17) ' '
-check (52, 16) ' '
-check (53, 16) ' '
-check (53, 16) ' '
-check (53, 15) ' '
-check (54, 15) ' '
-check (54, 15) ' '
-check (54, 14) ' '
-check (64, 14) ' '
-check (64, 14) ' '
-check (64, 13) ' '
-check (65, 13) ' '
-check (65, 13) ' '
-check (65, 12) ' '
-check (66, 12) ' '
-check (66, 12) ' '
-check (66, 11) ' '
-check (67, 11) ' '
-check (67, 11) ' '
-check (67, 10) ' '
-check (68, 10) ' '
-check (68, 10) ' '
-check (68, 9) ' '
-check (69, 9) ' '
-check (69, 9) ' '
-check (69, 8) ' '
-check (53, 15) ' '
-check (53, 15) ' '
-check (53, 14) ' '
-check (54, 14) ' '
-check (54, 14) ' '
-check (54, 13) ' '
-check (55, 13) ' '
-check (55, 13) ' '
-check (55, 12) ' '
-check (56, 12) ' '
-check (56, 12) ' '
-check (56, 11) ' '
-check (57, 11) ' '
-check (57, 11) ' '
-check (57, 10) ' '
-Remove ID 97
-check (68, 13) ' '
-check (68, 13) ' '
-check (68, 12) ' '
-check (69, 12) ' '
-check (69, 12) ' '
-check (69, 11) ' '
-check (70, 11) ' '
-check (70, 11) ' '
-check (70, 10) ' '
-check (71, 10) ' '
-check (71, 10) ' '
-check (71, 9) ' '
-check (72, 9) ' '
-check (72, 9) ' '
-check (72, 8) ' '
-check (56, 13) ' '
-check (56, 13) ' '
-check (56, 12) ' '
-check (57, 12) ' '
-check (57, 12) ' '
-check (57, 11) ' '
-check (58, 11) ' '
-check (58, 11) ' '
-check (58, 10) ' '
-check (59, 10) ' '
-check (59, 10) ' '
-check (59, 9) ' '
-check (60, 9) ' '
-check (60, 9) ' '
-check (60, 8) ' '
-velocity (2.3543549, -2.5897903) ((51, 17) -> (61, 6))
-check (71, 12) ' '
-check (71, 12) ' '
-check (71, 11) ' '
-check (72, 11) ' '
-check (72, 11) ' '
-check (72, 10) ' '
-check (73, 10) ' '
-check (73, 10) ' '
-check (73, 9) ' '
-check (74, 9) ' '
-check (74, 9) ' '
-check (74, 8) ' '
-check (75, 8) W
-collided on (75, 8)
-check (59, 11) ' '
-check (59, 11) ' '
-check (59, 10) ' '
-check (60, 10) ' '
-check (60, 10) ' '
-check (60, 9) ' '
-check (61, 9) ' '
-check (61, 9) ' '
-check (61, 8) ' '
-check (62, 8) ' '
-check (62, 8) ' '
-check (62, 7) ' '
-check (63, 7) ' '
-check (63, 7) ' '
-check (63, 6) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (51, 16) ' '
-check (51, 16) ' '
-check (52, 16) ' '
-check (52, 15) ' '
-check (52, 15) ' '
-check (53, 15) ' '
-check (53, 14) ' '
-check (53, 14) ' '
-check (54, 14) ' '
-check (62, 9) ' '
-check (62, 9) ' '
-check (62, 8) ' '
-check (63, 8) ' '
-check (63, 8) ' '
-check (63, 7) ' '
-check (64, 7) ' '
-check (64, 7) ' '
-check (64, 6) ' '
-check (65, 6) ' '
-check (65, 6) ' '
-check (65, 5) ' '
-check (66, 5) ' '
-check (66, 5) ' '
-check (66, 4) ' '
-check (53, 15) ' '
-check (52, 15) ' '
-check (53, 15) ' '
-check (53, 14) ' '
-check (53, 14) ' '
-check (54, 14) ' '
-check (54, 13) ' '
-check (54, 13) ' '
-check (55, 13) ' '
-check (55, 12) ' '
-check (55, 12) ' '
-check (56, 12) ' '
-check (56, 11) ' '
-check (56, 11) ' '
-check (57, 11) ' '
-Remove ID 96
-check (65, 8) ' '
-check (65, 8) ' '
-check (65, 7) ' '
-check (66, 7) ' '
-check (66, 7) ' '
-check (66, 6) ' '
-check (67, 6) ' '
-check (67, 6) ' '
-check (67, 5) ' '
-check (68, 5) ' '
-check (68, 5) ' '
-check (68, 4) ' '
-check (69, 4) ' '
-check (69, 4) ' '
-check (69, 3) ' '
-check (56, 12) ' '
-check (55, 12) ' '
-check (56, 12) ' '
-check (56, 11) ' '
-check (56, 11) ' '
-check (57, 11) ' '
-check (57, 10) ' '
-check (57, 10) ' '
-check (58, 10) ' '
-check (58, 9) ' '
-check (58, 9) ' '
-check (59, 9) ' '
-velocity (-0.218324, -3.493184) ((51, 17) -> (50, 1))
-check (68, 6) ' '
-check (68, 6) ' '
-check (68, 5) ' '
-check (69, 5) ' '
-check (69, 5) ' '
-check (69, 4) ' '
-check (70, 4) ' '
-check (70, 4) ' '
-check (70, 3) ' '
-check (71, 3) ' '
-check (71, 3) ' '
-check (71, 2) ' '
-check (72, 2) ' '
-check (72, 2) ' '
-check (72, 1) ' '
-check (58, 10) ' '
-check (57, 10) ' '
-check (58, 10) ' '
-check (58, 9) ' '
-check (58, 9) ' '
-check (59, 9) ' '
-check (59, 8) ' '
-check (59, 8) ' '
-check (60, 8) ' '
-check (60, 7) ' '
-check (60, 7) ' '
-check (61, 7) ' '
-check (61, 6) ' '
-check (61, 6) ' '
-check (62, 6) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (51, 16) ' '
-check (51, 16) ' '
-check (50, 16) ' '
-check (50, 15) ' '
-check (50, 15) ' '
-check (49, 15) ' '
-check (49, 14) ' '
-check (49, 14) ' '
-check (48, 14) ' '
-check (48, 13) ' '
-check (48, 13) ' '
-check (47, 13) ' '
-check (71, 4) ' '
-check (71, 4) ' '
-check (71, 3) ' '
-check (72, 3) ' '
-check (72, 3) ' '
-check (72, 2) ' '
-check (73, 2) ' '
-check (73, 2) ' '
-check (73, 1) ' '
-check (74, 1) ' '
-check (74, 1) ' '
-check (74, 0) W
-collided on (74, 0)
-check (60, 7) ' '
-check (60, 7) ' '
-check (61, 7) ' '
-check (61, 6) ' '
-check (61, 6) ' '
-check (62, 6) ' '
-check (62, 5) ' '
-check (62, 5) ' '
-check (63, 5) ' '
-check (63, 4) ' '
-check (63, 4) ' '
-check (64, 4) ' '
-check (51, 14) ' '
-check (51, 14) ' '
-check (50, 14) ' '
-check (50, 13) ' '
-check (50, 13) ' '
-check (49, 13) ' '
-check (49, 12) ' '
-check (49, 12) ' '
-check (48, 12) ' '
-check (48, 11) ' '
-check (48, 11) ' '
-check (47, 11) W
-collided on (47, 11)
-check (63, 5) ' '
-check (61, 5) ' '
-check (62, 5) ' '
-check (62, 4) ' '
-check (62, 4) ' '
-check (63, 4) ' '
-check (63, 3) ' '
-check (63, 3) ' '
-check (64, 3) ' '
-check (64, 2) ' '
-check (64, 2) ' '
-check (65, 2) ' '
-check (65, 1) ' '
-check (65, 1) ' '
-check (66, 1) ' '
-Remove ID 98
-Remove ID 96
-velocity (-0.43412158, -3.4729726) ((51, 17) -> (49, 1))
-check (65, 2) ' '
-check (64, 2) ' '
-check (65, 2) ' '
-check (65, 1) ' '
-check (65, 1) ' '
-check (66, 1) ' '
-check (66, 0) W
-collided on (66, 0)
-check (51, 17) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (51, 16) ' '
-check (51, 16) ' '
-check (50, 16) ' '
-check (50, 15) ' '
-check (50, 15) ' '
-check (49, 15) ' '
-check (49, 14) ' '
-check (49, 14) ' '
-check (48, 14) ' '
-check (48, 13) ' '
-check (48, 13) ' '
-check (47, 13) ' '
-check (51, 14) ' '
-check (51, 14) ' '
-check (50, 14) ' '
-check (50, 13) ' '
-check (50, 13) ' '
-check (49, 13) ' '
-check (49, 12) ' '
-check (49, 12) ' '
-check (48, 12) ' '
-check (48, 11) ' '
-check (48, 11) ' '
-check (47, 11) W
-collided on (47, 11)
-Remove ID 97
-Remove ID 96
-velocity (-2.55338, -2.3937938) ((51, 17) -> (35, 2))
-check (51, 17) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (50, 17) ' '
-check (50, 17) ' '
-check (50, 16) ' '
-check (49, 16) ' '
-check (49, 16) ' '
-check (49, 15) ' '
-check (48, 15) ' '
-check (48, 15) ' '
-check (48, 14) ' '
-check (49, 15) ' '
-check (49, 16) ' '
-check (49, 15) ' '
-check (48, 15) ' '
-check (48, 15) ' '
-check (48, 14) ' '
-check (47, 14) ' '
-check (47, 14) ' '
-check (47, 13) ' '
-check (46, 13) ' '
-check (46, 13) ' '
-check (46, 12) ' '
-check (45, 12) ' '
-check (45, 12) ' '
-check (45, 11) ' '
-check (46, 12) ' '
-check (46, 13) ' '
-check (46, 12) ' '
-check (45, 12) ' '
-check (45, 12) ' '
-check (45, 11) ' '
-check (44, 11) ' '
-velocity (-2.7627327, -2.148792) ((51, 17) -> (33, 3))
-check (44, 11) ' '
-check (44, 10) ' '
-check (43, 10) ' '
-check (43, 10) ' '
-check (43, 9) W
-collided on (43, 9)
-check (51, 17) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (50, 17) ' '
-check (50, 17) ' '
-check (50, 16) ' '
-check (49, 16) ' '
-check (49, 16) ' '
-check (49, 15) ' '
-check (48, 15) ' '
-check (48, 15) ' '
-check (48, 14) ' '
-Remove ID 96
-check (49, 15) ' '
-check (49, 16) ' '
-check (49, 15) ' '
-check (48, 15) ' '
-check (48, 15) ' '
-check (48, 14) ' '
-check (47, 14) ' '
-check (47, 14) ' '
-check (47, 13) ' '
-check (46, 13) ' '
-check (46, 13) ' '
-check (46, 12) ' '
-check (45, 12) ' '
-check (45, 12) ' '
-check (45, 11) ' '
-check (46, 13) ' '
-check (46, 14) ' '
-check (46, 13) ' '
-check (45, 13) ' '
-check (45, 13) ' '
-check (45, 12) ' '
-check (44, 12) ' '
-check (44, 12) ' '
-check (44, 11) ' '
-check (43, 11) ' '
-check (43, 11) ' '
-check (43, 10) ' '
-check (42, 10) ' '
-check (42, 10) ' '
-check (42, 9) W
-collided on (42, 9)
-velocity (-3.130495, -1.5652475) ((51, 17) -> (31, 7))
-check (51, 17) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (50, 17) ' '
-check (50, 17) ' '
-check (50, 16) ' '
-check (49, 16) ' '
-check (49, 16) ' '
-check (49, 15) ' '
-check (48, 15) ' '
-check (48, 15) ' '
-check (48, 14) ' '
-check (47, 14) ' '
-check (47, 14) ' '
-check (47, 13) ' '
-Remove ID 97
-check (48, 15) ' '
-check (48, 16) ' '
-check (48, 15) ' '
-check (47, 15) ' '
-check (47, 15) ' '
-check (47, 14) ' '
-check (46, 14) ' '
-check (46, 14) ' '
-check (46, 13) ' '
-check (45, 13) ' '
-check (45, 13) ' '
-check (45, 12) ' '
-check (44, 12) ' '
-check (44, 12) ' '
-check (44, 11) ' '
-velocity (-3.1862826, -1.4483103) ((51, 17) -> (29, 7))
-check (45, 14) ' '
-check (45, 14) ' '
-check (45, 13) ' '
-check (44, 13) ' '
-check (44, 13) ' '
-check (44, 12) ' '
-check (43, 12) ' '
-check (43, 12) ' '
-check (43, 11) ' '
-check (42, 11) ' '
-check (42, 11) ' '
-check (42, 10) ' '
-check (41, 10) ' '
-check (41, 10) ' '
-check (41, 9) W
-collided on (41, 9)
-check (51, 17) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (50, 17) ' '
-check (50, 17) ' '
-check (50, 16) ' '
-check (49, 16) ' '
-check (49, 16) ' '
-check (49, 15) ' '
-check (48, 15) ' '
-check (48, 15) ' '
-check (48, 14) ' '
-check (47, 14) ' '
-check (47, 14) ' '
-check (47, 13) ' '
-check (48, 16) ' '
-check (48, 16) ' '
-check (48, 15) ' '
-check (47, 15) ' '
-check (47, 15) ' '
-check (47, 14) ' '
-check (46, 14) ' '
-check (46, 14) ' '
-check (46, 13) ' '
-check (45, 13) ' '
-check (45, 13) ' '
-check (45, 12) ' '
-check (44, 12) ' '
-check (44, 12) ' '
-check (44, 11) ' '
-Remove ID 96
-check (45, 14) ' '
-check (45, 15) ' '
-check (45, 14) ' '
+check (72, 16) ' '
+check (73, 16) ' '
+check (73, 16) ' '
+check (73, 16) ' '
+check (74, 16) ' '
+check (74, 16) ' '
+check (74, 16) ' '
+check (32, 19) ' '
+check (32, 20) ' '
+check (32, 19) ' '
+check (33, 19) ' '
+check (33, 19) ' '
+check (33, 18) ' '
+check (34, 18) ' '
+check (34, 18) ' '
+check (34, 17) ' '
+check (35, 17) ' '
+check (35, 17) ' '
+check (35, 16) ' '
+check (36, 16) ' '
+check (36, 16) ' '
+check (36, 15) ' '
+check (37, 15) ' '
+check (37, 15) ' '
+check (37, 14) ' '
+velocity (3.4667232, -0.48148933) ((25, 21) -> (61, 16))
+v (0, 0.25)
+check (73, 16) ' '
+check (73, 16) ' '
+check (73, 16) ' '
+check (74, 16) ' '
+check (74, 16) ' '
+check (74, 16) ' '
+check (75, 16) W
+collided on (75, 16)
+check (36, 19) ' '
+check (36, 19) ' '
+check (36, 18) ' '
+check (37, 18) ' '
+check (37, 18) ' '
+check (37, 17) ' '
+check (38, 17) ' '
+check (38, 17) ' '
+check (38, 16) ' '
+check (39, 16) ' '
+check (39, 16) ' '
+check (39, 15) ' '
+check (40, 15) ' '
+check (40, 15) ' '
+check (40, 14) ' '
+check (25, 21) ' '
+check (25, 21) ' '
+check (25, 21) ' '
+check (26, 21) ' '
+check (26, 21) ' '
+check (26, 20) ' '
+check (27, 20) ' '
+check (27, 20) ' '
+check (27, 19) ' '
+check (28, 19) ' '
+check (28, 19) ' '
+check (28, 18) ' '
+check (29, 18) ' '
+check (29, 18) ' '
+check (29, 17) ' '
+v (0, 0.25)
+check (39, 18) ' '
+check (39, 19) ' '
+check (39, 18) ' '
+check (40, 18) ' '
+check (40, 18) ' '
+check (40, 17) ' '
+check (41, 17) ' '
+check (41, 17) ' '
+check (41, 16) ' '
+check (42, 16) ' '
+check (42, 16) ' '
+check (42, 15) ' '
+check (43, 15) ' '
+check (43, 15) ' '
+check (43, 14) ' '
 check (44, 14) ' '
 check (44, 14) ' '
 check (44, 13) ' '
-check (43, 13) ' '
-check (43, 13) ' '
-check (43, 12) ' '
-check (42, 12) ' '
-check (42, 12) ' '
-check (42, 11) ' '
-check (41, 11) ' '
-check (41, 11) ' '
-check (41, 10) ' '
-velocity (-3.3427246, -1.0373973) ((51, 17) -> (22, 8))
-check (42, 13) ' '
-check (42, 13) ' '
-check (42, 12) ' '
-check (41, 12) ' '
-check (41, 12) ' '
-check (41, 11) ' '
-check (40, 11) ' '
-check (40, 11) ' '
-check (40, 10) ' '
-check (39, 10) ' '
-check (39, 10) ' '
-check (39, 9) W
-collided on (39, 9)
-check (51, 17) ' '
-check (51, 17) ' '
-check (51, 17) ' '
-check (50, 17) ' '
-check (50, 17) ' '
-check (50, 16) ' '
-check (49, 16) ' '
-check (49, 16) ' '
-check (49, 15) ' '
-check (48, 15) ' '
-check (48, 15) ' '
-check (48, 14) ' '
-check (47, 14) ' '
-check (47, 14) ' '
-check (47, 13) ' '
-check (48, 16) ' '
-check (48, 17) ' '
-check (48, 16) ' '
-check (47, 16) ' '
-check (47, 16) ' '
-check (47, 15) ' '
-check (46, 15) ' '
-check (46, 15) ' '
-check (46, 14) ' '
-check (45, 14) ' '
-check (45, 14) ' '
-check (45, 13) ' '
-check (44, 13) ' '
-check (44, 13) ' '
-check (44, 12) ' '
-Remove ID 97
-check (45, 15) ' '
+check (28, 21) ' '
+check (28, 21) ' '
+check (28, 20) ' '
+check (29, 20) ' '
+check (29, 20) ' '
+check (29, 19) ' '
+check (30, 19) ' '
+check (30, 19) ' '
+check (30, 18) ' '
+check (31, 18) ' '
+check (31, 18) ' '
+check (31, 17) ' '
+check (32, 17) ' '
+check (32, 17) ' '
+check (32, 16) ' '
+Remove ID 98
+v (0, 0.25)
+check (43, 18) ' '
+check (43, 18) ' '
+check (43, 17) ' '
+check (44, 17) ' '
+check (44, 17) ' '
+check (44, 16) ' '
+check (45, 16) ' '
 check (45, 16) ' '
 check (45, 15) ' '
-check (44, 15) ' '
-check (44, 15) ' '
-check (44, 14) ' '
-check (43, 14) ' '
-check (43, 14) ' '
-check (43, 13) ' '
-check (42, 13) ' '
-check (42, 13) ' '
-check (42, 12) ' '
-check (41, 12) ' '
-check (41, 12) ' '
-check (41, 11) ' '
-check (40, 11) ' '
-check (40, 11) ' '
-check (40, 10) ' '
-check (41, 14) ' '
-check (41, 14) ' '
-check (41, 13) ' '
-check (40, 13) ' '
-check (40, 13) ' '
-check (40, 12) ' '
-check (39, 12) ' '
-check (39, 12) ' '
-check (39, 11) ' '
-check (38, 11) ' '
-check (38, 11) ' '
-check (38, 10) ' '
-check (37, 10) ' '
-check (37, 10) ' '
-check (37, 9) W
-collided on (37, 9)
-Remove ID 96
+check (46, 15) ' '
+check (46, 15) ' '
+check (46, 14) ' '
+check (47, 14) ' '
+check (47, 14) ' '
+check (47, 13) ' '
+check (31, 20) ' '
+check (31, 20) ' '
+check (31, 19) ' '
+check (32, 19) ' '
+check (32, 19) ' '
+check (32, 18) ' '
+check (33, 18) ' '
+check (33, 18) ' '
+check (33, 17) ' '
+check (34, 17) ' '
+check (34, 17) ' '
+check (34, 16) ' '
+check (35, 16) ' '
+check (35, 16) ' '
+check (35, 15) ' '
+check (36, 15) ' '
+check (36, 15) ' '
+check (36, 14) ' '
+v (0, 0.25)
+check (46, 18) ' '
+check (46, 18) ' '
+check (46, 17) ' '
+check (47, 17) ' '
+check (47, 17) ' '
+check (47, 16) ' '
+check (48, 16) ' '
+check (48, 16) ' '
+check (48, 15) ' '
+check (49, 15) ' '
+check (49, 15) ' '
+check (49, 14) ' '
+check (50, 14) ' '
+check (50, 14) ' '
+check (50, 13) ' '
+check (51, 13) ' '
+check (51, 13) ' '
+check (51, 12) ' '
+check (35, 20) ' '
+check (35, 20) ' '
+check (35, 19) ' '
+check (36, 19) ' '
+check (36, 19) ' '
+check (36, 18) ' '
+check (37, 18) ' '
+check (37, 18) ' '
+check (37, 17) ' '
+check (38, 17) ' '
+check (38, 17) ' '
+check (38, 16) ' '
+check (39, 16) ' '
+check (39, 16) ' '
+check (39, 15) ' '

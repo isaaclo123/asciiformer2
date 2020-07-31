@@ -101,7 +101,7 @@ impl GenIndex<EntitySync> {
 
         let index = self.free_indexes.pop().unwrap();
 
-        unlock(&entity).set_id(index);
+        unlock(&entity).set_id(index as i16);
         self.alloc_indexes.push(index);
         self.data[index] = Some(entity);
 
@@ -211,7 +211,7 @@ impl GenIndexSync<EntitySync> {
         match id {
             Ok(i) => {
                 let entity = gen_index.get(i).unwrap();
-                unlock(&entity).set_id(i);
+                unlock(&entity).set_id(i as i16);
                 Ok(i.clone())
             }
             Err(e) => Err("An Error Arose"),

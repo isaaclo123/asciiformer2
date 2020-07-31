@@ -19,7 +19,7 @@ pub struct Player {
     pub point: Vector<f32>,
     pub velocity: Vector<f32>,
     pub name: String,
-    id: Option<usize>,
+    id: Option<i16>,
 }
 
 impl Player {
@@ -35,11 +35,11 @@ impl Player {
 }
 
 impl Entity for Player {
-    fn get_id(&self) -> Option<usize> {
+    fn get_id(&self) -> Option<i16> {
         self.id
     }
 
-    fn set_id(&mut self, id: usize) {
+    fn set_id(&mut self, id: i16) {
         self.id = Some(id);
     }
 
@@ -93,10 +93,20 @@ impl Entity for Player {
             if (coll_x - new_x).abs() <= 1.0 {
                 // if collision occoured along x axis
                 self.velocity.x = 0.0;
+                // if self.velocity.x < 0.1 {
+                //     self.velocity.x = 0.0;
+                // }
+                // self.velocity.x *= -0.25;
             }
             if (coll_y - new_y).abs() <= 1.0 {
-                // if collision occoured along x axis
                 self.velocity.y = 0.0;
+                // if self.velocity.y < 0.1 {
+                //     self.velocity.y = 0.0;
+                // }
+                // // if collision occoured along x axis
+                // if self.velocity.y > 1.0 {
+                //     self.velocity.y *= -0.5;
+                // }
             }
         }
 
@@ -149,7 +159,7 @@ impl Entity for Player {
             }
         }
 
-        // debug::write(&format!("v {}", self.velocity));
+        debug::write(&format!("v {}", self.velocity));
 
         self.prev_point = self.point;
         self.point = self.point + self.velocity;

@@ -16,7 +16,7 @@ pub struct Bullet {
     pub point: Vector<f32>,
     pub velocity: Vector<f32>,
     should_remove: bool,
-    id: Option<usize>,
+    id: Option<i16>,
     // pub name: &'a str,
 }
 
@@ -41,11 +41,11 @@ impl Bullet {
 }
 
 impl Entity for Bullet {
-    fn get_id(&self) -> Option<usize> {
+    fn get_id(&self) -> Option<i16> {
         self.id
     }
 
-    fn set_id(&mut self, id: usize) {
+    fn set_id(&mut self, id: i16) {
         self.id = Some(id);
     }
 

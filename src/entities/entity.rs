@@ -15,9 +15,9 @@ pub trait Entity: Send + Sync {
     fn get_texture(&self) -> Texture;
     fn get_point(&self) -> Vector<f32>;
 
-    fn set_id(&mut self, id: usize) {}
+    fn set_id(&mut self, id: i16) {}
 
-    fn get_id(&self) -> Option<usize> {
+    fn get_id(&self) -> Option<i16> {
         None
     }
 

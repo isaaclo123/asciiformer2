@@ -37,7 +37,8 @@ pub struct Game<'a, R, W> {
 impl<'a, R: Read + Send, W: Write + Send> Game<'a, R, W> {
     pub fn new(stdin: &'a mut R, stdout: &'a mut W, map_file: impl AsRef<Path>) -> Self {
         let (width, height) = terminal_size().expect("Failed to get Terminal Size");
-        let map = Map::load_from_file(map_file).unwrap();
+        let mut map = Map::new();
+        map.load_from_file(map_file);
 
         let offset_width = (width - map.width) / 2;
         let offset_height = (height - map.height) / 2;
@@ -163,11 +164,18 @@ impl<'a, R: Read + Send, W: Write + Send> Game<'a, R, W> {
         for e in self.gen_index.clone() {
             let mut e_lock = unlock(&e);
 
-            renderer::clear(&*e_lock, self.stdout, self.origin, &self.map);
+            renderer::clear(
+                &*e_lock,
+                self.stdout,
+                self.origin,
+                &self.map,
+                &self.gen_index,
+            );
+            // renderer::clear_hitbox(&*e_lock, &self.map);
 
             if e_lock.should_remove() {
                 if let Some(id) = e_lock.get_id() {
-                    to_remove.push(id);
+                    to_remove.push(id as usize);
                     continue;
                 }
             }
@@ -176,6 +184,7 @@ impl<'a, R: Read + Send, W: Write + Send> Game<'a, R, W> {
             e_lock.collide(&self.map);
 
             renderer::draw(&*e_lock, self.stdout, self.origin);
+            // renderer::mark_hitbox(&*e_lock, &self.map);
         }
 
         for id in to_remove {

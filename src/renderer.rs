@@ -1,5 +1,6 @@
 use super::debug;
 use super::entities::{Entity, EntitySync};
+use super::genindex::GenIndexSync;
 use super::helpers::{unlock, wrap};
 use super::map::MapSync;
 use super::textures::AirTextures;
@@ -11,7 +12,59 @@ use termion::{color, cursor};
 
 use std::sync::{Arc, Mutex, MutexGuard};
 
-pub fn clear(obj: &dyn Entity, stdout: &mut impl Write, origin: Vector<u16>, map: &MapSync) {
+pub fn mark_hitbox(
+    // ref_obj: &EntitySync,
+    obj: &dyn Entity,
+    map: &MapSync,
+) {
+    if obj.get_id().is_none() {
+        return;
+    }
+
+    let mut my_map = unlock(map);
+
+    let pt = obj.get_draw_point();
+    let Vector { x: pt_x, y: pt_y } = pt;
+
+    let texture = obj.get_texture();
+
+    for y in 0..texture.len() {
+        for x in 0..texture[y].len() {
+            my_map.set(
+                (pt_x + x as u16) as i16,
+                (pt_y + y as u16) as i16,
+                obj.get_id().unwrap(),
+            );
+        }
+    }
+}
+
+pub fn clear_hitbox(obj: &dyn Entity, map: &MapSync) {
+    if obj.get_id().is_none() {
+        return;
+    }
+
+    let mut my_map = unlock(map);
+
+    let pt = obj.get_draw_point();
+    let Vector { x: pt_x, y: pt_y } = pt;
+
+    let texture = obj.get_texture();
+
+    for y in 0..texture.len() {
+        for x in 0..texture[y].len() {
+            my_map.del((pt_x + x as u16) as i16, (pt_y + y as u16) as i16);
+        }
+    }
+}
+
+pub fn clear(
+    obj: &dyn Entity,
+    stdout: &mut impl Write,
+    origin: Vector<u16>,
+    map: &MapSync,
+    gen_index: &GenIndexSync<EntitySync>,
+) {
     // if !obj.should_draw() {
     //     return;
     // }
@@ -46,8 +99,11 @@ pub fn clear(obj: &dyn Entity, stdout: &mut impl Write, origin: Vector<u16>, map
                 //     tex_x,
                 //     tex_y,
                 //     e.borrow().get_texture()[0][0]
+                //
                 // ));
-                unlock(&e).get_texture()[0][0]
+                let entity_locked = gen_index.get(*e as usize).unwrap();
+                let entity = unlock(&entity_locked);
+                entity.get_texture()[0][0]
             } else {
                 AirTextures::AIR[0][0]
             };
@@ -76,8 +132,6 @@ pub fn draw(
     obj: &dyn Entity,
     stdout: &mut impl Write,
     origin: Vector<u16>,
-    // point: Vector<i16>,
-    // fg_opt: Option<impl color::Color>,
 ) {
     // let obj = unlock(ref_obj);
     // if !obj.should_draw() {
