@@ -2,6 +2,7 @@ use super::{plot_line, Direction, Entity};
 use crate::debug;
 use crate::textures::{PlayerTextures, Texture};
 use crate::vectors::Vector;
+use std::any::Any;
 use std::cell::RefCell;
 
 use std::rc::Rc;
@@ -35,6 +36,10 @@ impl Player {
 }
 
 impl Entity for Player {
+    fn as_any(&self) -> &dyn Any {
+        self
+    }
+
     fn get_id(&self) -> Option<i16> {
         self.id
     }

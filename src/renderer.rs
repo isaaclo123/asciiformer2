@@ -3,7 +3,7 @@ use super::entities::{Entity, EntitySync};
 use super::genindex::GenIndexSync;
 use super::helpers::{unlock, wrap};
 use super::map::MapSync;
-use super::textures::AirTextures;
+use super::textures::{AirTextures, WallTextures};
 use super::vectors::Vector;
 use std::cell::RefCell;
 use std::io::Write;
@@ -101,9 +101,13 @@ pub fn clear(
                 //     e.borrow().get_texture()[0][0]
                 //
                 // ));
-                let entity_locked = gen_index.get(*e as usize).unwrap();
-                let entity = unlock(&entity_locked);
-                entity.get_texture()[0][0]
+                if *e == -1 {
+                    WallTextures::WALL[0][0]
+                } else {
+                    let entity_locked = gen_index.get(*e as usize).unwrap();
+                    let entity = unlock(&entity_locked);
+                    entity.get_texture()[0][0]
+                }
             } else {
                 AirTextures::AIR[0][0]
             };

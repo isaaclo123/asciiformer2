@@ -3,6 +3,7 @@ use super::Direction;
 use crate::map::Map;
 use crate::textures::Texture;
 use crate::vectors::Vector;
+use std::any::Any;
 use std::cell::RefCell;
 use std::rc::Rc;
 use termion::color;
@@ -12,6 +13,8 @@ use std::sync::{Arc, Mutex};
 pub type EntitySync = Arc<Mutex<dyn Entity>>;
 
 pub trait Entity: Send + Sync {
+    fn as_any(&self) -> &dyn Any;
+
     fn get_texture(&self) -> Texture;
     fn get_point(&self) -> Vector<f32>;
 

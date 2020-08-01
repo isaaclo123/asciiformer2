@@ -1,6 +1,7 @@
 use super::Entity;
 use crate::textures::{Texture, WallTextures};
 use crate::vectors::Vector;
+use std::any::Any;
 
 /* Walls */
 
@@ -21,6 +22,10 @@ impl Wall {
 }
 
 impl Entity for Wall {
+    fn as_any(&self) -> &dyn Any {
+        self
+    }
+
     fn get_id(&self) -> Option<i16> {
         Some(-1)
     }

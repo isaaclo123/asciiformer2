@@ -1,4 +1,4 @@
-use super::entities::{Entity, EntitySync};
+use super::entities::{Entity, EntitySync, Wall};
 
 use super::helpers::{unlock, wrap};
 use std::sync::{Arc, Mutex, MutexGuard};
@@ -217,6 +217,16 @@ impl GenIndexSync<EntitySync> {
             Err(e) => Err("An Error Arose"),
         }
     }
+
+    // pub fn get_extended(&self, index: i16) -> Option<&EntitySync> {
+    //     if index == -1 {
+    //         let dyn_wall: &dyn Entity = Wall::new(0, 0).as_any();
+
+    //         return Some(&wrap(dyn_wall));
+    //     }
+
+    //     self.get(index as usize)
+    // }
 }
 
 impl<T: Clone> IntoIterator for GenIndexSync<T> {

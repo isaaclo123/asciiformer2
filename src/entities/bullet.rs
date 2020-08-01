@@ -3,6 +3,7 @@ use crate::debug;
 use crate::map::{Map, MapSync};
 use crate::textures::{BulletTextures, Texture};
 use crate::vectors::Vector;
+use std::any::Any;
 use std::cell::RefCell;
 use std::rc::Rc;
 use termion::color;
@@ -41,6 +42,10 @@ impl Bullet {
 }
 
 impl Entity for Bullet {
+    fn as_any(&self) -> &dyn Any {
+        self
+    }
+
     fn get_id(&self) -> Option<i16> {
         self.id
     }

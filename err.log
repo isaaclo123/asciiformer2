@@ -1,0 +1,502 @@
+warning: unused import: `Map`
+ --> src/entities/bullet.rs:3:18
+  |
+3 | use crate::map::{Map, MapSync};
+  |                  ^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `std::cell::RefCell`
+ --> src/entities/bullet.rs:6:5
+  |
+6 | use std::cell::RefCell;
+  |     ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::rc::Rc`
+ --> src/entities/bullet.rs:7:5
+  |
+7 | use std::rc::Rc;
+  |     ^^^^^^^^^^^
+
+warning: unused import: `std::cell::RefCell`
+ --> src/entities/entity.rs:6:5
+  |
+6 | use std::cell::RefCell;
+  |     ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::rc::Rc`
+ --> src/entities/entity.rs:7:5
+  |
+7 | use std::rc::Rc;
+  |     ^^^^^^^^^^^
+
+warning: unused import: `wrap`
+ --> src/entities/linedraw.rs:3:30
+  |
+3 | use crate::helpers::{unlock, wrap};
+  |                              ^^^^
+
+warning: unused import: `Map`
+ --> src/entities/linedraw.rs:4:18
+  |
+4 | use crate::map::{Map, MapSync};
+  |                  ^^^
+
+warning: unused import: `std::cell::RefCell`
+ --> src/entities/linedraw.rs:6:5
+  |
+6 | use std::cell::RefCell;
+  |     ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::rc::Rc`
+ --> src/entities/linedraw.rs:7:5
+  |
+7 | use std::rc::Rc;
+  |     ^^^^^^^^^^^
+
+warning: unused import: `std::cell::RefCell`
+ --> src/entities/player.rs:5:5
+  |
+5 | use std::cell::RefCell;
+  |     ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::rc::Rc`
+ --> src/entities/player.rs:7:5
+  |
+7 | use std::rc::Rc;
+  |     ^^^^^^^^^^^
+
+warning: unused imports: `Arc`, `Mutex`
+ --> src/entities/player.rs:8:17
+  |
+8 | use std::sync::{Arc, Mutex};
+  |                 ^^^  ^^^^^
+
+warning: unused import: `Map`
+  --> src/entities/player.rs:11:18
+   |
+11 | use crate::map::{Map, MapSync};
+   |                  ^^^
+
+warning: unused import: `std::sync::mpsc::channel`
+ --> src/game.rs:4:5
+  |
+4 | use std::sync::mpsc::channel;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Mutex`
+ --> src/game.rs:5:22
+  |
+5 | use std::sync::{Arc, Mutex};
+  |                      ^^^^^
+
+warning: unused import: `termion::async_stdin`
+ --> src/game.rs:6:5
+  |
+6 | use termion::async_stdin;
+  |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `Cell`, `RefCell`, `RefMut`
+  --> src/game.rs:18:17
+   |
+18 | use std::cell::{Cell, RefCell, RefMut};
+   |                 ^^^^  ^^^^^^^  ^^^^^^
+
+warning: unused import: `std::rc::Rc`
+  --> src/game.rs:19:5
+   |
+19 | use std::rc::Rc;
+   |     ^^^^^^^^^^^
+
+warning: unused import: `clear`
+  --> src/game.rs:22:15
+   |
+22 | use termion::{clear, cursor, terminal_size};
+   |               ^^^^^
+
+warning: unused import: `MutexGuard`
+ --> src/genindex.rs:4:29
+  |
+4 | use std::sync::{Arc, Mutex, MutexGuard};
+  |                             ^^^^^^^^^^
+
+warning: unused import: `EntitySync`
+ --> src/map.rs:2:31
+  |
+2 | use super::entities::{Entity, EntitySync, Wall};
+  |                               ^^^^^^^^^^
+
+warning: unused import: `super::helpers::unlock`
+ --> src/map.rs:3:5
+  |
+3 | use super::helpers::unlock;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `cursor`, `terminal_size`
+  --> src/map.rs:15:22
+   |
+15 | use termion::{clear, cursor, terminal_size};
+   |                      ^^^^^^  ^^^^^^^^^^^^^
+
+warning: unused import: `super::debug`
+ --> src/renderer.rs:1:5
+  |
+1 | use super::debug;
+  |     ^^^^^^^^^^^^
+
+warning: unused import: `wrap`
+ --> src/renderer.rs:4:30
+  |
+4 | use super::helpers::{unlock, wrap};
+  |                              ^^^^
+
+warning: unused import: `std::cell::RefCell`
+ --> src/renderer.rs:8:5
+  |
+8 | use std::cell::RefCell;
+  |     ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::rc::Rc`
+  --> src/renderer.rs:10:5
+   |
+10 | use std::rc::Rc;
+   |     ^^^^^^^^^^^
+
+warning: unused imports: `Arc`, `MutexGuard`, `Mutex`
+  --> src/renderer.rs:13:17
+   |
+13 | use std::sync::{Arc, Mutex, MutexGuard};
+   |                 ^^^  ^^^^^  ^^^^^^^^^^
+
+warning: unused import: `Rem`
+ --> src/vectors.rs:2:42
+  |
+2 | use std::ops::{Add, AddAssign, Div, Mul, Rem, Sub};
+  |                                          ^^^
+
+warning: unused imports: `Stdin`, `Stdout`
+  --> src/main.rs:17:30
+   |
+17 | use std::io::{stdin, stdout, Stdin, Stdout};
+   |                              ^^^^^  ^^^^^^
+
+warning: unused import: `termion::async_stdin`
+  --> src/main.rs:18:5
+   |
+18 | use termion::async_stdin;
+   |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Entity`
+ --> src/game.rs:3:42
+  |
+3 | use crate::entities::{Bullet, Direction, Entity, EntitySync, Player};
+  |                                          ^^^^^^
+
+warning: unused import: `Entity`
+ --> src/genindex.rs:1:23
+  |
+1 | use super::entities::{Entity, EntitySync};
+  |                       ^^^^^^
+
+warning: unused variable: `id`
+  --> src/entities/entity.rs:18:26
+   |
+18 |     fn set_id(&mut self, id: i16) {}
+   |                          ^^ help: if this is intentional, prefix it with an underscore: `_id`
+   |
+   = note: `#[warn(unused_variables)]` on by default
+
+warning: unused variable: `direction`
+  --> src/entities/entity.rs:42:26
+   |
+42 |     fn action(&mut self, direction: Direction) {}
+   |                          ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_direction`
+
+warning: unused variable: `map`
+  --> src/entities/entity.rs:44:27
+   |
+44 |     fn collide(&mut self, map: &Arc<Mutex<Map>>) {}
+   |                           ^^^ help: if this is intentional, prefix it with an underscore: `_map`
+
+warning: unused variable: `e`
+   --> src/genindex.rs:182:17
+    |
+182 |             Err(e) => Err("An Error Arose"),
+    |                 ^ help: if this is intentional, prefix it with an underscore: `_e`
+
+warning: unused variable: `e`
+   --> src/genindex.rs:193:17
+    |
+193 |             Err(e) => Err("Issue arose"),
+    |                 ^ help: if this is intentional, prefix it with an underscore: `_e`
+
+warning: unused variable: `e`
+   --> src/genindex.rs:217:17
+    |
+217 |             Err(e) => Err("An Error Arose"),
+    |                 ^ help: if this is intentional, prefix it with an underscore: `_e`
+
+warning: variable does not need to be mutable
+  --> src/main.rs:25:9
+   |
+25 |     let mut stdin = &mut stdin();
+   |         ----^^^^^
+   |         |
+   |         help: remove this `mut`
+   |
+   = note: `#[warn(unused_mut)]` on by default
+
+warning: variable does not need to be mutable
+  --> src/main.rs:26:9
+   |
+26 |     let mut stdout = &mut MouseTerminal::from(stdout().into_raw_mode().unwrap());
+   |         ----^^^^^^
+   |         |
+   |         help: remove this `mut`
+
+warning: field is never read: `width`
+  --> src/game.rs:25:5
+   |
+25 |     width: u16,
+   |     ^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+warning: field is never read: `height`
+  --> src/game.rs:26:5
+   |
+26 |     height: u16,
+   |     ^^^^^^^^^^^
+
+warning: field is never read: `stdin`
+  --> src/game.rs:27:5
+   |
+27 |     stdin: &'a mut R,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: field is never read: `origin_float`
+  --> src/game.rs:31:5
+   |
+31 |     origin_float: Vector<f32>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function is never used: `alloc_index_len`
+  --> src/genindex.rs:39:12
+   |
+39 |     pub fn alloc_index_len(&self) -> usize {
+   |            ^^^^^^^^^^^^^^^
+
+warning: associated function is never used: `free_index_len`
+  --> src/genindex.rs:63:12
+   |
+63 |     pub fn free_index_len(&self) -> usize {
+   |            ^^^^^^^^^^^^^^
+
+warning: associated function is never used: `alloc_entity`
+  --> src/genindex.rs:97:12
+   |
+97 |     pub fn alloc_entity(&mut self, entity: EntitySync) -> Result<usize, &str> {
+   |            ^^^^^^^^^^^^
+
+warning: associated function is never used: `alloc_index`
+   --> src/genindex.rs:176:12
+    |
+176 |     pub fn alloc_index(&mut self, val: T) -> Result<usize, &str> {
+    |            ^^^^^^^^^^^
+
+warning: associated function is never used: `alloc_index_len`
+   --> src/genindex.rs:186:12
+    |
+186 |     pub fn alloc_index_len(&self) -> usize {
+    |            ^^^^^^^^^^^^^^^
+
+warning: associated function is never used: `free_index_len`
+   --> src/genindex.rs:197:12
+    |
+197 |     pub fn free_index_len(&self) -> usize {
+    |            ^^^^^^^^^^^^^^
+
+warning: type alias is never used: `Synced`
+ --> src/helpers.rs:3:1
+  |
+3 | pub type Synced<T> = Arc<Mutex<T>>;
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function is never used: `set`
+  --> src/map.rs:58:12
+   |
+58 |     pub fn set(&mut self, x: i16, y: i16, id: i16) -> Result<(), &str> {
+   |            ^^^
+
+warning: associated function is never used: `del`
+  --> src/map.rs:68:12
+   |
+68 |     pub fn del(&mut self, x: i16, y: i16) -> Result<(), &str> {
+   |            ^^^
+
+warning: function is never used: `mark_hitbox`
+  --> src/renderer.rs:15:8
+   |
+15 | pub fn mark_hitbox(
+   |        ^^^^^^^^^^^
+
+warning: function is never used: `clear_hitbox`
+  --> src/renderer.rs:42:8
+   |
+42 | pub fn clear_hitbox(obj: &dyn Entity, map: &MapSync) {
+   |        ^^^^^^^^^^^^
+
+warning: associated function is never used: `to_tuple`
+  --> src/vectors.rs:17:12
+   |
+17 |     pub fn to_tuple(self) -> (T, T) {
+   |            ^^^^^^^^
+
+warning: associated function is never used: `fract`
+   --> src/vectors.rs:153:12
+    |
+153 |     pub fn fract(self) -> Vector<f32> {
+    |            ^^^^^
+
+warning: associated function is never used: `round_i_int`
+   --> src/vectors.rs:160:12
+    |
+160 |     pub fn round_i_int(self) -> Vector<i16> {
+    |            ^^^^^^^^^^^
+
+warning: associated function is never used: `ceil_int`
+   --> src/vectors.rs:172:12
+    |
+172 |     pub fn ceil_int(self) -> Vector<u16> {
+    |            ^^^^^^^^
+
+warning: associated function is never used: `round`
+   --> src/vectors.rs:186:12
+    |
+186 |     pub fn round(self) -> Vector<f32> {
+    |            ^^^^^
+
+warning: associated function is never used: `ceil`
+   --> src/vectors.rs:193:12
+    |
+193 |     pub fn ceil(self) -> Vector<f32> {
+    |            ^^^^
+
+warning: associated function is never used: `floor`
+   --> src/vectors.rs:200:12
+    |
+200 |     pub fn floor(self) -> Vector<f32> {
+    |            ^^^^^
+
+warning: associated function is never used: `to_i16_tuple`
+   --> src/vectors.rs:209:12
+    |
+209 |     pub fn to_i16_tuple(self) -> (i16, i16) {
+    |            ^^^^^^^^^^^^
+
+warning: associated function is never used: `to_f32_tuple`
+   --> src/vectors.rs:213:12
+    |
+213 |     pub fn to_f32_tuple(self) -> (f32, f32) {
+    |            ^^^^^^^^^^^^
+
+warning: unused `std::result::Result` that must be used
+  --> src/game.rs:41:9
+   |
+41 |         map.load_from_file(map_file);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_must_use)]` on by default
+   = note: this `Result` may be an `Err` variant, which should be handled
+
+warning: unused `std::result::Result` that must be used
+   --> src/game.rs:153:17
+    |
+153 |                 gen_index.alloc_entity(wrap(Bullet::new(player.get_point(), end)));
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+
+warning: unused `std::result::Result` that must be used
+  --> src/renderer.rs:33:13
+   |
+33 | /             my_map.set(
+34 | |                 (pt_x + x as u16) as i16,
+35 | |                 (pt_y + y as u16) as i16,
+36 | |                 obj.get_id().unwrap(),
+37 | |             );
+   | |______________^
+   |
+   = note: this `Result` may be an `Err` variant, which should be handled
+
+warning: unused `std::result::Result` that must be used
+  --> src/renderer.rs:56:13
+   |
+56 |             my_map.del((pt_x + x as u16) as i16, (pt_y + y as u16) as i16);
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this `Result` may be an `Err` variant, which should be handled
+
+warning: 69 warnings emitted
+
+    Finished dev [unoptimized + debuginfo] target(s) in 0.01s
+     Running `target/debug/asciiformer2`
+thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src/renderer.rs:104:37
+stack backtrace:
+   0:     0x555585634285 - backtrace::backtrace::libunwind::trace::hc5f524da7fd1bf36
+                               at /cargo/registry/src/github.com-1ecc6299db9ec823/backtrace-0.3.46/src/backtrace/libunwind.rs:86
+   1:     0x555585634285 - backtrace::backtrace::trace_unsynchronized::hd11faf0c738b3334
+                               at /cargo/registry/src/github.com-1ecc6299db9ec823/backtrace-0.3.46/src/backtrace/mod.rs:66
+   2:     0x555585634285 - std::sys_common::backtrace::_print_fmt::h178f112e0f8e4683
+                               at src/libstd/sys_common/backtrace.rs:78
+   3:     0x555585634285 - <std::sys_common::backtrace::_print::DisplayBacktrace as core::fmt::Display>::fmt::hb0a22bd860f1c150
+                               at src/libstd/sys_common/backtrace.rs:59
+   4:     0x555585656dbc - core::fmt::write::haef1c8ec4be874ff
+                               at src/libcore/fmt/mod.rs:1076
+   5:     0x555585632633 - std::io::Write::write_fmt::h076fbfae51d9d5ec
+                               at src/libstd/io/mod.rs:1537
+   6:     0x5555856369e0 - std::sys_common::backtrace::_print::he39ed648b9862ab3
+                               at src/libstd/sys_common/backtrace.rs:62
+   7:     0x5555856369e0 - std::sys_common::backtrace::print::h160b78e9d6f039e6
+                               at src/libstd/sys_common/backtrace.rs:49
+   8:     0x5555856369e0 - std::panicking::default_hook::{{closure}}::h585caa318b2cae3c
+                               at src/libstd/panicking.rs:198
+   9:     0x55558563672c - std::panicking::default_hook::h41b5eb8bbd1a0d2c
+                               at src/libstd/panicking.rs:218
+  10:     0x555585637017 - std::panicking::rust_panic_with_hook::h8dd35d3cd11497d7
+                               at src/libstd/panicking.rs:486
+  11:     0x555585636c1b - rust_begin_unwind
+                               at src/libstd/panicking.rs:388
+  12:     0x555585655791 - core::panicking::panic_fmt::hdf118db3fcd2d481
+                               at src/libcore/panicking.rs:101
+  13:     0x5555856556dd - core::panicking::panic::h1ea08ce5a03d11a8
+                               at src/libcore/panicking.rs:56
+  14:     0x55558560e5ff - core::option::Option<T>::unwrap::h8e6ae967c71d26a8
+                               at /nix/store/fsvk05qbpf1y0vv0a46gqgavdk158fpa-rust-1.45.1-2020-07-26-c367798cf/lib/rustlib/src/rust/src/libcore/macros/mod.rs:10
+  15:     0x5555855eab2b - asciiformer2::renderer::clear::h0b3d5d822dda6e3e
+                               at src/renderer.rs:104
+  16:     0x55558561fdd3 - asciiformer2::game::Game<R,W>::update::hcd229fc43006ba6c
+                               at src/game.rs:167
+  17:     0x55558561f273 - asciiformer2::game::Game<R,W>::start::h31b2539f0542c774
+                               at src/game.rs:141
+  18:     0x5555855ea254 - asciiformer2::main::h78d7073d3248a5eb
+                               at src/main.rs:31
+  19:     0x555585621c8b - std::rt::lang_start::{{closure}}::h9ec14b676e69b8de
+                               at /nix/store/fsvk05qbpf1y0vv0a46gqgavdk158fpa-rust-1.45.1-2020-07-26-c367798cf/lib/rustlib/src/rust/src/libstd/rt.rs:67
+  20:     0x5555856373e8 - std::rt::lang_start_internal::{{closure}}::hfca5b90b4b1ebb0e
+                               at src/libstd/rt.rs:52
+  21:     0x5555856373e8 - std::panicking::try::do_call::hfc9c880ab92e6248
+                               at src/libstd/panicking.rs:297
+  22:     0x5555856373e8 - std::panicking::try::h2ed6f772c4dd6273
+                               at src/libstd/panicking.rs:274
+  23:     0x5555856373e8 - std::panic::catch_unwind::hc6028b0fc71765c5
+                               at src/libstd/panic.rs:394
+  24:     0x5555856373e8 - std::rt::lang_start_internal::heb6c9d57f3355ded
+                               at src/libstd/rt.rs:51
+  25:     0x555585621c67 - std::rt::lang_start::hac4fa8b2fdcda148
+                               at /nix/store/fsvk05qbpf1y0vv0a46gqgavdk158fpa-rust-1.45.1-2020-07-26-c367798cf/lib/rustlib/src/rust/src/libstd/rt.rs:67
+  26:     0x5555855ea2fa - main
+  27:     0x7f9c2a9a7d8b - __libc_start_main
+  28:     0x5555855e217a - _start
+                               at ../sysdeps/x86_64/start.S:120
+  29:                0x0 - <unknown>
