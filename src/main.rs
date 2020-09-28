@@ -1,32 +1,33 @@
 #[macro_use]
+extern crate vector2math;
 extern crate lazy_static;
+extern crate specs;
 extern crate termion;
 
+mod components;
 mod consts;
-mod debug;
-mod entities;
-mod game;
-mod genindex;
-mod helpers;
-mod map;
-mod renderer;
-mod textures;
-mod vectors;
+mod io;
+mod systems;
 
-use game::Game;
-use std::io::{stdin, stdout, Stdin, Stdout};
-use termion::async_stdin;
-use termion::input::MouseTerminal;
-use termion::raw::IntoRawMode;
+use specs::{Builder, RunNow, World, WorldExt};
+use systems::Renderer;
+
+use components::{Position, Velocity};
+use vector2math::Vector2;
 
 fn main() {
-    // let stdin = &mut async_stdin();
-    // let stdin = &mut async_stdin();
-    let mut stdin = &mut stdin();
-    let mut stdout = &mut MouseTerminal::from(stdout().into_raw_mode().unwrap());
-    // other_debug::setup(stdout);
+    let mut world = World::new();
 
-    // static game: Game<Stdin, Stdout> = Game::new(stdin, stdout, "map1.txt");
-    let mut game = Game::new(stdin, stdout, "map1.txt");
-    game.start();
+    world.register::<Position>();
+    world.register::<Velocity>();
+
+    world
+        .create_entity()
+        .with(Position::new(0.0, 0.0))
+        .with(Velocity::new(1.1, 1.1))
+        .build();
+
+    let mut renderer = Renderer;
+    renderer.run_now(&world);
+    world.maintain();
 }

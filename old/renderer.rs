@@ -93,14 +93,7 @@ pub fn clear(
             let bg_texture = my_map.get(tex_x, tex_y);
 
             let sym = if let Some(e) = bg_texture {
-                // e.get_texture()[0][0]
-                // debug::write(&format!(
-                //     "TEXTURE ({}, {} '{}')",
-                //     tex_x,
-                //     tex_y,
-                //     e.borrow().get_texture()[0][0]
-                //
-                // ));
+                // TODO
                 if *e == -1 {
                     WallTextures::WALL[0][0]
                 } else {
