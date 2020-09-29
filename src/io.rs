@@ -9,6 +9,9 @@ pub type Output = MouseTerminal<RawTerminal<Stdout>>;
 
 lazy_static! {
     pub static ref STDIN: Stdin = stdin();
+    // pub static ref STDOUT: Arc<Mutex<Output>> = Arc::new(Mutex::new(MouseTerminal::from(
+    //     stdout().into_raw_mode().unwrap()
+    // )));
     pub static ref STDOUT: Arc<Mutex<Output>> = Arc::new(Mutex::new(MouseTerminal::from(
         stdout().into_raw_mode().unwrap()
     )));

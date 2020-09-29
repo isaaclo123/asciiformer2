@@ -8,6 +8,16 @@ pub struct Position {
     y: f32,
 }
 
+impl Position {
+    pub fn floor(self) -> (i16, i16) {
+        (self.x.floor() as i16, self.y.floor() as i16)
+    }
+
+    pub fn ceil(self) -> (i16, i16) {
+        (self.x.ceil() as i16, self.y.ceil() as i16)
+    }
+}
+
 impl Vector2 for Position {
     type Scalar = f32;
 
