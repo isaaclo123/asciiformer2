@@ -30,13 +30,18 @@ impl<'a> System<'a> for Renderer {
     fn run(&mut self, (position, color, texture): Self::SystemData) {
         write!(get_stdout(), "{}", clear::All).unwrap();
 
-        for (pos, color, tex) in (&position, &color, &texture).join() {
+        for (pos, color, tex) in (&position, (&color).maybe(), &texture).join() {
             let (floor_x, floor_y) = pos.floor();
             let draw_pt = self
                 .origin
                 .add((floor_x as u16, floor_y as u16))
                 .add((1, 1));
 
+            let color = if let Some(c) = color {
+                c.get_color()
+            } else {
+                &color::Reset
+            };
             let texture = tex.get_texture(pos);
 
             for y in 0..texture.len() {
@@ -45,7 +50,7 @@ impl<'a> System<'a> for Renderer {
                         get_stdout(),
                         "{goto}{color}{sym}",
                         goto = cursor::Goto(draw_pt.x() + x as u16, draw_pt.y() + y as u16),
-                        color = color::Fg(color.get_color()),
+                        color = color::Fg(color),
                         // sym = sym
                         sym = texture[y][x]
                     )

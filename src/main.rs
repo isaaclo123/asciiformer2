@@ -12,7 +12,7 @@ mod systems;
 use specs::{Builder, RunNow, World, WorldExt};
 use systems::Renderer;
 
-use components::{Color, ColorType, PlayerTextures, Position, Texture, Velocity};
+use components::{BulletTextures, Color, ColorType, PlayerTextures, Position, Texture, Velocity};
 use vector2math::Vector2;
 
 fn main() {
@@ -37,6 +37,21 @@ fn main() {
         .with(Velocity::new(1.1, 1.1))
         .with(Texture::new(&PlayerTextures))
         .with(Color::new(ColorType::Blue))
+        .build();
+
+    world
+        .create_entity()
+        .with(Position::new(15.0, 15.0))
+        .with(Velocity::new(1.1, 1.1))
+        .with(Texture::new(&BulletTextures))
+        .with(Color::new(ColorType::Green))
+        .build();
+
+    world
+        .create_entity()
+        .with(Position::new(14.0, 18.0))
+        .with(Velocity::new(1.1, 1.1))
+        .with(Texture::new(&BulletTextures))
         .build();
 
     let mut renderer = Renderer::new(0, 0);

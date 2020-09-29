@@ -20,6 +20,7 @@ pub enum ColorType {
     White,
     Yellow,
     Reset,
+    // Default,
 }
 
 // #[derive(Debug, Clone, Copy)]
@@ -72,6 +73,7 @@ impl Color {
             ColorType::White => &color::White,
             ColorType::Yellow => &color::Yellow,
             ColorType::Reset => &color::Reset,
+            // ColorType::Default => &color::White,
         }
     }
 }

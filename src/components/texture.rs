@@ -47,7 +47,7 @@ impl TextureConfig for BulletTextures {
         let x = position.x();
         let y = position.y();
 
-        if x > 0.33 && x < 0.66 && y > 0.33 && y < 0.66 {
+        if x > 0.4 && x < 0.6 && y > 0.4 && y < 0.6 {
             return BulletTiles::MID;
         }
 
