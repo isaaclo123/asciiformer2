@@ -1,12 +1,14 @@
 use crate::components::{Color, Position, Texture};
 use crate::io::{get_stdout, STDOUT};
-use specs::{Join, ReadStorage, System};
+use crate::resources::Map;
+use specs::{Join, Read, ReadStorage, System};
 use std::io::Write;
 use vector2math::*;
 
 use termion::{clear, color, cursor};
 
 pub struct Renderer {
+    draw_map: bool,
     origin: (u16, u16),
     to_clear: Vec<Position>,
 }
@@ -14,6 +16,7 @@ pub struct Renderer {
 impl Renderer {
     pub fn new(x: u16, y: u16) -> Self {
         Self {
+            draw_map: true,
             origin: (x, y),
             to_clear: vec![],
         }
@@ -22,12 +25,13 @@ impl Renderer {
 
 impl<'a> System<'a> for Renderer {
     type SystemData = (
+        Read<'a, Map>,
         ReadStorage<'a, Position>,
         ReadStorage<'a, Color>,
         ReadStorage<'a, Texture>,
     );
 
-    fn run(&mut self, (position, color, texture): Self::SystemData) {
+    fn run(&mut self, (map, position, color, texture): Self::SystemData) {
         write!(get_stdout(), "{}", clear::All).unwrap();
 
         for (pos, color, tex) in (&position, (&color).maybe(), &texture).join() {

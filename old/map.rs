@@ -4,6 +4,7 @@ use super::helpers::unlock;
 use super::renderer;
 
 use super::vectors::Vector;
+use ndarray::{array, Array2};
 use std::collections::HashMap;
 use std::io::Write;
 use std::sync::{Arc, Mutex};
@@ -18,7 +19,7 @@ use super::consts::{EntityType, LEVEL_MAP};
 
 // pub type MapData = Vec<Vec<EntityTypeVal>>;
 // pub type MapData = HashMap<(u16, u16), Arc<Mutex<dyn Entity>>>;
-pub type MapData = Vec<Vec<Option<i16>>>;
+pub type MapData = Array2<Option<i16>>;
 pub type OuterMapData = HashMap<(i16, i16), i16>;
 
 pub type MapSync = Arc<Mutex<Map>>;
@@ -35,14 +36,14 @@ pub struct Map {
 impl Map {
     pub fn new() -> Self {
         Self {
-            level: vec![vec![]],
+            level: array![[]],
             level_outer: HashMap::new(),
             width: 0,
             height: 0,
         }
     }
 
-    pub fn get(&self, x: i16, y: i16) -> Option<&i16> {
+    pub fn get(&self, x: i16, y: i16) -> Option<i16> {
         if x < 0 || y < 0 || x >= self.width as i16 || y >= self.height as i16 {
             return self.level_outer.get(&(x, y));
         }
