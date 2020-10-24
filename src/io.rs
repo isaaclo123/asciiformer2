@@ -8,7 +8,7 @@ pub type Input = Stdin;
 pub type Output = MouseTerminal<RawTerminal<Stdout>>;
 
 lazy_static! {
-    pub static ref STDIN: Stdin = stdin();
+    pub static ref STDIN: Arc<Stdin> = Arc::new(stdin());
     // pub static ref STDOUT: Arc<Mutex<Output>> = Arc::new(Mutex::new(MouseTerminal::from(
     //     stdout().into_raw_mode().unwrap()
     // )));
@@ -19,4 +19,8 @@ lazy_static! {
 
 pub fn get_stdout<'a>() -> MutexGuard<'a, Output> {
     STDOUT.lock().unwrap()
+}
+
+pub fn get_stdin<'a>() -> StdinLock<'a> {
+    STDIN.lock()
 }

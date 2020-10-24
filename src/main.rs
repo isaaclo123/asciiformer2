@@ -11,10 +11,16 @@ mod resources;
 mod systems;
 
 use specs::{Builder, RunNow, World, WorldExt};
+use std::time::Duration;
 use systems::Renderer;
+use termion::input::TermRead;
 
 use components::{BulletTextures, Color, ColorType, PlayerTextures, Position, Texture, Velocity};
+use io::{get_stdin, STDIN};
 use resources::Map;
+use std::sync::{Arc, Mutex};
+use termion::async_stdin;
+use termion::event::*;
 use vector2math::Vector2;
 
 fn main() {
@@ -71,6 +77,35 @@ fn main() {
         .build();
 
     let mut renderer = Renderer::new(0, 0);
+
+    let mut i = 0;
+
     renderer.run_now(&world);
     world.maintain();
+
+    'running: loop {
+        // Handle events
+
+        for c in get_stdin().events() {
+            let result = match c.unwrap() {
+                Event::Key(ke) => match ke {
+                    Key::Char('q') => {
+                        break 'running;
+                    }
+                    _ => (),
+                },
+                _ => (),
+            };
+        }
+
+        // Update
+        i = (i + 1) % 255;
+
+        // Render
+        renderer.run_now(&world);
+        world.maintain();
+
+        // Time management!
+        ::std::thread::sleep(Duration::new(0, 1_000_000u32 / 60));
+    }
 }

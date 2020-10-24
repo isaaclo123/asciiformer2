@@ -26,10 +26,11 @@ impl Renderer {
         for y in 0..map.height {
             for x in 0..map.width {
                 if map.wall_get_unchecked(x as i16, y as i16) {
-                    write!(
+                    let draw_pt = self.origin.add((x as u16, y as u16)).add((1, 1));
+                    writeln!(
                         get_stdout(),
                         "{goto}{texture}",
-                        goto = cursor::Goto(x as u16 + 1, y as u16 + 1),
+                        goto = cursor::Goto(draw_pt.0, draw_pt.1),
                         texture = WALL
                     )
                     .unwrap();
@@ -76,7 +77,6 @@ impl<'a> System<'a> for Renderer {
                         "{goto}{color}{sym}",
                         goto = cursor::Goto(draw_pt.x() + x as u16, draw_pt.y() + y as u16),
                         color = color::Fg(color),
-                        // sym = sym
                         sym = texture[y][x]
                     )
                     .unwrap();
