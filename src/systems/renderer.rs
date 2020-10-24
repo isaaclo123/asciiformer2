@@ -1,6 +1,6 @@
-use crate::components::{Color, Position, Texture};
+use crate::components::{Color, Position, Texture, WallTiles};
 use crate::io::{get_stdout, STDOUT};
-use crate::resources::Map;
+use crate::resources::{Map, WALL};
 use specs::{Join, Read, ReadStorage, System};
 use std::io::Write;
 use vector2math::*;
@@ -21,6 +21,22 @@ impl Renderer {
             to_clear: vec![],
         }
     }
+
+    fn draw_map(&self, map: &Map) -> () {
+        for y in 0..map.height {
+            for x in 0..map.width {
+                if map.wall_get_unchecked(x as i16, y as i16) {
+                    write!(
+                        get_stdout(),
+                        "{goto}{texture}",
+                        goto = cursor::Goto(x as u16 + 1, y as u16 + 1),
+                        texture = WALL
+                    )
+                    .unwrap();
+                }
+            }
+        }
+    }
 }
 
 impl<'a> System<'a> for Renderer {
@@ -33,6 +49,11 @@ impl<'a> System<'a> for Renderer {
 
     fn run(&mut self, (map, position, color, texture): Self::SystemData) {
         write!(get_stdout(), "{}", clear::All).unwrap();
+
+        if self.draw_map {
+            self.draw_map(&map);
+            self.draw_map = false;
+        }
 
         for (pos, color, tex) in (&position, (&color).maybe(), &texture).join() {
             let (floor_x, floor_y) = pos.floor();

@@ -1,7 +1,6 @@
 #[macro_use]
 extern crate vector2math;
 extern crate lazy_static;
-extern crate ndarray;
 extern crate specs;
 extern crate termion;
 
