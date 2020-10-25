@@ -1,3 +1,5 @@
+pub mod keyboard;
 pub mod renderer;
 
-pub use self::renderer::Renderer;
+pub use self::keyboard::*;
+pub use self::renderer::*;

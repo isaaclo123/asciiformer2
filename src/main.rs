@@ -9,17 +9,19 @@ mod consts;
 mod io;
 mod resources;
 mod systems;
+mod utils;
 
 use specs::{Builder, RunNow, World, WorldExt};
 use std::time::Duration;
 use systems::Renderer;
 use termion::input::TermRead;
 
-use components::{BulletTextures, Color, ColorType, PlayerTextures, Position, Texture, Velocity};
-use io::{get_stdin, STDIN};
+use components::{
+    BulletTextures, Color, ColorType, KeyboardControlled, PlayerTextures, Position, Texture,
+    Velocity,
+};
+use io::get_stdin;
 use resources::Map;
-use std::sync::{Arc, Mutex};
-use termion::async_stdin;
 use termion::event::*;
 use vector2math::Vector2;
 
@@ -59,6 +61,7 @@ fn main() {
         .with(Velocity::new(1.1, 1.1))
         .with(Texture::new(&PlayerTextures))
         .with(Color::new(ColorType::Blue))
+        .with(KeyboardControlled)
         .build();
 
     world
