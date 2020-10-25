@@ -11,18 +11,22 @@ mod systems;
 mod utils;
 
 use specs::{Builder, DispatcherBuilder, World, WorldExt};
+use std::io::Write;
 use std::sync::{Arc, RwLock};
 use std::thread;
-use std::time::Duration;
+use std::time::{Duration, Instant};
 use systems::{Keyboard, Physics, Renderer};
 use termion::input::TermRead;
+use termion::raw::RawTerminal;
+use termion::{clear, cursor};
 use utils::Direction;
 
-use components::{
-    BulletTextures, Color, ColorType, KeyboardControlled, PlayerTextures, Position, Texture,
-    Velocity,
-};
-use io::get_stdin;
+use components::*;
+// use components::{
+//     BulletTextures, Color, ColorType, Friction, Gravity, KeyboardControlled, PlayerTextures,
+//     Position, Texture, Velocity,
+// };
+use io::{get_stdin, get_stdout};
 use resources::Map;
 use termion::event::*;
 
@@ -33,6 +37,9 @@ fn main() {
     world.register::<Velocity>();
     world.register::<Texture>();
     world.register::<Color>();
+    world.register::<Speed>();
+    world.register::<Gravity>();
+    world.register::<Friction>();
     world.register::<KeyboardControlled>();
 
     let mut dispatcher = DispatcherBuilder::new()
@@ -68,9 +75,12 @@ fn main() {
     world
         .create_entity()
         .with(Position::new(10.6, 10.6))
-        .with(Velocity::new(1.1, 1.1))
+        .with(Velocity::new(0.0, 0.0))
         .with(Texture::new(&PlayerTextures))
         .with(Color::new(ColorType::Blue))
+        .with(Speed::new(2.0, 3.0))
+        .with(Gravity::new(0.0, 3.0))
+        .with(Friction::new(0.1))
         .with(KeyboardControlled)
         .build();
 
@@ -89,11 +99,7 @@ fn main() {
     //     .with(Texture::new(&BulletTextures))
     //     .build();
 
-    let mut i = 0;
     // let mut run = true;
-
-    dispatcher.dispatch(&mut world);
-    world.maintain();
 
     let movements_cloned = Arc::clone(&movements);
 
@@ -102,9 +108,12 @@ fn main() {
             let mut mvmt = movements_cloned.write().unwrap();
             match c.unwrap() {
                 Event::Key(ke) => match ke {
-                    // Key::Char('q') => {
-                    //     &run = false;
-                    // }
+                    Key::Char('q') => {
+                        RawTerminal::suspend_raw_mode(&get_stdout()).unwrap();
+                        write!(get_stdout(), "{}{}", clear::All, cursor::Show).unwrap();
+
+                        std::process::exit(0)
+                    }
                     Key::Char('w') | Key::Char(' ') => {
                         mvmt.push(Direction::Up);
                     }
@@ -115,7 +124,7 @@ fn main() {
                         mvmt.push(Direction::Down);
                     }
                     Key::Char('d') => {
-                        mvmt.push(Direction::Up);
+                        mvmt.push(Direction::Right);
                     }
                     _ => (),
                 },
@@ -124,19 +133,23 @@ fn main() {
         }
     });
 
+    let mut before = Instant::now();
+    let interval = 60;
+
     loop {
-        // Handle events
-
-        *world.write_resource() = Arc::clone(&movements);
-
-        // Update
-        i = (i + 1) % 255;
-
         // Render
+        *world.write_resource() = Arc::clone(&movements);
         dispatcher.dispatch(&mut world);
         world.maintain();
 
-        // Time management!
-        ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 60));
+        let now = Instant::now();
+        let dt = (now.duration_since(before).subsec_nanos() / 1_000_000_000) as u64;
+
+        if dt < interval {
+            thread::sleep(Duration::from_millis(interval - dt));
+            continue;
+        }
+
+        before = now;
     }
 }

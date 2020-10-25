@@ -1,6 +1,6 @@
 use crate::components::{Color, Position, Texture};
 use crate::io::get_stdout;
-use crate::resources::{Map, WALL};
+use crate::resources::{Map, AIR, WALL};
 use euclid::default::Vector2D;
 use specs::{Join, Read, ReadStorage, System};
 use std::io::Write;
@@ -10,7 +10,7 @@ use termion::{clear, color, cursor};
 pub struct Renderer {
     draw_map: bool,
     origin: Vector2D<u16>,
-    to_clear: Vec<Position>,
+    to_clear: Vec<Vector2D<u16>>,
 }
 
 impl Renderer {
@@ -27,7 +27,7 @@ impl Renderer {
             for x in 0..map.width {
                 if map.wall_get_unchecked(x as i16, y as i16) {
                     let draw_pt = self.origin + Vector2D::new(x as u16 + 1, y as u16 + 1);
-                    writeln!(
+                    write!(
                         get_stdout(),
                         "{goto}{texture}",
                         goto = cursor::Goto(draw_pt.x, draw_pt.y),
@@ -37,6 +37,30 @@ impl Renderer {
                 }
             }
         }
+    }
+
+    fn clear_prev(&mut self, map: &Map) -> () {
+        let draw_pt = self.origin + Vector2D::new(1, 1);
+
+        for pt in self.to_clear.iter() {
+            let clear_pt = draw_pt + *pt;
+
+            let sym = if map.wall_get(clear_pt.x as i16, clear_pt.y as i16) {
+                WALL
+            } else {
+                AIR
+            };
+
+            write!(
+                get_stdout(),
+                "{goto}{sym}",
+                goto = cursor::Goto(clear_pt.x, clear_pt.y),
+                sym = sym
+            )
+            .unwrap();
+        }
+
+        self.to_clear.clear();
     }
 }
 
@@ -49,17 +73,16 @@ impl<'a> System<'a> for Renderer {
     );
 
     fn run(&mut self, (map, position, color, texture): Self::SystemData) {
-        write!(get_stdout(), "{}", clear::All).unwrap();
-
         if self.draw_map {
+            write!(get_stdout(), "{}{}", clear::All, cursor::Hide).unwrap();
             self.draw_map(&map);
             self.draw_map = false;
         }
 
-        for (pos, color, tex) in (&position, (&color).maybe(), &texture).join() {
-            let Vector2D { x, y, .. } = pos.0.floor();
+        self.clear_prev(&map);
 
-            let draw_pt = self.origin + Vector2D::new(x as u16 + 1, y as u16 + 1);
+        for (pos, color, tex) in (&position, (&color).maybe(), &texture).join() {
+            let start_pt = pos.0.floor().cast::<u16>();
 
             let color = if let Some(c) = color {
                 c.get_color()
@@ -70,16 +93,24 @@ impl<'a> System<'a> for Renderer {
 
             for y in 0..texture.len() {
                 for x in 0..texture[y].len() {
-                    writeln!(
+                    let texture_pt = start_pt + Vector2D::new(x as u16, y as u16);
+
+                    let draw_pt = self.origin + Vector2D::new(1, 1) + texture_pt;
+
+                    write!(
                         get_stdout(),
                         "{goto}{color}{sym}",
-                        goto = cursor::Goto(draw_pt.x + x as u16, draw_pt.y + y as u16),
+                        goto = cursor::Goto(draw_pt.x, draw_pt.y),
                         color = color::Fg(color),
                         sym = texture[y][x]
                     )
                     .unwrap();
+
+                    self.to_clear.push(texture_pt);
                 }
             }
         }
+
+        get_stdout().flush().unwrap();
     }
 }

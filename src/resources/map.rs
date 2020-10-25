@@ -19,6 +19,8 @@ pub struct Map {
 const WALL_CHAR: char = '#';
 pub const WALL: char = '█';
 
+pub const AIR: char = ' ';
+
 impl Map {
     pub fn wall_get_unchecked(&self, x: i16, y: i16) -> bool {
         self.walls[y as usize][x as usize]
