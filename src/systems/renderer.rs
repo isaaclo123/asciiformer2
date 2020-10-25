@@ -45,7 +45,7 @@ impl Renderer {
         for pt in self.to_clear.iter() {
             let clear_pt = draw_pt + *pt;
 
-            let sym = if map.wall_get(clear_pt.x as i16, clear_pt.y as i16) {
+            let sym = if map.wall_get(pt.x as i16, pt.y as i16) {
                 WALL
             } else {
                 AIR
@@ -53,8 +53,9 @@ impl Renderer {
 
             write!(
                 get_stdout(),
-                "{goto}{sym}",
+                "{goto}{color}{sym}",
                 goto = cursor::Goto(clear_pt.x, clear_pt.y),
+                color = color::Fg(color::Reset),
                 sym = sym
             )
             .unwrap();
