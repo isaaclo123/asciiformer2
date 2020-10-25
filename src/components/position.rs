@@ -1,9 +1,16 @@
+use euclid::default::Vector2D;
 use specs::{Component, VecStorage};
-use vector2math::*;
 
 #[derive(Component, Debug)]
 #[storage(VecStorage)]
-pub struct Position(Vector2);
+pub struct Position(pub Vector2D<f32>);
+
+impl Position {
+    pub fn new(x: f32, y: f32) -> Self {
+        Self(Vector2D::new(x, y))
+    }
+}
+
 // pub struct Position {
 //     x: f32,
 //     y: f32,

@@ -1,23 +1,12 @@
+use euclid::default::Vector2D;
 use specs::{Component, VecStorage};
-use vector2math::*;
 
-#[derive(Component, Debug, Clone, Copy)]
+#[derive(Component, Debug)]
 #[storage(VecStorage)]
-pub struct Velocity {
-    x: f32,
-    y: f32,
-}
+pub struct Velocity(pub Vector2D<f32>);
 
-impl Vector2 for Velocity {
-    type Scalar = f32;
-
-    fn new(x: f32, y: f32) -> Self {
-        Self { x, y }
-    }
-    fn x(self) -> f32 {
-        self.x
-    }
-    fn y(self) -> f32 {
-        self.y
+impl Velocity {
+    pub fn new(x: f32, y: f32) -> Self {
+        Self(Vector2D::new(x, y))
     }
 }

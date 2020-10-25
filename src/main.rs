@@ -1,5 +1,4 @@
-#[macro_use]
-extern crate vector2math;
+extern crate euclid;
 extern crate lazy_static;
 extern crate specs;
 extern crate termion;
@@ -23,7 +22,6 @@ use components::{
 use io::get_stdin;
 use resources::Map;
 use termion::event::*;
-use vector2math::Vector2;
 
 fn main() {
     let mut world = World::new();
@@ -34,6 +32,7 @@ fn main() {
     world.register::<Velocity>();
     world.register::<Texture>();
     world.register::<Color>();
+    world.register::<KeyboardControlled>();
 
     let map = Map::new("map1.txt").expect("Unable to load map");
 

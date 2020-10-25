@@ -1,8 +1,7 @@
 use crate::components::{KeyboardControlled, Velocity};
 use crate::utils::Direction;
-use specs::prelude::*;
-use specs::{Join, ReadExpect, ReadStorage, Storage, System, WriteStorage};
-use vector2math::*;
+use euclid::default::Vector2D;
+use specs::{Join, ReadExpect, ReadStorage, System, WriteStorage};
 
 pub struct Keyboard;
 
@@ -15,17 +14,17 @@ impl<'a> System<'a> for Keyboard {
         WriteStorage<'a, Velocity>,
     );
 
-    fn run(&mut self, (movements, controlled, velocity): Self::SystemData) {
+    fn run(&mut self, (movements, controlled, mut velocity): Self::SystemData) {
         for (_, vel) in (&controlled, &mut velocity).join() {
             for direction in movements.iter() {
-                let to_add = match direction {
-                    Direction::Up => (0.0, -1.0 * PLAYER_SPEED),
-                    Direction::Down => (0.0, PLAYER_SPEED),
-                    Direction::Left => (-1.0 * PLAYER_SPEED, 0.0),
-                    Direction::Right => (PLAYER_SPEED, 0.0),
+                let delta = match direction {
+                    Direction::Up => Vector2D::new(0.0, -1.0 * PLAYER_SPEED),
+                    Direction::Down => Vector2D::new(0.0, PLAYER_SPEED),
+                    Direction::Left => Vector2D::new(-1.0 * PLAYER_SPEED, 0.0),
+                    Direction::Right => Vector2D::new(PLAYER_SPEED, 0.0),
                 };
 
-                (velocity).add((0, 1));
+                vel.0 = vel.0 + delta;
             }
         }
     }

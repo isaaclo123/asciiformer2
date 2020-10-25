@@ -1,6 +1,6 @@
 use crate::components::Position;
+use euclid::default::Vector2D;
 use specs::{Component, VecStorage};
-use vector2math::*;
 
 pub type Tile = &'static [&'static [char]];
 
@@ -44,8 +44,7 @@ pub trait TextureConfig: Sync {
 pub struct BulletTextures;
 impl TextureConfig for BulletTextures {
     fn get_texture(&self, position: &Position) -> Tile {
-        let x = position.x();
-        let y = position.y();
+        let Vector2D { x, y, .. } = position.0;
 
         if x > 0.4 && x < 0.6 && y > 0.4 && y < 0.6 {
             return BulletTiles::MID;
@@ -64,8 +63,7 @@ impl TextureConfig for BulletTextures {
 pub struct PlayerTextures;
 impl TextureConfig for PlayerTextures {
     fn get_texture(&self, position: &Position) -> Tile {
-        let x = position.x().fract();
-        let y = position.y().fract();
+        let Vector2D { x, y, .. } = position.0;
 
         let texture = match (x < 0.5, y < 0.5) {
             (true, true) => PlayerTiles::NO_EXTEND,
