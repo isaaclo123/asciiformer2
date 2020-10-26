@@ -1,3 +1,4 @@
+pub mod collision;
 pub mod keyboard;
 pub mod physics;
 pub mod renderer;

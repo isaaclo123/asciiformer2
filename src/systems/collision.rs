@@ -96,10 +96,7 @@ fn plot_line_low(
                 //     debug::write(&format!("check ({}, {}) W", x, y_check));
                 // }
                 // if area is unable to be walked into
-                collide_pos = Some(Vector2D {
-                    x: x as f32,
-                    y: *y_check,
-                });
+                collide_pos = Some(Vector2D::new(x as f32, *y_check));
 
                 if !slide {
                     return (prev_vec, collide_pos);
@@ -120,7 +117,7 @@ fn plot_line_low(
             return (prev_vec, collide_pos);
         }
 
-        prev_vec = Vector2D { x: x as f32, y: y };
+        prev_vec = Vector2D::new(x as f32, y);
 
         if end {
             break;
@@ -226,10 +223,7 @@ fn plot_line_high(
                 //     debug::write(&format!("check ({}, {}) W", x_check, y));
                 // }
                 // if area is unable to be walked into
-                collide_pos = Some(Vector2D {
-                    x: *x_check,
-                    y: y as f32,
-                });
+                collide_pos = Some(Vector2D::new(*x_check, y as f32));
 
                 if !slide {
                     return (prev_vec, collide_pos);
@@ -250,7 +244,7 @@ fn plot_line_high(
             return (prev_vec, collide_pos);
         }
 
-        prev_vec = Vector2D { x: x, y: y as f32 };
+        prev_vec = Vector2D::new(x, y as f32);
 
         if end {
             break;
@@ -266,15 +260,15 @@ fn plot_line_high(
 }
 
 // returns vector of
-pub fn plot_line(
+pub fn map_collision(
     p0: Vector2D<f32>,
     p1: Vector2D<f32>,
     map: &Map,
     slide: bool,
     round_check: bool,
 ) -> (Vector2D<f32>, Option<Vector2D<f32>>) {
-    let Vector2D { x: x0, y: y0 } = p0;
-    let Vector2D { x: x1, y: y1 } = p1;
+    let Vector2D { x: x0, y: y0, .. } = p0;
+    let Vector2D { x: x1, y: y1, .. } = p1;
 
     if p0 == p1 {
         return (p0, None);

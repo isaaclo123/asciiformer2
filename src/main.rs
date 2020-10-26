@@ -74,12 +74,12 @@ fn main() {
 
     world
         .create_entity()
-        .with(Position::new(10.6, 10.6))
+        .with(Position::new(1.0, 1.0))
         .with(Velocity::new(0.0, 0.0))
         .with(Texture::new(&PlayerTextures))
         .with(Color::new(ColorType::Blue))
         .with(Speed::new(2.0, 3.0))
-        .with(Gravity::new(0.0, 3.0))
+        .with(Gravity::new(0.2, 3.0))
         .with(Friction::new(0.1))
         .with(KeyboardControlled)
         .build();

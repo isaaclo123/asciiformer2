@@ -45,6 +45,8 @@ pub struct BulletTextures;
 impl TextureConfig for BulletTextures {
     fn get_texture(&self, position: &Position) -> Tile {
         let Vector2D { x, y, .. } = position.0;
+        let x = x.fract();
+        let y = y.fract();
 
         if x > 0.4 && x < 0.6 && y > 0.4 && y < 0.6 {
             return BulletTiles::MID;
@@ -64,15 +66,15 @@ pub struct PlayerTextures;
 impl TextureConfig for PlayerTextures {
     fn get_texture(&self, position: &Position) -> Tile {
         let Vector2D { x, y, .. } = position.0;
+        let x = x.fract();
+        let y = y.fract();
 
-        let texture = match (x < 0.5, y < 0.5) {
+        match (x < 0.5, y < 0.5) {
             (true, true) => PlayerTiles::NO_EXTEND,
             (true, false) => PlayerTiles::Y_EXTEND,
             (false, true) => PlayerTiles::X_EXTEND,
             (false, false) => PlayerTiles::X_Y_EXTEND,
-        };
-
-        texture
+        }
     }
 }
 
