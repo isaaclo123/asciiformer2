@@ -19,13 +19,14 @@ impl<'a> System<'a> for Keyboard {
 
         for direction in movements.read().unwrap().iter() {
             for (spd, _, vel) in (&speed, &controlled, &mut velocity).join() {
-                let speed = spd.get_speed();
+                let x_speed = spd.get_x_speed();
+                let y_speed = spd.get_y_speed();
 
                 let delta = match direction {
-                    Direction::Up => Vector2D::new(0.0, -1.0 * speed),
-                    Direction::Down => Vector2D::new(0.0, speed),
-                    Direction::Left => Vector2D::new(-1.0 * speed, 0.0),
-                    Direction::Right => Vector2D::new(speed, 0.0),
+                    Direction::Up => Vector2D::new(0.0, -1.0 * y_speed),
+                    Direction::Down => Vector2D::new(0.0, y_speed),
+                    Direction::Left => Vector2D::new(-1.0 * x_speed, 0.0),
+                    Direction::Right => Vector2D::new(x_speed, 0.0),
                 };
                 // let delta = Vector2D::new(0.1, 0.0);
 

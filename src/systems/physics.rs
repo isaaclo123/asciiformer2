@@ -1,4 +1,4 @@
-use crate::components::{Friction, Gravity, Position, Speed, Velocity};
+use crate::components::{Friction, Gravity, MaxSpeed, Position, Velocity};
 use crate::resources::Map;
 use crate::systems::collision::map_collision;
 use euclid::default::Vector2D;
@@ -11,19 +11,19 @@ impl<'a> System<'a> for Physics {
         Read<'a, Map>,
         WriteStorage<'a, Position>,
         WriteStorage<'a, Velocity>,
-        ReadStorage<'a, Speed>,
+        ReadStorage<'a, MaxSpeed>,
         ReadStorage<'a, Gravity>,
         ReadStorage<'a, Friction>,
     );
 
     fn run(
         &mut self,
-        (map, mut position, mut velocity, speed, gravity, friction): Self::SystemData,
+        (map, mut position, mut velocity, max_speed, gravity, friction): Self::SystemData,
     ) {
-        for (pos, vel, spd, grv, frc) in (
+        for (pos, vel, max_spd, grv, frc) in (
             &mut position,
             &mut velocity,
-            (&speed).maybe(),
+            (&max_speed).maybe(),
             (&gravity).maybe(),
             (&friction).maybe(),
         )
@@ -35,41 +35,44 @@ impl<'a> System<'a> for Physics {
 
             // apply friction
             if let Some(f) = frc {
-                let friction = f.get_friction();
-                if vel.0.x != 0.0 {
-                    vel.0.x += if vel.0.x < 0.0 {
-                        // if going left, add friction
-                        friction
-                    } else {
-                        // if going right, add friction
-                        -1.0 * friction
-                    };
-                }
-            }
+                // only apply friction if character is on a floor
+                if map.wall_get(pos.0.x.ceil() as i16, pos.0.y.floor() as i16 + 1)
+                    || map.wall_get(pos.0.x.floor() as i16, pos.0.y.floor() as i16 + 1)
+                {
+                    let friction = f.get_friction();
 
-            // apply max_speed
-            if let Some(s) = spd {
-                let max_speed = s.get_max_speed();
-
-                if vel.0.x.abs() > max_speed {
-                    vel.0.x = if vel.0.x < 0.0 {
-                        -1.0 * max_speed
+                    if vel.0.x.abs() <= friction {
+                        vel.0.x = 0.0;
                     } else {
-                        max_speed
-                    };
+                        vel.0.x += friction
+                            * if vel.0.x < 0.0 {
+                                // if going left, add friction
+                                1.0
+                            } else {
+                                // if going right, add friction
+                                -1.0
+                            };
+                    }
                 }
             }
 
             // apply gravity
             if let Some(g) = grv {
                 let gravity = g.get_gravity();
-                let max_gravity = g.get_max_gravity();
 
-                if vel.0.y < max_gravity {
-                    vel.0.y += gravity;
+                vel.0.y += gravity;
+            }
+
+            // apply max_speeds
+            if let Some(s) = max_spd {
+                let max_x_speed = s.get_max_x_speed();
+                let max_y_speed = s.get_max_y_speed();
+
+                if vel.0.x.abs() > max_x_speed {
+                    vel.0.x = max_x_speed * if vel.0.x < 0.0 { -1.0 } else { 1.0 };
                 }
-                if vel.0.y > max_gravity {
-                    vel.0.y += max_gravity;
+                if vel.0.y.abs() > max_y_speed {
+                    vel.0.y = max_y_speed * if vel.0.y < 0.0 { -1.0 } else { 1.0 };
                 }
             }
 
