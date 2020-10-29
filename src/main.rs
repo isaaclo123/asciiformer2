@@ -10,6 +10,7 @@ mod resources;
 mod systems;
 mod utils;
 
+use euclid::default::Vector2D;
 use specs::{Builder, DispatcherBuilder, World, WorldExt};
 use std::io::Write;
 use std::sync::{Arc, RwLock};
@@ -45,7 +46,7 @@ fn main() {
     let mut dispatcher = DispatcherBuilder::new()
         .with(Keyboard, "Keyboard", &[])
         .with(Physics, "Physics", &["Keyboard"])
-        .with(Renderer::new(0, 0), "Renderer", &["Physics"])
+        .with(Renderer::new(), "Renderer", &["Physics"])
         .build();
 
     dispatcher.setup(&mut world);
@@ -56,32 +57,20 @@ fn main() {
     let movements: Arc<RwLock<Vec<Direction>>> = Arc::new(RwLock::new(vec![]));
     world.insert(Arc::clone(&movements));
 
-    // world
-    //     .create_entity()
-    //     .with(Position::new(1.6, 1.6))
-    //     .with(Velocity::new(1.1, 1.1))
-    //     .with(Texture::new(&PlayerTextures))
-    //     .with(Color::new(ColorType::Magenta))
-    //     .build();
-
-    // world
-    //     .create_entity()
-    //     .with(Position::new(0.6, 0.6))
-    //     .with(Velocity::new(1.1, 1.1))
-    //     .with(Texture::new(&PlayerTextures))
-    //     .with(Color::new(ColorType::Red))
-    //     .build();
+    let origin: Vector2D<u16> = Vector2D::new(0, 0);
+    world.insert(origin);
 
     world
         .create_entity()
         .with(Position::new(1.0, 1.0))
         .with(Velocity::new(0.0, 0.0))
         .with(Texture::new(&PlayerTextures))
-        .with(Color::new(ColorType::Blue))
-        .with(Speed::new(2.0, 1.0))
-        .with(MaxSpeed::new(3.0, 5.0))
-        .with(Gravity::new(0.2))
-        .with(Friction::new(0.4))
+        .with(Color::new(ColorType::Red))
+        .with(Speed::new(0.8, 0.5))
+        .with(MaxSpeed::new(2.0, 3.0))
+        .with(Gravity::new(0.1))
+        .with(Friction::new(0.15))
+        .with(MaxJump::new(1))
         .with(KeyboardControlled)
         .build();
 
@@ -93,21 +82,18 @@ fn main() {
     //     .with(Color::new(ColorType::Green))
     //     .build();
 
-    // world
-    //     .create_entity()
-    //     .with(Position::new(14.0, 18.0))
-    //     .with(Velocity::new(1.1, 1.1))
-    //     .with(Texture::new(&BulletTextures))
-    //     .build();
-
-    // let mut run = true;
-
     let movements_cloned = Arc::clone(&movements);
 
     thread::spawn(move || {
         for c in get_stdin().events() {
             let mut mvmt = movements_cloned.write().unwrap();
             match c.unwrap() {
+                Event::Mouse(me) => match me {
+                    MouseEvent::Press(_, a, b) => {
+                        mvmt.push(Direction::To(Vector2D::new(a as u16, b as u16)))
+                    }
+                    _ => (),
+                },
                 Event::Key(ke) => match ke {
                     Key::Char('q') => {
                         RawTerminal::suspend_raw_mode(&get_stdout()).unwrap();
@@ -144,7 +130,7 @@ fn main() {
         world.maintain();
 
         let now = Instant::now();
-        let dt = (now.duration_since(before).subsec_nanos() / 1_000_000_000) as u64;
+        let dt = (now.duration_since(before).subsec_nanos() / 1_000_000) as u64;
 
         if dt < interval {
             thread::sleep(Duration::from_millis(interval - dt));

@@ -1,4 +1,4 @@
-use crate::components::{Friction, Gravity, MaxSpeed, Position, Velocity};
+use crate::components::{Friction, Gravity, MaxJump, MaxSpeed, Position, Velocity};
 use crate::resources::Map;
 use crate::systems::collision::map_collision;
 use euclid::default::Vector2D;
@@ -6,40 +6,64 @@ use specs::{Join, Read, ReadStorage, System, WriteStorage};
 
 pub struct Physics;
 
+fn is_on_floor(map: &Map, pos: Vector2D<f32>) -> bool {
+    let bottom = pos.y.floor() as i16 + 1;
+    return map.wall_get(pos.x.ceil() as i16, bottom) || map.wall_get(pos.x.floor() as i16, bottom);
+}
+
 impl<'a> System<'a> for Physics {
     type SystemData = (
         Read<'a, Map>,
         WriteStorage<'a, Position>,
         WriteStorage<'a, Velocity>,
         ReadStorage<'a, MaxSpeed>,
+        WriteStorage<'a, MaxJump>,
         ReadStorage<'a, Gravity>,
         ReadStorage<'a, Friction>,
     );
 
     fn run(
         &mut self,
-        (map, mut position, mut velocity, max_speed, gravity, friction): Self::SystemData,
+        (map, mut position, mut velocity, max_speed, mut max_jump, gravity, friction): Self::SystemData,
     ) {
-        for (pos, vel, max_spd, grv, frc) in (
+        for (pos, vel, max_spd, max_jmp, grv, frc) in (
             &mut position,
             &mut velocity,
             (&max_speed).maybe(),
+            (&mut max_jump).maybe(),
             (&gravity).maybe(),
             (&friction).maybe(),
         )
             .join()
         {
             // let prev_pos = Vector2D::new(pos.0);
+            let mut on_floor: Option<bool> = None;
+
+            if let Some(j) = max_jmp {
+                let cur_on_floor = is_on_floor(&map, pos.0);
+
+                if cur_on_floor {
+                    j.jump = 0;
+                }
+
+                on_floor = Some(cur_on_floor);
+            }
 
             let prev_pos = pos.0;
 
             // apply friction
             if let Some(f) = frc {
+                let cur_on_floor = if on_floor.is_none() {
+                    let val = is_on_floor(&map, pos.0);
+                    // on_floor = Some(val);
+                    val
+                } else {
+                    on_floor.unwrap()
+                };
+
                 // only apply friction if character is on a floor
-                if map.wall_get(pos.0.x.ceil() as i16, pos.0.y.floor() as i16 + 1)
-                    || map.wall_get(pos.0.x.floor() as i16, pos.0.y.floor() as i16 + 1)
-                {
-                    let friction = f.get_friction();
+                if cur_on_floor {
+                    let friction = f.friction;
 
                     if vel.0.x.abs() <= friction {
                         vel.0.x = 0.0;
@@ -58,21 +82,21 @@ impl<'a> System<'a> for Physics {
 
             // apply gravity
             if let Some(g) = grv {
-                let gravity = g.get_gravity();
+                let gravity = g.gravity;
 
                 vel.0.y += gravity;
             }
 
             // apply max_speeds
             if let Some(s) = max_spd {
-                let max_x_speed = s.get_max_x_speed();
-                let max_y_speed = s.get_max_y_speed();
+                let max_x_speed = s.max_x_speed;
+                let max_y_speed = s.max_y_speed;
 
                 if vel.0.x.abs() > max_x_speed {
-                    vel.0.x = max_x_speed * if vel.0.x < 0.0 { -1.0 } else { 1.0 };
+                    vel.0.x = s.max_x_speed * if vel.0.x < 0.0 { -1.0 } else { 1.0 };
                 }
                 if vel.0.y.abs() > max_y_speed {
-                    vel.0.y = max_y_speed * if vel.0.y < 0.0 { -1.0 } else { 1.0 };
+                    vel.0.y = s.max_y_speed * if vel.0.y < 0.0 { -1.0 } else { 1.0 };
                 }
             }
 

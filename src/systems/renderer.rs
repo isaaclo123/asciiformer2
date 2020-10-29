@@ -9,24 +9,22 @@ use termion::{clear, color, cursor};
 
 pub struct Renderer {
     draw_map: bool,
-    origin: Vector2D<u16>,
     to_clear: Vec<Vector2D<u16>>,
 }
 
 impl Renderer {
-    pub fn new(x: u16, y: u16) -> Self {
+    pub fn new() -> Self {
         Self {
             draw_map: true,
-            origin: Vector2D::new(x, y),
             to_clear: vec![],
         }
     }
 
-    fn draw_map(&self, map: &Map) -> () {
+    fn draw_map(&self, origin: Vector2D<u16>, map: &Map) -> () {
         for y in 0..map.height {
             for x in 0..map.width {
                 if map.wall_get_unchecked(x as i16, y as i16) {
-                    let draw_pt = self.origin + Vector2D::new(x as u16 + 1, y as u16 + 1);
+                    let draw_pt = origin + Vector2D::new(x as u16 + 1, y as u16 + 1);
                     write!(
                         get_stdout(),
                         "{goto}{texture}",
@@ -39,8 +37,8 @@ impl Renderer {
         }
     }
 
-    fn clear_prev(&mut self, map: &Map) -> () {
-        let draw_pt = self.origin + Vector2D::new(1, 1);
+    fn clear_prev(&mut self, origin: Vector2D<u16>, map: &Map) -> () {
+        let draw_pt = origin + Vector2D::new(1, 1);
 
         for pt in self.to_clear.iter() {
             let clear_pt = draw_pt + *pt;
@@ -67,20 +65,23 @@ impl Renderer {
 
 impl<'a> System<'a> for Renderer {
     type SystemData = (
+        Read<'a, Vector2D<u16>>,
         Read<'a, Map>,
         ReadStorage<'a, Position>,
         ReadStorage<'a, Color>,
         ReadStorage<'a, Texture>,
     );
 
-    fn run(&mut self, (map, position, color, texture): Self::SystemData) {
+    fn run(&mut self, (origin, map, position, color, texture): Self::SystemData) {
+        let origin = *origin;
+
         if self.draw_map {
             write!(get_stdout(), "{}{}", clear::All, cursor::Hide).unwrap();
-            self.draw_map(&map);
+            self.draw_map(origin, &map);
             self.draw_map = false;
         }
 
-        self.clear_prev(&map);
+        self.clear_prev(origin, &map);
 
         for (pos, color, tex) in (&position, (&color).maybe(), &texture).join() {
             let start_pt = pos.0.floor().cast::<u16>();
@@ -96,7 +97,7 @@ impl<'a> System<'a> for Renderer {
                 for x in 0..texture[y].len() {
                     let texture_pt = start_pt + Vector2D::new(x as u16, y as u16);
 
-                    let draw_pt = self.origin + Vector2D::new(1, 1) + texture_pt;
+                    let draw_pt = origin + Vector2D::new(1, 1) + texture_pt;
 
                     write!(
                         get_stdout(),
