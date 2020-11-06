@@ -90,7 +90,9 @@ fn main() {
             match c.unwrap() {
                 Event::Mouse(me) => match me {
                     MouseEvent::Press(_, a, b) => {
-                        mvmt.push(Direction::To(Vector2D::new(a as u16, b as u16)))
+                        let mouse_pt = Vector2D::new(a, b);
+                        let int_pt = mouse_pt.cast::<i16>() - origin.cast::<i16>();
+                        mvmt.push(Direction::To(int_pt));
                     }
                     _ => (),
                 },
@@ -98,6 +100,7 @@ fn main() {
                     Key::Char('q') => {
                         RawTerminal::suspend_raw_mode(&get_stdout()).unwrap();
                         write!(get_stdout(), "{}{}", clear::All, cursor::Show).unwrap();
+                        get_stdout().flush().unwrap();
 
                         std::process::exit(0)
                     }

@@ -1,7 +1,7 @@
 use euclid::default::Vector2D;
 use specs::{Component, VecStorage};
 
-#[derive(Component, Debug)]
+#[derive(Component, Debug, Default, Copy, Clone)]
 #[storage(VecStorage)]
 pub struct Position(pub Vector2D<f32>);
 

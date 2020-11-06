@@ -1,37 +1,55 @@
-use crate::components::{KeyboardControlled, MaxJump, Speed, Velocity};
+use crate::components::*;
 use crate::resources::Map;
 use crate::utils::Direction;
 use euclid::default::Vector2D;
-use specs::{Join, Read, ReadExpect, ReadStorage, System, WriteStorage};
+use specs::{Entities, Join, Read, ReadExpect, ReadStorage, System, WriteStorage};
 use std::sync::{Arc, RwLock};
 
 pub struct Keyboard;
 
 impl<'a> System<'a> for Keyboard {
     type SystemData = (
-        Read<'a, Vector2D<u16>>,
+        Entities<'a>,
+        // Read<'a, Vector2D<u16>>,
+        WriteStorage<'a, Position>,
         // Read<'a, Map>,
         WriteStorage<'a, Velocity>,
         ReadExpect<'a, Arc<RwLock<Vec<Direction>>>>,
         ReadStorage<'a, Speed>,
         WriteStorage<'a, MaxJump>,
         ReadStorage<'a, KeyboardControlled>,
+        WriteStorage<'a, Color>,
+        WriteStorage<'a, Texture>,
     );
 
     fn run(
         &mut self,
-        (origin, mut velocity, movements, speed, mut max_jump, controlled): Self::SystemData,
+        (
+            entities,
+            mut position,
+            mut velocity,
+            movements,
+            speed,
+            mut max_jump,
+            controlled,
+            mut color,
+            mut texture,
+        ): Self::SystemData,
     ) {
         let mut to_delete = 0;
 
+        let mut bullets_to_add: Vec<(Position, Velocity)> = vec![];
+
         for direction in movements.read().unwrap().iter() {
-            for (vel, spd, max_jmp, _) in (&mut velocity, &speed, &mut max_jump, &controlled).join()
+            for (pos, vel, spd, max_jmp, _) in
+                (&position, &mut velocity, &speed, &mut max_jump, &controlled).join()
             {
                 if let Direction::To(mouse_pt) = direction {
-                    let int_pt = mouse_pt.cast::<i16>() - origin.cast::<i16>();
                     // subtract 0.5, 0.5 to coutneracct (1,1) of terminal mouse point; center the
                     // aim of the point
-                    let float_pt = int_pt.cast::<f32>() - Vector2D::new(0.5, 0.5);
+                    let float_pt = mouse_pt.cast::<f32>() - Vector2D::new(0.5, 0.5);
+
+                    bullets_to_add.push((*pos, Velocity::new_from_points(pos.0, float_pt, 2.0)));
                 } else {
                     let x_speed = spd.x_speed;
                     let y_speed = spd.y_speed;
@@ -55,6 +73,16 @@ impl<'a> System<'a> for Keyboard {
                 }
             }
             to_delete += 1;
+        }
+
+        for (pos, vel) in bullets_to_add {
+            let bullet = entities.create();
+            position.insert(bullet, pos).unwrap();
+            velocity.insert(bullet, vel).unwrap();
+            color.insert(bullet, Color::new(ColorType::Red)).unwrap();
+            texture
+                .insert(bullet, Texture::new(&BulletTextures))
+                .unwrap();
         }
 
         for _ in 0..to_delete {

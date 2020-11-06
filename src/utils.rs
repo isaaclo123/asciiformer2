@@ -6,5 +6,5 @@ pub enum Direction {
     Down,
     Left,
     Right,
-    To(Vector2D<u16>),
+    To(Vector2D<i16>),
 }
