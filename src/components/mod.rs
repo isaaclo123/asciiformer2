@@ -1,3 +1,4 @@
+pub mod collision;
 pub mod color;
 pub mod friction;
 pub mod gravity;
@@ -8,6 +9,7 @@ pub mod speed;
 pub mod texture;
 pub mod velocity;
 
+pub use self::collision::*;
 pub use self::color::*;
 pub use self::friction::*;
 pub use self::gravity::*;

@@ -1,8 +1,8 @@
-use crate::components::{Friction, Gravity, MaxJump, MaxSpeed, Position, Velocity};
+use crate::components::*;
 use crate::resources::Map;
 use crate::systems::collision::map_collision;
 use euclid::default::Vector2D;
-use specs::{Join, Read, ReadStorage, System, WriteStorage};
+use specs::{Entities, Join, Read, ReadStorage, System, WriteStorage};
 
 pub struct Physics;
 
@@ -13,6 +13,7 @@ fn is_on_floor(map: &Map, pos: Vector2D<f32>) -> bool {
 
 impl<'a> System<'a> for Physics {
     type SystemData = (
+        Entities<'a>,
         Read<'a, Map>,
         WriteStorage<'a, Position>,
         WriteStorage<'a, Velocity>,
@@ -20,19 +21,32 @@ impl<'a> System<'a> for Physics {
         WriteStorage<'a, MaxJump>,
         ReadStorage<'a, Gravity>,
         ReadStorage<'a, Friction>,
+        ReadStorage<'a, Collide>,
     );
 
     fn run(
         &mut self,
-        (map, mut position, mut velocity, max_speed, mut max_jump, gravity, friction): Self::SystemData,
+        (
+            entities,
+            map,
+            mut position,
+            mut velocity,
+            max_speed,
+            mut max_jump,
+            gravity,
+            friction,
+            collide,
+        ): Self::SystemData,
     ) {
-        for (pos, vel, max_spd, max_jmp, grv, frc) in (
+        for (ent, pos, vel, max_spd, max_jmp, grv, frc, coll) in (
+            &entities,
             &mut position,
             &mut velocity,
             (&max_speed).maybe(),
             (&mut max_jump).maybe(),
             (&gravity).maybe(),
             (&friction).maybe(),
+            (&collide).maybe(),
         )
             .join()
         {
@@ -134,7 +148,20 @@ impl<'a> System<'a> for Physics {
                 }
             }
 
-            pos.0 = new_point;
+            if let Some(collide) = coll {
+                match collide.on_collide {
+                    OnCollideType::Delete => {
+                        if coll_opt.is_some() {
+                            entities.delete(ent);
+                        } else {
+                            pos.0 = new_pos;
+                        }
+                    }
+                    OnCollideType::Block => {
+                        pos.0 = new_point;
+                    }
+                }
+            }
         }
     }
 }

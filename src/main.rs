@@ -71,6 +71,7 @@ fn main() {
         .with(Gravity::new(0.1))
         .with(Friction::new(0.15))
         .with(MaxJump::new(1))
+        .with(Collide::new(OnCollideType::Block))
         .with(KeyboardControlled)
         .build();
 

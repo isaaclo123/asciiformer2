@@ -20,6 +20,7 @@ impl<'a> System<'a> for Keyboard {
         ReadStorage<'a, KeyboardControlled>,
         WriteStorage<'a, Color>,
         WriteStorage<'a, Texture>,
+        WriteStorage<'a, Collide>,
     );
 
     fn run(
@@ -34,22 +35,34 @@ impl<'a> System<'a> for Keyboard {
             controlled,
             mut color,
             mut texture,
+            mut collide,
         ): Self::SystemData,
     ) {
         let mut to_delete = 0;
 
-        let mut bullets_to_add: Vec<(Position, Velocity)> = vec![];
+        let mut bullets_to_add: Vec<(Position, Velocity, Color)> = vec![];
 
         for direction in movements.read().unwrap().iter() {
-            for (pos, vel, spd, max_jmp, _) in
-                (&position, &mut velocity, &speed, &mut max_jump, &controlled).join()
+            for (pos, vel, spd, max_jmp, _, col) in (
+                &position,
+                &mut velocity,
+                &speed,
+                &mut max_jump,
+                &controlled,
+                &color,
+            )
+                .join()
             {
                 if let Direction::To(mouse_pt) = direction {
                     // subtract 0.5, 0.5 to coutneracct (1,1) of terminal mouse point; center the
                     // aim of the point
                     let float_pt = mouse_pt.cast::<f32>() - Vector2D::new(0.5, 0.5);
 
-                    bullets_to_add.push((*pos, Velocity::new_from_points(pos.0, float_pt, 2.0)));
+                    bullets_to_add.push((
+                        *pos,
+                        Velocity::new_from_points(pos.0, float_pt, 2.0),
+                        *col,
+                    ));
                 } else {
                     let x_speed = spd.x_speed;
                     let y_speed = spd.y_speed;
@@ -75,13 +88,16 @@ impl<'a> System<'a> for Keyboard {
             to_delete += 1;
         }
 
-        for (pos, vel) in bullets_to_add {
+        for (pos, vel, col) in bullets_to_add {
             let bullet = entities.create();
             position.insert(bullet, pos).unwrap();
             velocity.insert(bullet, vel).unwrap();
-            color.insert(bullet, Color::new(ColorType::Red)).unwrap();
+            color.insert(bullet, col).unwrap();
             texture
                 .insert(bullet, Texture::new(&BulletTextures))
+                .unwrap();
+            collide
+                .insert(bullet, Collide::new(OnCollideType::Delete))
                 .unwrap();
         }
 
