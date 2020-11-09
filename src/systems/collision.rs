@@ -265,7 +265,7 @@ pub fn map_collision(
     p1: Vector2D<f32>,
     map: &Map,
     slide: bool,
-    round_check: bool,
+    // round_check: bool,
 ) -> (Vector2D<f32>, Option<Vector2D<f32>>) {
     let Vector2D { x: x0, y: y0, .. } = p0;
     let Vector2D { x: x1, y: y1, .. } = p1;
@@ -273,6 +273,8 @@ pub fn map_collision(
     if p0 == p1 {
         return (p0, None);
     }
+
+    let round_check = true;
 
     if (y1 - y0).abs() < (x1 - x0).abs() {
         return plot_line_low(p0, p1, map, slide, round_check);

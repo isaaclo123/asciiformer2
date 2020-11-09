@@ -116,43 +116,51 @@ impl<'a> System<'a> for Physics {
 
             let new_pos = pos.0 + vel.0;
 
-            let (new_point, coll_opt) = map_collision(prev_pos, new_pos, &map, true, true);
-
-            if let Some(coll_point) = coll_opt {
-                let Vector2D {
-                    x: new_x, y: new_y, ..
-                } = new_point;
-                let Vector2D {
-                    x: coll_x,
-                    y: coll_y,
-                    ..
-                } = coll_point;
-
-                if (coll_x - new_x).abs() <= 1.0 {
-                    // if collision occoured along x axis
-                    vel.0.x = 0.0;
-                    // if self.velocity.x < 0.1 {
-                    //     self.velocity.x = 0.0;
-                    // }
-                    // self.velocity.x *= -0.25;
-                }
-                if (coll_y - new_y).abs() <= 1.0 {
-                    vel.0.y = 0.0;
-                    // if self.velocity.y < 0.1 {
-                    //     self.velocity.y = 0.0;
-                    // }
-                    // // if collision occoured along x axis
-                    // if self.velocity.y > 1.0 {
-                    //     self.velocity.y *= -0.5;
-                    // }
-                }
-            }
-
             if let Some(collide) = coll {
+                // let slide = coll.is_some()
+                // if let Some(collide) = coll {
+
+                let slide = match collide.on_collide {
+                    OnCollideType::Delete => false,
+                    OnCollideType::Block => true,
+                };
+
+                let (new_point, coll_opt) = map_collision(prev_pos, new_pos, &map, slide);
+
+                if let Some(coll_point) = coll_opt {
+                    let Vector2D {
+                        x: new_x, y: new_y, ..
+                    } = new_point;
+                    let Vector2D {
+                        x: coll_x,
+                        y: coll_y,
+                        ..
+                    } = coll_point;
+
+                    if (coll_x - new_x).abs() <= 1.0 {
+                        // if collision occoured along x axis
+                        vel.0.x = 0.0;
+                        // if self.velocity.x < 0.1 {
+                        //     self.velocity.x = 0.0;
+                        // }
+                        // self.velocity.x *= -0.25;
+                    }
+                    if (coll_y - new_y).abs() <= 1.0 {
+                        vel.0.y = 0.0;
+                        // if self.velocity.y < 0.1 {
+                        //     self.velocity.y = 0.0;
+                        // }
+                        // // if collision occoured along x axis
+                        // if self.velocity.y > 1.0 {
+                        //     self.velocity.y *= -0.5;
+                        // }
+                    }
+                }
+
                 match collide.on_collide {
                     OnCollideType::Delete => {
                         if coll_opt.is_some() {
-                            entities.delete(ent);
+                            entities.delete(ent).unwrap();
                         } else {
                             pos.0 = new_pos;
                         }
